@@ -113,7 +113,7 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     setWindowIcon(QIcon(":/ras/app.png"));
     setCentralWidget(m_split);
 
-    QString path("G:\\txtNote");
+    QString path = QDir::currentPath();
     RefreshRoot(path);
     WebBlack();
 
@@ -136,7 +136,8 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
         case Qt::Key_F5:
-            printf("Window_F5\n");
+            //printf("Window_F5\n");
+            ShowNote();
             m_webview->pageAction(QWebPage::Reload);
             break;
 
@@ -246,11 +247,9 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
             continue;
         }
         QString full_path = path + QDir::separator() + s;
-        //QByteArray arr = s.toLocal8Bit();
-        //printf("%s\n", arr.data());
-
         QStringList name;
         name.push_back(s);
+
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, QIcon(":/ras/dir.png"));
         d->setData(1, 0, full_path);
@@ -314,12 +313,7 @@ void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
         m_now_item = item;
         UpdateStatue();
 
-        QString s = item->data(1, 0).toString();
-        QFileInfo f(s);
-
-        if (f.isFile()) {
-            ShowNote(s);
-        } 
+        ShowNote();
     }
 }
 
@@ -514,21 +508,26 @@ void QLiteNoteWindow::WebBlack()
     m_webview->setContent("<html><body> </body></html>");
 }
 
-void QLiteNoteWindow::ShowNote(const QString &path)
+void QLiteNoteWindow::ShowNote()
 {
-    QFile file(path);
-    
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream *text = new QTextStream(&file);
-        text->setCodec("UTF-8");
-        QString mk = text->readAll();
+    if (m_now_item) {
+        QString path = m_now_item->data(1, 0).toString();
+        QFileInfo f(path);
 
-        //QString html = ConvertToMarkdown(mk);
-        m_thread->InsertMarkdown(mk);
-       
-        delete text;
-    } else {
-        WebBlack();
+        if (f.isFile()) {
+            QFile file(path);
+
+            if (file.open(QIODevice::ReadOnly)) {
+                QTextStream text(&file);
+                text.setCodec("UTF-8");
+                QString mk = text.readAll();
+
+                m_thread->InsertMarkdown(mk);
+
+            } else {
+                WebBlack();
+            }
+        }
     }
 }
 

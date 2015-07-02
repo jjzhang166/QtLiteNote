@@ -42,7 +42,7 @@ private:
     void WriteSettings();
     void ReadSettings();
 
-    void ShowNote(const QString &path);
+    void ShowNote();
     void WebBlack();
 
 private slots:

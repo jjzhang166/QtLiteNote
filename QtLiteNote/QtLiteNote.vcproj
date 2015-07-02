@@ -140,10 +140,10 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="D:\Qt\4.8.4\lib"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				EntryPointSymbol=""
+				EntryPointSymbol="mainCRTStartup"
 				TargetMachine="1"
 			/>
 			<Tool
