@@ -1,0 +1,9 @@
+<RCC>
+<qresource>
+    <file>ras/dir.png</file>
+    <file>ras/dir_open.png</file>
+    <file>ras/note.png</file>
+    <file>ras/computer.png</file>
+    <file>ras/app.png</file>
+</qresource>
+</RCC>

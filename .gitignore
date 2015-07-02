@@ -11,3 +11,15 @@
 *.lai
 *.la
 *.a
+*.lib
+
+*.ncb
+*.suo
+*.user
+*.aps
+**/debug/
+**/release/
+lib
+
+~*
+*.ini
