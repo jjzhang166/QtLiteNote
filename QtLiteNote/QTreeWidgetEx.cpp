@@ -4,7 +4,8 @@
 QTreeWidgetEx::QTreeWidgetEx(QWidget *par)
 : QTreeWidget(par),
 m_now_select_node(NULL),
-m_pre_click_time(0)
+m_pre_click_time(0),
+m_start_edit(false)
 {
     connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(UpdateEdit(QTreeWidgetItem*)));
     setSelectionMode(SingleSelection);
@@ -91,6 +92,11 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
 
         case Qt::Key_Return:
         case Qt::Key_Enter:
+            if (m_start_edit) {
+                QTreeWidget::keyPressEvent(event);
+                break;
+            }
+
         case Qt::Key_Space:
             if (m_now_select_node && m_now_select_node->childCount() != 0) {
                 if (m_now_select_node->isExpanded()) {
@@ -104,6 +110,7 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
         case Qt::Key_F2:
             if (m_now_select_node) {
                 this->editItem(m_now_select_node, 0);
+                m_start_edit = true;
             }
             break;
 
@@ -126,8 +133,10 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
 
 void QTreeWidgetEx::UpdateEdit(QTreeWidgetItem *item)
 {
-    QString txt = item->data(0, 0).toString();
-    printf("Edit: %s\n", txt.toLocal8Bit().data());
+    if (item && m_start_edit) {
+        m_start_edit = false;
+        emit itemEdited(item);
+    }
 }
 
 void QTreeWidgetEx::SetSelectItem(QTreeWidgetItem *item)

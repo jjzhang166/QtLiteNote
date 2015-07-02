@@ -91,6 +91,7 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
 
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
+    connect(m_tree, SIGNAL(itemEdited(QTreeWidgetItem*)), this, SLOT(TreeItemEdited(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(rightClick(QTreeWidgetItem*)), this, SLOT(TreeRightClick(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(doubleClick(QTreeWidgetItem*)), this, SLOT(TreeItemDoubleClick(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemExpanded(QTreeWidgetItem *)), this, SLOT(TreeItemExpand(QTreeWidgetItem *)));
@@ -113,7 +114,8 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     setWindowIcon(QIcon(":/ras/app.png"));
     setCentralWidget(m_split);
 
-    QString path = QDir::currentPath();
+    //QString path = QDir::currentPath();
+    QString path("G:\\txtNote");
     RefreshRoot(path);
     WebBlack();
 
@@ -288,6 +290,7 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *node, const QString &path, bo
         d->setIcon(0, m_dir_icon);
         d->setData(1, 0, ss);
         d->setFont(0, m_tree_font);
+        d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
         
         node->insertChild(node->childCount(), d);
 
@@ -299,10 +302,13 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *node, const QString &path, bo
     for (int i = 0; i < files.size(); ++i) {
         QStringList name;
         name.push_back(files[i]);
+
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, m_note_icon);
         d->setFont(0, m_tree_font);
         d->setData(1, 0, path+QDir::separator()+files[i]);
+        d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+
         node->insertChild(node->childCount(), d);
     }
 }
@@ -346,6 +352,17 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
     }
 }
 
+void QLiteNoteWindow::TreeItemEdited(QTreeWidgetItem *item)
+{
+    if (item) {
+        QString txt = item->data(0, 0).toString();
+        //windows下不支持的路径字符 \ / : * ? " < > |
+        QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
+        QString path = item->data(1, 0).toString();
+        
+        return;
+    }
+}
 void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
 {
     if (item) {

@@ -1,8 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'QLiteNoteWindow.h'
 **
-** Created: Thu Jul 2 16:27:49 2015
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
+** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -11,7 +10,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'QLiteNoteWindow.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.4. It"
+#error "This file was generated using the moc from 4.8.6. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -23,7 +22,7 @@ static const uint qt_meta_data_QLiteNoteWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,16 +34,17 @@ static const uint qt_meta_data_QLiteNoteWindow[] = {
       55,   17,   16,   16, 0x08,
       88,   17,   16,   16, 0x08,
      121,   17,   16,   16, 0x08,
-     159,   17,   16,   16, 0x08,
+     154,   17,   16,   16, 0x08,
      192,   17,   16,   16, 0x08,
-     233,  228,   16,   16, 0x08,
-     253,   16,   16,   16, 0x08,
-     266,   16,   16,   16, 0x08,
-     278,   16,   16,   16, 0x08,
-     289,   16,   16,   16, 0x08,
-     304,   16,   16,   16, 0x08,
-     317,   16,   16,   16, 0x08,
-     330,   16,   16,   16, 0x08,
+     225,   17,   16,   16, 0x08,
+     266,  261,   16,   16, 0x08,
+     286,   16,   16,   16, 0x08,
+     299,   16,   16,   16, 0x08,
+     311,   16,   16,   16, 0x08,
+     322,   16,   16,   16, 0x08,
+     337,   16,   16,   16, 0x08,
+     350,   16,   16,   16, 0x08,
+     363,   16,   16,   16, 0x08,
 
        0        // eod
 };
@@ -53,6 +53,7 @@ static const char qt_meta_stringdata_QLiteNoteWindow[] = {
     "QLiteNoteWindow\0\0item\0"
     "TreeItemSelect(QTreeWidgetItem*)\0"
     "TreeItemDelete(QTreeWidgetItem*)\0"
+    "TreeItemEdited(QTreeWidgetItem*)\0"
     "TreeRightClick(QTreeWidgetItem*)\0"
     "TreeItemDoubleClick(QTreeWidgetItem*)\0"
     "TreeItemExpand(QTreeWidgetItem*)\0"
@@ -70,18 +71,19 @@ void QLiteNoteWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->TreeItemSelect((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
         case 1: _t->TreeItemDelete((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 2: _t->TreeRightClick((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 3: _t->TreeItemDoubleClick((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 4: _t->TreeItemExpand((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 5: _t->TreeItemCollapsed((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 6: _t->ConvertEnd((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 7: _t->AddNewNote(); break;
-        case 8: _t->AddNewDir(); break;
-        case 9: _t->EditNote(); break;
-        case 10: _t->OpenExplorer(); break;
-        case 11: _t->RefreshAll(); break;
-        case 12: _t->NewRootDir(); break;
-        case 13: _t->ShowAbout(); break;
+        case 2: _t->TreeItemEdited((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 3: _t->TreeRightClick((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 4: _t->TreeItemDoubleClick((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 5: _t->TreeItemExpand((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 6: _t->TreeItemCollapsed((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 7: _t->ConvertEnd((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 8: _t->AddNewNote(); break;
+        case 9: _t->AddNewDir(); break;
+        case 10: _t->EditNote(); break;
+        case 11: _t->OpenExplorer(); break;
+        case 12: _t->RefreshAll(); break;
+        case 13: _t->NewRootDir(); break;
+        case 14: _t->ShowAbout(); break;
         default: ;
         }
     }
@@ -119,9 +121,9 @@ int QLiteNoteWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 15;
     }
     return _id;
 }

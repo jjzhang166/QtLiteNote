@@ -25,10 +25,12 @@ private:
 signals:
     void itemSelect(QTreeWidgetItem *item);
     void itemDelete(QTreeWidgetItem *item);
+    void itemEdited(QTreeWidgetItem *item);
     void rightClick(QTreeWidgetItem *item);
     void doubleClick(QTreeWidgetItem *item);
 
 private:
     QTime m_time;
     int m_pre_click_time;
+    bool m_start_edit;
 };

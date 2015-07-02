@@ -48,6 +48,7 @@ private:
 private slots:
     void TreeItemSelect(QTreeWidgetItem *item);
     void TreeItemDelete(QTreeWidgetItem *item);
+    void TreeItemEdited(QTreeWidgetItem *item);
     void TreeRightClick(QTreeWidgetItem *item);
     void TreeItemDoubleClick(QTreeWidgetItem *item);
     void TreeItemExpand(QTreeWidgetItem *item);
