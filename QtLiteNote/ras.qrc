@@ -1,9 +1,12 @@
 <RCC>
 <qresource>
+    <file>ras/app.png</file>
+    <file>ras/computer.png</file>
+    <file>ras/delete.png</file>
     <file>ras/dir.png</file>
     <file>ras/dir_open.png</file>
+    <file>ras/edit.png</file>
     <file>ras/note.png</file>
-    <file>ras/computer.png</file>
-    <file>ras/app.png</file>
+    <file>ras/refresh.png</file>
 </qresource>
 </RCC>

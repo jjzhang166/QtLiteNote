@@ -11,6 +11,7 @@ QString ConvertToMarkdown(const QString &txt);
 //将html写入文件
 void WriteMdToHtml(const QString &md, const QString &path);
 
+
 class MarkdownThread : public QThread
 {
     Q_OBJECT

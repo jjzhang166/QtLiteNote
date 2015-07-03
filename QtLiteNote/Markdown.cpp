@@ -5,7 +5,7 @@
 //想要在网页中显示中文，得在head头中指定utf-8
 static char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "<style type=\"text/css\">"
-"body{ color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; font-family: DejaVu Sans Mono, 微软雅黑; }"
+"body{ color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; font-family: DejaVu Sans Mono, 微软雅黑; } p { font-size: 14px; line-height: 22px; margin-top: 3px;margin-bottom:3px; }"
 "</style>"
 "</head>"
 "<body>"

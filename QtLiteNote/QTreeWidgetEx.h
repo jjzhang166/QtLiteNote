@@ -13,8 +13,10 @@ public:
     virtual void keyPressEvent(QKeyEvent *event);
 
     void SetSelectItem(QTreeWidgetItem *item);
+    void SetNowItemOnly(QTreeWidgetItem *item);
 
-    QTreeWidgetItem *m_now_select_node;
+    void StartEdit(QTreeWidgetItem *item);
+
 
 protected slots:
     void UpdateEdit(QTreeWidgetItem *item);
@@ -30,6 +32,7 @@ signals:
     void doubleClick(QTreeWidgetItem *item);
 
 private:
+    QTreeWidgetItem *m_now_select_node;
     QTime m_time;
     int m_pre_click_time;
     bool m_start_edit;

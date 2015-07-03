@@ -3,6 +3,7 @@
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
 #include "markdown.h"
+#include "QFileEx.h"
 
 #if defined(Q_OS_WIN32)
 
@@ -20,35 +21,6 @@ int ShellExecute(const char* path)
 }
 #endif
 
-// src, dst都是完整的文件路径
-// 比如将 src=d:\1.txt 移到dst=e:\temp\2.txt
-// 如果已经存在文件则直接删除
-// dst所在的文件夹不必存在
-static bool QCopyFile(const QString &src, const QString &dst)
-{
-    if (src == dst) {
-        return true;
-    }
-    if (!QFile::exists(src)) {
-        return false;
-    }
-    if (QFile::exists(dst)) {
-        QFile::remove(dst);
-    }
-    QFileInfo info(dst);
-    QDir dir;
-    QString t = info.absolutePath();
-    dir.mkpath(t);
-    return QFile::copy(src, dst);
-}
-
-//src_path, dst_path都是完整的文件夹路径
-// 比如将 src=d:\dir 移到 dst=e:\path
-//如果已经存在文件夹则合并起来
-bool QCopyDir(const QString &src_path, const QString &dst_path)
-{
-    return true;
-}
 
 QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -66,9 +38,12 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     m_black_menu(NULL),
     m_new_note_action(NULL),
     m_new_dir_action(NULL),
+    m_delete_action(NULL),
     m_edit_action(NULL),
     m_open_explorer_action(NULL),
     m_refresh_action(NULL),
+    m_show_tree_action(NULL),
+    m_resume_trash_action(NULL),
     m_new_root_action(NULL),
     m_path_label(NULL),
     m_file_menu(NULL),
@@ -79,6 +54,11 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     m_about_action(NULL),
     m_thread(NULL)
 {
+    //QDir dd;
+    //bool r = dd.rmpath("D:\\xbc2\\abc");
+    //bool r = QDeleteDir("D:\\NoteData2");
+    //bool r = QCopyDir("d:\\NoteData2", "D:\\trash");
+
     CreateAction();
     CreateMenu();
     CreateStatus();
@@ -87,7 +67,6 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     m_tree->setHeaderHidden(true);
     m_tree->setRootIsDecorated(true);
     m_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
-    //m_tree->setEditTriggers(QTreeWidget::CurrentChanged);
 
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
@@ -157,7 +136,7 @@ void QLiteNoteWindow::CreateAction()
     connect(m_exit_action, SIGNAL(triggered()), this, SLOT(close()));
 
     m_about_action = new QAction(QString::fromUtf8("关于"), this);
-    m_about_action->setIcon(QIcon(":/ras/note.png"));
+    m_about_action->setIcon(QIcon(":/ras/app.png"));
     connect(m_about_action, SIGNAL(triggered()), this, SLOT(ShowAbout()));
 
     //
@@ -169,7 +148,12 @@ void QLiteNoteWindow::CreateAction()
     m_new_dir_action->setIcon(m_dir_icon);
     connect(m_new_dir_action, SIGNAL(triggered()), this, SLOT(AddNewDir()));
 
+    m_delete_action = new QAction(tr("Delete"), this);
+    m_delete_action->setIcon(QIcon(":/ras/delete.png"));
+    connect(m_delete_action, SIGNAL(triggered()), this, SLOT(DeleteItem()));
+
     m_edit_action = new QAction(tr("EditNote"), this);
+    m_edit_action->setIcon(QIcon(":/ras/edit.png"));
     connect(m_edit_action, SIGNAL(triggered()), this, SLOT(EditNote()));
 
     m_open_explorer_action = new QAction(tr("open explorer"), this);
@@ -177,10 +161,20 @@ void QLiteNoteWindow::CreateAction()
     connect(m_open_explorer_action, SIGNAL(triggered()), this, SLOT(OpenExplorer()));
 
     m_new_root_action = new QAction(tr("添加目录"), this);
+    m_new_root_action->setIcon(m_dir_icon);
     connect(m_new_root_action, SIGNAL(triggered()), this, SLOT(NewRootDir()));
 
     m_refresh_action = new QAction("全部刷新", this);
+    m_refresh_action->setIcon(QIcon(":/ras/refresh.png"));
     connect(m_refresh_action, SIGNAL(triggered()), this, SLOT(RefreshAll()));
+
+    m_show_tree_action = new QAction("显示导航", this);
+    m_show_tree_action->setCheckable(true);
+    m_show_tree_action->setChecked(true);
+    connect(m_show_tree_action, SIGNAL(triggered()), this, SLOT(ShowTreeCheck()));
+
+    m_resume_trash_action = new QAction("恢复删除文件", this);
+    connect(m_resume_trash_action, SIGNAL(triggered()), this, SLOT(ResumeTrash()));
 }
 
 
@@ -191,11 +185,16 @@ void QLiteNoteWindow::CreateMenu()
     m_file_menu->addAction(m_new_note_action);
     m_file_menu->addAction(m_new_dir_action);
     m_file_menu->addSeparator();
+    m_file_menu->addAction(m_delete_action);
+    m_file_menu->addSeparator();
     m_file_menu->addAction(m_exit_action);
 
     m_edit_menu = menuBar()->addMenu(tr("&Edit"));
+    m_edit_menu->addAction(m_edit_action);
+    m_edit_menu->addAction(m_delete_action);
 
     m_options_menu = menuBar()->addMenu(tr("&Options"));
+    m_options_menu->addAction(m_show_tree_action);
 
     m_help_menu = menuBar()->addMenu(tr("&Help"));
     m_help_menu->addAction(m_about_action);
@@ -206,10 +205,13 @@ void QLiteNoteWindow::CreateMenu()
     m_dir_menu->addAction(m_new_note_action);
     m_dir_menu->addAction(m_new_dir_action);
     m_dir_menu->addSeparator();
+    m_dir_menu->addAction(m_delete_action);
+    m_dir_menu->addSeparator();
     m_dir_menu->addAction(m_open_explorer_action);
 
     m_note_menu = new QMenu(this);
     m_note_menu->addAction(m_edit_action);
+    m_note_menu->addAction(m_delete_action);
     m_note_menu->addSeparator();
     m_note_menu->addAction(m_open_explorer_action);
 
@@ -240,7 +242,7 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
         ClearNode(item);
     }
     m_tree->clear();
-    m_tree->m_now_select_node = NULL;
+    m_tree->SetNowItemOnly(NULL);
     m_now_item = NULL;
 
     for (int i = 2; i < fs.size(); ++i) {
@@ -260,7 +262,7 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
 
         m_tree->insertTopLevelItem(m_tree->topLevelItemCount(), d);
 
-        RefreshNode(d, full_path);
+        RefreshNode(d);
     }
 
     if (m_tree->topLevelItemCount() != 0) {
@@ -268,14 +270,20 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
     }
 }
 
-void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *node, const QString &path, bool scan_child_dir)
+void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
 {
+    QString path = item->data(1, 0).toString();
+
+    ClearNode(item);
+    //RefreshNode(item, path, true);
+
+
     QDir dir(path);
     QStringList filters;
     QStringList dirs = dir.entryList(filters, QDir::Dirs);
 
     std::list<QString> t1 = dirs.toStdList();
-    
+
     filters.push_back("*.txt");
     filters.push_back("*.html");
 
@@ -291,11 +299,11 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *node, const QString &path, bo
         d->setData(1, 0, ss);
         d->setFont(0, m_tree_font);
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-        
-        node->insertChild(node->childCount(), d);
+
+        item->insertChild(item->childCount(), d);
 
         if (scan_child_dir) {
-            RefreshNode(d, ss, false);
+            RefreshNode(d, false);
         }
     }
 
@@ -309,9 +317,10 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *node, const QString &path, bo
         d->setData(1, 0, path+QDir::separator()+files[i]);
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
-        node->insertChild(node->childCount(), d);
+        item->insertChild(item->childCount(), d);
     }
 }
+
 
 void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
 {
@@ -326,30 +335,57 @@ void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
 void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 {
     int r = QMessageBox::warning(this, "QtLiteNote", QString::fromUtf8("确定要删除吗?"), QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+
     if (r == QMessageBox::Yes) {
         QString src = item->data(1, 0).toString();
         QString name = src.mid(m_note_path.size()+1);
         QFileInfo file(src);
 
         if (file.isFile()) {
-            QString t = file.fileName();
             QCopyFile(src, m_trash_path + QDir::separator() + name);
             QFile::remove(src);
 
         } else if (file.isDir()) {
             //TODO:删除文件夹
-
+            QCopyDir(src, m_trash_path);
+            QDeleteDir(src);
         }
 
         if (item->parent()) {
-            m_tree->SetSelectItem(item->parent());
-            TreeItemExpand(item->parent());
-        } else {
+            //选择同级节点,如果没有同级节点则选择父节点
+            QTreeWidgetItem *par = item->parent();
+            int c = par->childCount();
 
-        }        
-       
-        return;
-    }
+            if (c > 1) {
+                int index = par->indexOfChild(item);
+
+                if (index == c-1) {
+                    m_tree->SetSelectItem(par->child(c - 2));
+                } else {
+                    m_tree->SetSelectItem(par->child(index+1));
+                }
+            } else {
+               m_tree->SetSelectItem(par);
+            }
+            par->removeChild(item);
+            delete item;
+
+        } else {
+            int c = m_tree->topLevelItemCount();
+            if (c > 1) {
+                int index = m_tree->indexOfTopLevelItem(item);
+
+                if (index == c-1) {
+                    m_tree->SetSelectItem(m_tree->topLevelItem(c-2));
+                } else {
+                    m_tree->SetSelectItem(m_tree->topLevelItem(index+1));
+                }
+            }
+            m_tree->removeItemWidget(item, 0);
+            delete item;
+        }
+
+    } // end r==Yes
 }
 
 void QLiteNoteWindow::TreeItemEdited(QTreeWidgetItem *item)
@@ -357,12 +393,25 @@ void QLiteNoteWindow::TreeItemEdited(QTreeWidgetItem *item)
     if (item) {
         QString txt = item->data(0, 0).toString();
         //windows下不支持的路径字符 \ / : * ? " < > |
+        //其它平台就暂时也不用这些字符
         QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
-        QString path = item->data(1, 0).toString();
-        
-        return;
+        QString old_path = item->data(1, 0).toString();
+        QFileInfo info(old_path);
+        QString new_path = info.absolutePath() + QDir::separator() + name;
+
+        QDir d("");
+        if (!d.rename(old_path, new_path)) {
+            return;
+        }
+
+        item->setData(1, 0, new_path);
+
+        if (info.isDir()) {
+           RefreshNode(item);
+        }
     }
 }
+
 void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
 {
     if (item) {
@@ -438,10 +487,7 @@ void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
             }
         }
         
-        ClearNode(item);
-
-        QString path = item->data(1, 0).toString();
-        RefreshNode(item, path, true);
+        RefreshNode(item, true);
     }
 }
 
@@ -454,12 +500,15 @@ void QLiteNoteWindow::ExpandAndSelectNew(const QString &path)
         } else {
             m_now_item->setExpanded(true);
         }
-        //TODO:选中新节点
+
         for (int i = 0; i < m_now_item->childCount(); ++i) {
-            QString s = m_now_item->child(i)->data(1, 0).toString();
+            QTreeWidgetItem *item = m_now_item->child(i);
+            QString s = item->data(1, 0).toString();
 
             if (s == path) {
-                m_tree->SetSelectItem(m_now_item->child(i));
+                m_tree->SetSelectItem(item);
+                m_tree->StartEdit(item);
+                break;
             }
         }
         
@@ -489,14 +538,17 @@ void QLiteNoteWindow::AddNewNote()
 {
     if (m_now_item) {
         QString path = m_now_item->data(1, 0).toString();
+        QFileInfo info(path);
 
-        QString new_path = FindNewFileName(path, QString(".txt"));
-        printf("NewNote: %s\n", new_path.toLocal8Bit().data());
-        
-        FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
-        fclose(file);
+        if (info.isDir()) {
+            QString new_path = FindNewFileName(path, QString(".txt"));
+            FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
 
-        ExpandAndSelectNew(new_path);
+            fclose(file);
+
+            ExpandAndSelectNew(new_path);
+        }
+      
     }
 }
 
@@ -504,19 +556,28 @@ void QLiteNoteWindow::AddNewDir()
 {
     if (m_now_item) {
         QString path = m_now_item->data(1, 0).toString();
-        QString new_path = FindNewFileName(path, QString(""));
-        printf("NewDir: %s\n", new_path.toLocal8Bit().data());
-        QDir dir;
-        dir.mkdir(new_path);
-        
-        ExpandAndSelectNew(new_path);
+        QFileInfo info(path);
+
+        if (info.isDir()) {
+            QString new_path = FindNewFileName(path, QString(""));
+            QDir dir;
+            dir.mkdir(new_path);
+
+            ExpandAndSelectNew(new_path);
+        }
     }
 
 }
 
+void QLiteNoteWindow::DeleteItem()
+{
+    if (m_now_item) {
+        TreeItemDelete(m_now_item);
+    }
+}
+
 void QLiteNoteWindow::ConvertEnd(const QString &html)
 {
-     //TODO:在这里加入多线程，在子线程进行文本的转化
     m_webview->setContent(html.toUtf8());
 }
 
@@ -609,15 +670,55 @@ void QLiteNoteWindow::OpenExplorer()
 
 void QLiteNoteWindow::NewRootDir()
 {
-    printf("NewRoot\n");
+   QString new_path = FindNewFileName(m_note_path, QString(""));
+   QFileInfo file(new_path);
+   QDir dir;
+   dir.mkdir(new_path);
+
+   QStringList name;
+   name.push_back(file.fileName());
+   QTreeWidgetItem *d = new QTreeWidgetItem(name);
+   d->setIcon(0, QIcon(":/ras/dir.png"));
+   d->setData(1, 0, new_path);
+   d->setFont(0, m_tree_font);
+   d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+
+   m_tree->insertTopLevelItem(m_tree->topLevelItemCount(), d);
+
+   for (int i = 0; i < m_tree->topLevelItemCount(); ++i) {
+       QTreeWidgetItem *item = m_tree->topLevelItem(i);
+       QString s = item->data(1, 0).toString();
+
+       if (s == new_path) {
+           m_tree->SetSelectItem(item);
+           m_tree->StartEdit(item);
+           break;
+       }
+   }
+}
+
+void QLiteNoteWindow::ShowTreeCheck()
+{
+    QList<int> ss;
+    if (m_show_tree_action->isChecked()) {
+        ss.push_back(150);
+        ss.push_back(1);
+    } else {
+        ss.push_back(0);
+        ss.push_back(1);
+    }
+    m_split->setSizes(ss);
+}
+
+void QLiteNoteWindow::ResumeTrash()
+{
+    //TODO:恢复删除文件
 }
 
 void QLiteNoteWindow::RefreshAll()
 {
     RefreshRoot(m_note_path);
 }
-
-
 
 void QLiteNoteWindow::UpdateStatue()
 {

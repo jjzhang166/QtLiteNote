@@ -186,6 +186,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\QFileEx.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\QLiteNoteWindow.cpp"
 				>
 			</File>
@@ -201,6 +205,10 @@
 			>
 			<File
 				RelativePath=".\Markdown.h"
+				>
+			</File>
+			<File
+				RelativePath=".\QFileEx.h"
 				>
 			</File>
 			<File

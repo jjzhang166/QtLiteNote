@@ -109,8 +109,7 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
 
         case Qt::Key_F2:
             if (m_now_select_node) {
-                this->editItem(m_now_select_node, 0);
-                m_start_edit = true;
+                StartEdit(m_now_select_node);
             }
             break;
 
@@ -125,7 +124,6 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
                 if (m_now_select_node) {
                     emit itemDelete(m_now_select_node);
                 }
-                //printf("Tree_Delete\n");
             }
             break;
     }
@@ -134,6 +132,7 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
 void QTreeWidgetEx::UpdateEdit(QTreeWidgetItem *item)
 {
     if (item && m_start_edit) {
+        
         m_start_edit = false;
         emit itemEdited(item);
     }
@@ -155,4 +154,15 @@ void QTreeWidgetEx::SetSelectItem(QTreeWidgetItem *item)
 
         emit itemSelect(m_now_select_node);
     }
+}
+
+void QTreeWidgetEx::SetNowItemOnly(QTreeWidgetItem *item)
+{
+    m_now_select_node = item;
+}
+
+void QTreeWidgetEx::StartEdit(QTreeWidgetItem *item)
+{
+    this->editItem(item, 0);
+    m_start_edit = true;
 }

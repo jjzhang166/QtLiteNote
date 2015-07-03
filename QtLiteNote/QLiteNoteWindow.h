@@ -28,7 +28,11 @@ private:
     void CreateStatus();
 
     void RefreshRoot(const QString &path);
-    void RefreshNode(QTreeWidgetItem *item, const QString &path, bool scan_child_dir = false);
+    void RefreshNode(QTreeWidgetItem *item, bool scan_child_dir = false);
+
+    //重载刷新某个节点的父节点，用于对节点删除或重命名后
+    //不应该笼统地用这个函数，而应该分开，重命名后不需要刷新整个父节点
+    //void ReNodeParent(QTreeWidgetItem *item);
 
     //找到一个没用过的新文件名，如果是找文件夹名则post为空，如果是文本文件则为.txt
     QString FindNewFileName(const QString &path, const QString &post);
@@ -58,10 +62,13 @@ private slots:
 
     void AddNewNote();
     void AddNewDir();
+    void DeleteItem();
     void EditNote();
     void OpenExplorer();
     void RefreshAll();
     void NewRootDir();
+    void ShowTreeCheck();
+    void ResumeTrash();
 
     void ShowAbout();
 
@@ -87,10 +94,13 @@ private:
 
     QAction *m_new_note_action;
     QAction *m_new_dir_action;
+    QAction *m_delete_action;
     QAction *m_edit_action;
     QAction *m_open_explorer_action;
     QAction *m_new_root_action;
     QAction *m_refresh_action;
+    QAction *m_show_tree_action;
+    QAction *m_resume_trash_action;
 
     QLabel *m_path_label;
 
