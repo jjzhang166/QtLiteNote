@@ -54,11 +54,6 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     m_about_action(NULL),
     m_thread(NULL)
 {
-    //QDir dd;
-    //bool r = dd.rmpath("D:\\xbc2\\abc");
-    //bool r = QDeleteDir("D:\\NoteData2");
-    //bool r = QCopyDir("d:\\NoteData2", "D:\\trash");
-
     CreateAction();
     CreateMenu();
     CreateStatus();
@@ -93,8 +88,8 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     setWindowIcon(QIcon(":/ras/app.png"));
     setCentralWidget(m_split);
 
-    //QString path = QDir::currentPath();
-    QString path("G:\\txtNote");
+    QString path = QDir::currentPath();
+    //QString path("G:\\txtNote");
     RefreshRoot(path);
     WebBlack();
 
