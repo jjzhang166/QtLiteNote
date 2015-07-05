@@ -6,6 +6,7 @@ sub main;
 sub HaveQObject;
 sub ui;
 sub moc;
+sub ras;
 
 main;
 
@@ -13,11 +14,15 @@ sub main
 {
     say "\n**********moc**********";
     moc;
+
     say "\n**********ui**********";
     ui;
-    system("rcc -name temp -no-compress ras.qrc -o ras.cpp");
+    
+    say "\n**********ras**********";
+    ras;
 }
 
+#将ui转化为.h文件
 sub ui
 {
     while (<*.ui>) {
@@ -29,6 +34,7 @@ sub ui
     }
 }
 
+#将有元信息的.h文件生成对应的.cpp文件
 sub moc
 {
     while (<*.h>) {
@@ -58,3 +64,13 @@ sub HaveQObject
     return 0;
 }
 
+#将资源生成对应.h文件
+sub ras
+{
+    while (<*.qrc>) {
+        my $s = substr($_, 0, rindex($_, "."));
+        my $c = "ras_$s.cpp";
+        system("rcc -no-compress $_ -o $c");
+        say $c;
+    }
+}

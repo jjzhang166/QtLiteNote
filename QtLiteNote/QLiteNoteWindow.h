@@ -64,6 +64,7 @@ private slots:
     void AddNewDir();
     void DeleteItem();
     void EditNote();
+    void RenameItem();
     void OpenExplorer();
     void RefreshAll();
     void NewRootDir();
@@ -101,6 +102,7 @@ private:
     QAction *m_refresh_action;
     QAction *m_show_tree_action;
     QAction *m_resume_trash_action;
+    QAction *m_rename_action;
 
     QLabel *m_path_label;
 

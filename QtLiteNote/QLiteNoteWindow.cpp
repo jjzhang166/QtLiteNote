@@ -44,6 +44,7 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     m_refresh_action(NULL),
     m_show_tree_action(NULL),
     m_resume_trash_action(NULL),
+    m_rename_action(NULL),
     m_new_root_action(NULL),
     m_path_label(NULL),
     m_file_menu(NULL),
@@ -170,6 +171,10 @@ void QLiteNoteWindow::CreateAction()
 
     m_resume_trash_action = new QAction("恢复删除文件", this);
     connect(m_resume_trash_action, SIGNAL(triggered()), this, SLOT(ResumeTrash()));
+
+    m_rename_action = new QAction("改名", this);
+    m_rename_action->setIcon(QIcon(":/ras/rename.png"));
+    connect(m_rename_action, SIGNAL(triggered()), this, SLOT(RenameItem()));
 }
 
 
@@ -186,6 +191,7 @@ void QLiteNoteWindow::CreateMenu()
 
     m_edit_menu = menuBar()->addMenu(tr("&Edit"));
     m_edit_menu->addAction(m_edit_action);
+    m_edit_menu->addAction(m_rename_action);
     m_edit_menu->addAction(m_delete_action);
 
     m_options_menu = menuBar()->addMenu(tr("&Options"));
@@ -200,12 +206,14 @@ void QLiteNoteWindow::CreateMenu()
     m_dir_menu->addAction(m_new_note_action);
     m_dir_menu->addAction(m_new_dir_action);
     m_dir_menu->addSeparator();
+    m_dir_menu->addAction(m_rename_action);
     m_dir_menu->addAction(m_delete_action);
     m_dir_menu->addSeparator();
     m_dir_menu->addAction(m_open_explorer_action);
 
     m_note_menu = new QMenu(this);
     m_note_menu->addAction(m_edit_action);
+    m_note_menu->addAction(m_rename_action);
     m_note_menu->addAction(m_delete_action);
     m_note_menu->addSeparator();
     m_note_menu->addAction(m_open_explorer_action);
@@ -626,6 +634,13 @@ void QLiteNoteWindow::EditNote()
     if (m_now_item) {
         QString s = m_now_item->data(1, 0).toString();
         EditNote(s);
+    }
+}
+
+void QLiteNoteWindow::RenameItem()
+{
+    if (m_now_item) {
+        m_tree->StartEdit(m_now_item);
     }
 }
 

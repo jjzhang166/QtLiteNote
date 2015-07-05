@@ -8,5 +8,6 @@
     <file>ras/edit.png</file>
     <file>ras/note.png</file>
     <file>ras/refresh.png</file>
+    <file>ras/rename.png</file>
 </qresource>
 </RCC>
