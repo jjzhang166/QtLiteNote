@@ -2,14 +2,16 @@
 #include "QDir.h"
 #include <stdio.h>
 
-//想要在网页中显示中文，得在head头中指定utf-8
+//鎯宠鍦ㄧ綉椤典腑鏄剧ず涓枃锛屽緱鍦╤ead澶翠腑鎸囧畾utf-8
 static char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "<style type=\"text/css\">"
-"body{ color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; font-family: DejaVu Sans Mono, 微软雅黑; } p { font-size: 14px; line-height: 22px; margin-top: 3px;margin-bottom:3px; }"
+"body{ color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; font-family:\\5FAE\\8F6F\\96C5\\9ED1, DejaVu Sans Mono; } p { font-size: 14px; line-height: 22px; margin-top: 3px;margin-bottom:3px; }"
 "</style>"
 "</head>"
-"<body>"
+"<body><p/>"
 ;
+
+//DejaVu Sans Mono, 
 
 static char *s_end = "</body> </html>";
 
@@ -17,12 +19,12 @@ QString ConvertToMarkdown(const QString &txt)
 {
     QStringList ls = txt.split("\r\n");
     
-    QString body(s_head);
+    QString body = QString::fromUtf8(s_head);
 
     for (int i = 0; i < ls.size(); ++i) {
         QString &s = ls[i];
         int len = s.length();
-        body += s + "<p>";
+        body += s + "<p/>";
     }
     body += s_end;
     return body;

@@ -337,7 +337,7 @@ void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
 
 void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 {
-    int r = QMessageBox::warning(this, "QtLiteNote", QString::fromUtf8("确定要删除吗?"), QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+    int r = QMessageBox::warning(this, "QtLiteNote", QString::fromUtf8("确定要删除吗?"), QMessageBox::Yes|QMessageBox::No);
 
     if (r == QMessageBox::Yes) {
         QString src = item->data(1, 0).toString();
@@ -582,6 +582,14 @@ void QLiteNoteWindow::DeleteItem()
 void QLiteNoteWindow::ConvertEnd(const QString &html)
 {
     m_webview->setContent(html.toUtf8());
+
+    //WriteMdToHtml(html, "temp.html");
+
+    //QUrl u("temp.html");
+    //m_webview->setUrl(u);
+
+    //QUrl u("http://www.cnblogs.com/xiangism");
+    //m_webview->setUrl(u);
 }
 
 void QLiteNoteWindow::WebBlack()
