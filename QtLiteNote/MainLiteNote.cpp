@@ -4,10 +4,8 @@
 
 int main(int argc, char **argv)
 {
-    printf("argv\n");
-//    for (int i = 0; i < argc; ++i) {
-//        printf("%s\n", argv[i]);
-//    }
+    //printf("argv\n");
+
     QString str(argv[0]);
     int index = str.lastIndexOf("/");
     str = str.mid(0, index);

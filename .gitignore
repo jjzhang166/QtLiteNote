@@ -23,3 +23,4 @@ lib
 
 ~*
 *.ini
+*.DS_Store
