@@ -27,9 +27,11 @@ private:
 signals:
     void itemSelect(QTreeWidgetItem *item);
     void itemDelete(QTreeWidgetItem *item);
-    void itemEdited(QTreeWidgetItem *item);
+    void itemRename(QTreeWidgetItem *item);
     void rightClick(QTreeWidgetItem *item);
     void doubleClick(QTreeWidgetItem *item);
+
+    void spaceKeyItem(QTreeWidgetItem *item);
 
 private:
     QTreeWidgetItem *m_now_select_node;

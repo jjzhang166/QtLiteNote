@@ -66,11 +66,12 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
 
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(itemEdited(QTreeWidgetItem*)), this, SLOT(TreeItemEdited(QTreeWidgetItem*)));
+    connect(m_tree, SIGNAL(itemRename(QTreeWidgetItem*)), this, SLOT(TreeItemRename(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(rightClick(QTreeWidgetItem*)), this, SLOT(TreeRightClick(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(doubleClick(QTreeWidgetItem*)), this, SLOT(TreeItemDoubleClick(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemExpanded(QTreeWidgetItem *)), this, SLOT(TreeItemExpand(QTreeWidgetItem *)));
     connect(m_tree, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(TreeItemCollapsed(QTreeWidgetItem*)));
+    connect(m_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
 
     m_webview = new QWebView(this);
 
@@ -90,7 +91,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     setCentralWidget(m_split);
 
     //QString path = QDir::currentPath();
-    path = QString("G:\\txtNote");
+    //path = QString("G:\\txtNote");
 
     RefreshRoot(path);
     WebBlack();
@@ -395,7 +396,7 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
     } // end r==Yes
 }
 
-void QLiteNoteWindow::TreeItemEdited(QTreeWidgetItem *item)
+void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 {
     if (item) {
         QString txt = item->data(0, 0).toString();
@@ -454,16 +455,28 @@ void QLiteNoteWindow::ClearNode(QTreeWidgetItem *node)
 
 void QLiteNoteWindow::TreeItemDoubleClick(QTreeWidgetItem *item)
 {
-    if (item) {
-        QString s = item->data(1, 0).toString();
-        EditNote(s);
-    }
+    //if (item) {
+        //QString s = item->data(1, 0).toString();
+        //EditNote(s);
+    //}
 }
 
 void QLiteNoteWindow::TreeItemCollapsed(QTreeWidgetItem *item)
 {
     if (item) {
         item->setIcon(0, m_dir_icon);
+    }
+}
+
+void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
+{
+    if (item) {
+        QString path = item->data(1, 0).toString();
+        QFileInfo f(path);
+
+        if (f.isFile()) {
+            EditNote(path);
+        }
     }
 }
 

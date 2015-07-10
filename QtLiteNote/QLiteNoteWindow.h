@@ -30,13 +30,13 @@ private:
     void RefreshRoot(const QString &path);
     void RefreshNode(QTreeWidgetItem *item, bool scan_child_dir = false);
 
-    //ÖØÔØË¢ĞÂÄ³¸ö½ÚµãµÄ¸¸½Úµã£¬ÓÃÓÚ¶Ô½ÚµãÉ¾³ı»òÖØÃüÃûºó
-    //²»Ó¦¸ÃÁıÍ³µØÓÃÕâ¸öº¯Êı£¬¶øÓ¦¸Ã·Ö¿ª£¬ÖØÃüÃûºó²»ĞèÒªË¢ĞÂÕû¸ö¸¸½Úµã
+    //é‡è½½åˆ·æ–°æŸä¸ªèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹ï¼Œç”¨äºå¯¹èŠ‚ç‚¹åˆ é™¤æˆ–é‡å‘½åå
+    //ä¸åº”è¯¥ç¬¼ç»Ÿåœ°ç”¨è¿™ä¸ªå‡½æ•°ï¼Œè€Œåº”è¯¥åˆ†å¼€ï¼Œé‡å‘½ååä¸éœ€è¦åˆ·æ–°æ•´ä¸ªçˆ¶èŠ‚ç‚¹
     //void ReNodeParent(QTreeWidgetItem *item);
 
-    //ÕÒµ½Ò»¸öÃ»ÓÃ¹ıµÄĞÂÎÄ¼şÃû£¬Èç¹ûÊÇÕÒÎÄ¼ş¼ĞÃûÔòpostÎª¿Õ£¬Èç¹ûÊÇÎÄ±¾ÎÄ¼şÔòÎª.txt
+    //æ‰¾åˆ°ä¸€ä¸ªæ²¡ç”¨è¿‡çš„æ–°æ–‡ä»¶åï¼Œå¦‚æœæ˜¯æ‰¾æ–‡ä»¶å¤¹ååˆ™postä¸ºç©ºï¼Œå¦‚æœæ˜¯æ–‡æœ¬æ–‡ä»¶åˆ™ä¸º.txt
     QString FindNewFileName(const QString &path, const QString &post);
-    //Õ¹¿ªÏÖÓĞµÄ½Úµã²¢ÇÒÑ¡ÖĞĞÂ½¨µÄÄÇ¸ö½Úµã
+    //å±•å¼€ç°æœ‰çš„èŠ‚ç‚¹å¹¶ä¸”é€‰ä¸­æ–°å»ºçš„é‚£ä¸ªèŠ‚ç‚¹  
     void ExpandAndSelectNew(const QString &path);
     void ClearNode(QTreeWidgetItem *node);
 
@@ -52,11 +52,12 @@ private:
 private slots:
     void TreeItemSelect(QTreeWidgetItem *item);
     void TreeItemDelete(QTreeWidgetItem *item);
-    void TreeItemEdited(QTreeWidgetItem *item);
+    void TreeItemRename(QTreeWidgetItem *item);
     void TreeRightClick(QTreeWidgetItem *item);
     void TreeItemDoubleClick(QTreeWidgetItem *item);
     void TreeItemExpand(QTreeWidgetItem *item);
     void TreeItemCollapsed(QTreeWidgetItem *item);
+    void TreeItemKeyItem(QTreeWidgetItem *item);
 
     void ConvertEnd(const QString &html);
 

@@ -5,10 +5,10 @@
 #include "qlist.h"
 #include "qmutex.h"
 
-//将纯文本转化为html格式，加入html的首尾部分和css样式
+//灏嗙函鏂囨湰杞寲涓篽tml鏍煎紡锛屽姞鍏tml鐨勯灏鹃儴鍒嗗拰css鏍峰紡
 QString ConvertToMarkdown(const QString &txt);
 
-//将html写入文件
+//灏唄tml鍐欏叆鏂囦欢
 void WriteMdToHtml(const QString &md, const QString &path);
 
 

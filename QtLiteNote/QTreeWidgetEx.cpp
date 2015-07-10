@@ -90,19 +90,24 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
             SelectAboveOrBelow(false);
             break;
 
+        
         case Qt::Key_Return:
         case Qt::Key_Enter:
             if (m_start_edit) {
                 QTreeWidget::keyPressEvent(event);
                 break;
             }
-
+            //这里没有break. return,enter将会继续到space中
         case Qt::Key_Space:
-            if (m_now_select_node && m_now_select_node->childCount() != 0) {
-                if (m_now_select_node->isExpanded()) {
-                    m_now_select_node->setExpanded(false);
+            if (m_now_select_node) {
+                if (m_now_select_node->childCount() != 0) {
+                    if (m_now_select_node->isExpanded()) {
+                        m_now_select_node->setExpanded(false);
+                    } else {
+                        m_now_select_node->setExpanded(true);
+                    }
                 } else {
-                    m_now_select_node->setExpanded(true);
+                    emit spaceKeyItem(m_now_select_node);
                 }
             }
             break;
@@ -118,7 +123,7 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
                 printf("Tree_f5\n");
             }
             break;
-            
+
         case Qt::Key_Delete:
             {
                 if (m_now_select_node) {
@@ -134,7 +139,7 @@ void QTreeWidgetEx::UpdateEdit(QTreeWidgetItem *item)
     if (item && m_start_edit) {
         
         m_start_edit = false;
-        emit itemEdited(item);
+        emit itemRename(item);
     }
 }
 
