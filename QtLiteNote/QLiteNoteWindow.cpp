@@ -22,7 +22,7 @@ int ShellExecute(const char* path)
 #endif
 
 
-QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
+QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     : QMainWindow(parent),
     m_split(NULL),
     m_tree(NULL),
@@ -89,7 +89,7 @@ QLiteNoteWindow::QLiteNoteWindow(QWidget *parent)
     setWindowIcon(QIcon(":/ras/app.png"));
     setCentralWidget(m_split);
 
-    QString path = QDir::currentPath();
+//    QString path = QDir::currentPath();
     //QString path("G:\\txtNote");
     RefreshRoot(path);
     WebBlack();

@@ -4,12 +4,23 @@
 
 int main(int argc, char **argv)
 {
+    printf("argv\n");
+//    for (int i = 0; i < argc; ++i) {
+//        printf("%s\n", argv[i]);
+//    }
+    QString str(argv[0]);
+    int index = str.lastIndexOf("/");
+    str = str.mid(0, index);
+    
+    printf("%s\n", str.toLocal8Bit().data());
+    
+    printf("argv_end\n");
     QTextCodec *c = QTextCodec::codecForName("UTF-8");
-    QTextCodec::setCodecForCStrings(c); //ÕâÀïµÄÉèÖÃÊÇ±ØÐëµÄ£¬ÕâÑù²ÅÄÜÉèÖÃÎ¢ÈíÑÅºÚÖ®ÀàµÄ×ÖÌå
+    QTextCodec::setCodecForCStrings(c); //è¿™é‡Œçš„è®¾ç½®æ˜¯å¿…é¡»çš„ï¼Œè¿™æ ·æ‰èƒ½è®¾ç½®å¾®è½¯é›…é»‘ä¹‹ç±»çš„å­—ä½“
     QTextCodec::setCodecForTr(c);
 
     QApplication app(argc, argv);
-    QLiteNoteWindow *dlg = new QLiteNoteWindow;
+    QLiteNoteWindow *dlg = new QLiteNoteWindow(str);
     
     //dlg->resize(800, 400);
     dlg->show();

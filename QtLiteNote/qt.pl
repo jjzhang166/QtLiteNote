@@ -42,7 +42,7 @@ sub moc
         if (HaveQObject($_)) {
             my @fs = split /\./, $f;
             my $c_file = "moc_$fs[0].cpp";
-            system("moc.exe $f -o $c_file");
+            system("moc $f -o $c_file");
 
             say "create $c_file";
         }

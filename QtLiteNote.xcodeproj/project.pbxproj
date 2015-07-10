@@ -1,0 +1,308 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04B766FE1B4E76A2006B9641 /* MainLiteNote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B766F81B4E76A2006B9641 /* MainLiteNote.cpp */; };
+		04B766FF1B4E76A2006B9641 /* Markdown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B766F91B4E76A2006B9641 /* Markdown.cpp */; };
+		04B767001B4E76A2006B9641 /* QFileEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B766FA1B4E76A2006B9641 /* QFileEx.cpp */; };
+		04B767011B4E76A2006B9641 /* QLiteNoteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B766FB1B4E76A2006B9641 /* QLiteNoteWindow.cpp */; };
+		04B767021B4E76A2006B9641 /* QTreeWidgetEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B766FC1B4E76A2006B9641 /* QTreeWidgetEx.cpp */; };
+		04B767031B4E76A2006B9641 /* ras_ras.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B766FD1B4E76A2006B9641 /* ras_ras.cpp */; };
+		04B767051B4E76AD006B9641 /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767041B4E76AD006B9641 /* QtCore.framework */; };
+		04B767071B4E76B3006B9641 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767061B4E76B3006B9641 /* QtGui.framework */; };
+		04B767091B4E77D0006B9641 /* QtWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767081B4E77D0006B9641 /* QtWebKit.framework */; };
+		04B7670D1B4E787B006B9641 /* moc_Markdown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B7670A1B4E787B006B9641 /* moc_Markdown.cpp */; };
+		04B7670E1B4E787B006B9641 /* moc_QLiteNoteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B7670B1B4E787B006B9641 /* moc_QLiteNoteWindow.cpp */; };
+		04B7670F1B4E787B006B9641 /* moc_QTreeWidgetEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04B7670C1B4E787B006B9641 /* moc_QTreeWidgetEx.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		04B766E71B4E7641006B9641 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		04B766E91B4E7641006B9641 /* QtLiteNote */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QtLiteNote; sourceTree = BUILT_PRODUCTS_DIR; };
+		04B766F31B4E76A2006B9641 /* Markdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Markdown.h; sourceTree = "<group>"; };
+		04B766F41B4E76A2006B9641 /* QFileEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFileEx.h; sourceTree = "<group>"; };
+		04B766F51B4E76A2006B9641 /* QLiteNoteWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLiteNoteWindow.h; sourceTree = "<group>"; };
+		04B766F61B4E76A2006B9641 /* QTreeWidgetEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTreeWidgetEx.h; sourceTree = "<group>"; };
+		04B766F71B4E76A2006B9641 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		04B766F81B4E76A2006B9641 /* MainLiteNote.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainLiteNote.cpp; sourceTree = "<group>"; };
+		04B766F91B4E76A2006B9641 /* Markdown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Markdown.cpp; sourceTree = "<group>"; };
+		04B766FA1B4E76A2006B9641 /* QFileEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QFileEx.cpp; sourceTree = "<group>"; };
+		04B766FB1B4E76A2006B9641 /* QLiteNoteWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QLiteNoteWindow.cpp; sourceTree = "<group>"; };
+		04B766FC1B4E76A2006B9641 /* QTreeWidgetEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QTreeWidgetEx.cpp; sourceTree = "<group>"; };
+		04B766FD1B4E76A2006B9641 /* ras_ras.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ras_ras.cpp; sourceTree = "<group>"; };
+		04B767041B4E76AD006B9641 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../Library/Frameworks/QtCore.framework; sourceTree = "<group>"; };
+		04B767061B4E76B3006B9641 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../../../Library/Frameworks/QtGui.framework; sourceTree = "<group>"; };
+		04B767081B4E77D0006B9641 /* QtWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKit.framework; path = ../../../../../Library/Frameworks/QtWebKit.framework; sourceTree = "<group>"; };
+		04B7670A1B4E787B006B9641 /* moc_Markdown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_Markdown.cpp; sourceTree = "<group>"; };
+		04B7670B1B4E787B006B9641 /* moc_QLiteNoteWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_QLiteNoteWindow.cpp; sourceTree = "<group>"; };
+		04B7670C1B4E787B006B9641 /* moc_QTreeWidgetEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_QTreeWidgetEx.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04B766E61B4E7641006B9641 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04B767051B4E76AD006B9641 /* QtCore.framework in Frameworks */,
+				04B767091B4E77D0006B9641 /* QtWebKit.framework in Frameworks */,
+				04B767071B4E76B3006B9641 /* QtGui.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04B766E01B4E7641006B9641 = {
+			isa = PBXGroup;
+			children = (
+				04B767081B4E77D0006B9641 /* QtWebKit.framework */,
+				04B767061B4E76B3006B9641 /* QtGui.framework */,
+				04B767041B4E76AD006B9641 /* QtCore.framework */,
+				04B766EB1B4E7641006B9641 /* QtLiteNote */,
+				04B766EA1B4E7641006B9641 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04B766EA1B4E7641006B9641 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04B766E91B4E7641006B9641 /* QtLiteNote */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04B766EB1B4E7641006B9641 /* QtLiteNote */ = {
+			isa = PBXGroup;
+			children = (
+				04B7670A1B4E787B006B9641 /* moc_Markdown.cpp */,
+				04B7670B1B4E787B006B9641 /* moc_QLiteNoteWindow.cpp */,
+				04B7670C1B4E787B006B9641 /* moc_QTreeWidgetEx.cpp */,
+				04B766F31B4E76A2006B9641 /* Markdown.h */,
+				04B766F41B4E76A2006B9641 /* QFileEx.h */,
+				04B766F51B4E76A2006B9641 /* QLiteNoteWindow.h */,
+				04B766F61B4E76A2006B9641 /* QTreeWidgetEx.h */,
+				04B766F71B4E76A2006B9641 /* resource.h */,
+				04B766F81B4E76A2006B9641 /* MainLiteNote.cpp */,
+				04B766F91B4E76A2006B9641 /* Markdown.cpp */,
+				04B766FA1B4E76A2006B9641 /* QFileEx.cpp */,
+				04B766FB1B4E76A2006B9641 /* QLiteNoteWindow.cpp */,
+				04B766FC1B4E76A2006B9641 /* QTreeWidgetEx.cpp */,
+				04B766FD1B4E76A2006B9641 /* ras_ras.cpp */,
+			);
+			path = QtLiteNote;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04B766E81B4E7641006B9641 /* QtLiteNote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04B766F01B4E7641006B9641 /* Build configuration list for PBXNativeTarget "QtLiteNote" */;
+			buildPhases = (
+				04B766E51B4E7641006B9641 /* Sources */,
+				04B766E61B4E7641006B9641 /* Frameworks */,
+				04B766E71B4E7641006B9641 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QtLiteNote;
+			productName = QtLiteNote;
+			productReference = 04B766E91B4E7641006B9641 /* QtLiteNote */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04B766E11B4E7641006B9641 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = xiangism;
+				TargetAttributes = {
+					04B766E81B4E7641006B9641 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = 04B766E41B4E7641006B9641 /* Build configuration list for PBXProject "QtLiteNote" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 04B766E01B4E7641006B9641;
+			productRefGroup = 04B766EA1B4E7641006B9641 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04B766E81B4E7641006B9641 /* QtLiteNote */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04B766E51B4E7641006B9641 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04B767001B4E76A2006B9641 /* QFileEx.cpp in Sources */,
+				04B767011B4E76A2006B9641 /* QLiteNoteWindow.cpp in Sources */,
+				04B766FF1B4E76A2006B9641 /* Markdown.cpp in Sources */,
+				04B7670E1B4E787B006B9641 /* moc_QLiteNoteWindow.cpp in Sources */,
+				04B766FE1B4E76A2006B9641 /* MainLiteNote.cpp in Sources */,
+				04B7670D1B4E787B006B9641 /* moc_Markdown.cpp in Sources */,
+				04B767021B4E76A2006B9641 /* QTreeWidgetEx.cpp in Sources */,
+				04B767031B4E76A2006B9641 /* ras_ras.cpp in Sources */,
+				04B7670F1B4E787B006B9641 /* moc_QTreeWidgetEx.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		04B766EE1B4E7641006B9641 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/source/qt-4.8.4/include/QtGui /Users/xiangism/source/qt-4.8.4/include /Users/xiangism/source/qt-4.8.4/include/QtCore /Users/xiangism/source/qt-4.8.4/include/QtWebKit";
+			};
+			name = Debug;
+		};
+		04B766EF1B4E7641006B9641 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/source/qt-4.8.4/include/QtGui /Users/xiangism/source/qt-4.8.4/include /Users/xiangism/source/qt-4.8.4/include/QtCore /Users/xiangism/source/qt-4.8.4/include/QtWebKit";
+			};
+			name = Release;
+		};
+		04B766F11B4E7641006B9641 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		04B766F21B4E7641006B9641 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04B766E41B4E7641006B9641 /* Build configuration list for PBXProject "QtLiteNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04B766EE1B4E7641006B9641 /* Debug */,
+				04B766EF1B4E7641006B9641 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04B766F01B4E7641006B9641 /* Build configuration list for PBXNativeTarget "QtLiteNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04B766F11B4E7641006B9641 /* Debug */,
+				04B766F21B4E7641006B9641 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04B766E11B4E7641006B9641 /* Project object */;
+}

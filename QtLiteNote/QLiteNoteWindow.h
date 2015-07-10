@@ -15,7 +15,7 @@ class QLiteNoteWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    QLiteNoteWindow(QWidget *parent = 0);
+    QLiteNoteWindow(QString path, QWidget *parent = 0);
     ~QLiteNoteWindow(void);
 
 protected:
