@@ -1,5 +1,5 @@
 #include "QTreeWidgetEx.h"
-#include <QtGUI>
+#include <QtGui>
 
 QTreeWidgetEx::QTreeWidgetEx(QWidget *par)
 : QTreeWidget(par),

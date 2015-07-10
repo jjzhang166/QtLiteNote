@@ -2,7 +2,7 @@
 #include "QtWebKit"
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
-#include "markdown.h"
+#include "Markdown.h"
 #include "QFileEx.h"
 
 #if defined(Q_OS_WIN32)
