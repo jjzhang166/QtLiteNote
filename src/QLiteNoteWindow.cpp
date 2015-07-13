@@ -173,7 +173,7 @@ void QLiteNoteWindow::CreateAction()
     m_resume_trash_action = new QAction("恢复删除文件", this);
     connect(m_resume_trash_action, SIGNAL(triggered()), this, SLOT(ResumeTrash()));
 
-    m_rename_action = new QAction("改名", this);
+    m_rename_action = new QAction("重全名", this);
     m_rename_action->setIcon(QIcon(":/ras/rename.png"));
     connect(m_rename_action, SIGNAL(triggered()), this, SLOT(RenameItem()));
 }
@@ -658,11 +658,13 @@ void QLiteNoteWindow::EditNote(const QString &path)
 
 #elif defined(Q_OS_LINUX)
         char str[1024];
-        sprintf(str, "%s %s", "gvim  ", f.absoluteFilePath().toLocal8Bit().data());
+        sprintf(str, "%s \"%s\"", "gvim  ", f.absoluteFilePath().toLocal8Bit().data());
         system(str);
 
 #elif defined(Q_OS_MAC)
-        printf("EditNode: Mac\n");
+        char str[1024];
+        sprintf(str, "%s \"%s\"", "open", f.absoluteFilePath().toLocal8Bit().data());
+        system(str);
 
 #endif 
     }
@@ -693,15 +695,15 @@ void QLiteNoteWindow::OpenExplorer()
         QString path = tr("OpenInExplorer.exe ") +f.absoluteFilePath();
         path = QDir::convertSeparators(path);
         system(path.toLocal8Bit().data());
-
-#elif defined(Q_OS_MAC)
-        char str[1024];
-        sprintf(str, "%s %s", "open", f.absoluteFilePath().toLocal8Bit().data());
-        system(str);
-
+        
 #elif defined(Q_OS_LINUX) 
         char str[1024];
-        sprintf(str, "%s %s", "nautilus", f.absoluteFilePath().toLocal8Bit().data());
+        sprintf(str, "%s \"%s\"", "nautilus", f.absoluteFilePath().toLocal8Bit().data());
+        system(str);
+        
+#elif defined(Q_OS_MAC)
+        char str[1024];
+        sprintf(str, "%s \"%s\"", "open ", f.absoluteDir().path().toLocal8Bit().data());
         system(str);
 #endif
         //QUrl url = QUrl::fromEncoded(ss.toUtf8());

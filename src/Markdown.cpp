@@ -47,10 +47,16 @@ void ConvertHead(QString &str)
     }    
 }
 
+bool IsCode(QString &str)
+{
+    if (str.size() == 3) {
+        return str == "```";
+    }
+    return false;
+}
+
 QString ConvertToMarkdown(const QVector<QString> &ls)
 {
-    //QStringList ls = txt.split("\r\n");
-    
     QString body = QString::fromUtf8(s_head);
 
     for (int i = 0; i < ls.size(); ++i) {
@@ -68,7 +74,11 @@ QString ConvertToMarkdown(const QVector<QString> &ls)
 
         if (s[0] == '#') {
             ConvertHead(s);
+        } else if (IsCode(s)) {
+            
+            
         } else {
+            
             s.replace(' ', "&nbsp;");
         }
 
