@@ -1,14 +1,8 @@
-CC = gcc
-XX = g++
-CFLAGS = -Wall -O –g
-TARGET = ./helloworld
-
-%.o:%.cpp
-	$(XX) $(CFLAGS) -c $< -o $@
-
-SOURCES = $(wildcard *.cpp)
-OBJS = $(patsubst %.cpp,%.o,$(SOURCES))
-
-$(TARGET) : $(OBJS)
-	$(XX) $(OBJS) -o $(TARGET)
-	chmod a+x $(TARGET)
+QtPath = /home/xiangism/source/qt-4.8.4
+QtLiteNote : *.cpp
+	g++ -o QtLiteNote *.cpp -I$(QtPath)/include \
+		-I$(QtPath)/include/QtCore \
+		-I$(QtPath)/include/QtGui \
+		-I$(QtPath)/include/QtWebKit \
+		-L$(QtPath)/lib \
+		-lQtGui -lQtCore -lQtWebKit

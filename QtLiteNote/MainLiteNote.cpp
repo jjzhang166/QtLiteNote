@@ -1,6 +1,7 @@
 #include "qapplication.h"
 #include "QLiteNoteWindow.h"
 #include "qtextcodec.h"
+#include <stdio.h>
 
 int main(int argc, char **argv)
 {
