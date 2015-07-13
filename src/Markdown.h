@@ -31,7 +31,7 @@ signals:
 
 private:
     QMutex m_lock;
-    QList<QVector<QString>> m_markdowns;
+    QList<QVector<QString> > m_markdowns;
     volatile bool m_is_stoped;
 
 };

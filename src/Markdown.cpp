@@ -39,8 +39,8 @@ void ConvertHead(QString &str)
         
         if (!str.isEmpty() && h >= 1 && h <= 6) {
             char s1[10], s2[10];
-            sprintf_s(s1, 10, "<h%d>", h);
-            sprintf_s(s2, 10, "</h%d>", h);
+            sprintf(s1, "<h%d>", h);
+            sprintf(s2, "</h%d>", h);
 
             str = s1 + str + s2;
         }

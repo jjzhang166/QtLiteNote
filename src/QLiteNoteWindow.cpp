@@ -645,8 +645,8 @@ void QLiteNoteWindow::ShowNote()
 void QLiteNoteWindow::EditNote(const QString &path)
 {
     //用qt的QDesktopServices不支持中文路径，就算转化成utf8后也不行
-    //QFileInfo f(s);
-    //printf("EditNote: %s\n", s.toLocal8Bit().data());
+    //QFileInfo f(path);
+    //printf("EditNote: %s\n", path.toLocal8Bit().data());
     //QDesktopServices::openUrl(QUrl(path.toUtf8()));
 
     QFileInfo f(path);
@@ -655,6 +655,15 @@ void QLiteNoteWindow::EditNote(const QString &path)
 #if defined(Q_OS_WIN32)
         QString s = QDir::convertSeparators(path);
         ShellExecute(s.toLocal8Bit().data());
+
+#elif defined(Q_OS_LINUX)
+        char str[1024];
+        sprintf(str, "%s %s", "gvim  ", f.absoluteFilePath().toLocal8Bit().data());
+        system(str);
+
+#elif defined(Q_OS_MAC)
+        printf("EditNode: Mac\n");
+
 #endif 
     }
 }
@@ -681,29 +690,21 @@ void QLiteNoteWindow::OpenExplorer()
         QFileInfo f(s);
 
 #if defined(Q_OS_WIN32)
-
         QString path = tr("OpenInExplorer.exe ") +f.absoluteFilePath();
         path = QDir::convertSeparators(path);
         system(path.toLocal8Bit().data());
 
 #elif defined(Q_OS_MAC)
-
-        //TODO: Mac
+        char str[1024];
+        sprintf(str, "%s %s", "open", f.absoluteFilePath().toLocal8Bit().data());
+        system(str);
 
 #elif defined(Q_OS_LINUX) 
-
-        //TODO: Linux
+        char str[1024];
+        sprintf(str, "%s %s", "nautilus", f.absoluteFilePath().toLocal8Bit().data());
+        system(str);
 #endif
-        //QString abs_path = f.absFilePath();
-        //QString absolute_file = f.absoluteFilePath();
-        //QString absolute = f.absolutePath();
-        //QString dir_path = f.dirPath();
-        //QString file_path = f.filePath();
-        //QString path = f.path();
-        //QString ss = f.absolutePath();
         //QUrl url = QUrl::fromEncoded(ss.toUtf8());
-        //QString r = url.toString();
-        //printf("url: %s\n", r.toLocal8Bit().data());
         //QDesktopServices::openUrl(url);
     }
 }
