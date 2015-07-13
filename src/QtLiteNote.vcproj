@@ -178,27 +178,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\MainLiteNote.cpp"
+				RelativePath="..\src\MainLiteNote.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Markdown.cpp"
+				RelativePath="..\src\Markdown.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\QFileEx.cpp"
+				RelativePath="..\src\QFileEx.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\QLiteNoteWindow.cpp"
+				RelativePath="..\src\QLiteNoteWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\QTreeWidgetEx.cpp"
+				RelativePath="..\src\QTreeWidgetEx.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ras_ras.cpp"
+				RelativePath="..\src\ras_ras.cpp"
 				>
 			</File>
 		</Filter>
@@ -208,23 +208,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Markdown.h"
+				RelativePath="..\src\Markdown.h"
 				>
 			</File>
 			<File
-				RelativePath=".\QFileEx.h"
+				RelativePath="..\src\QFileEx.h"
 				>
 			</File>
 			<File
-				RelativePath=".\QLiteNoteWindow.h"
+				RelativePath="..\src\QLiteNoteWindow.h"
 				>
 			</File>
 			<File
-				RelativePath=".\QTreeWidgetEx.h"
+				RelativePath="..\src\QTreeWidgetEx.h"
 				>
 			</File>
 			<File
-				RelativePath=".\resource.h"
+				RelativePath="..\src\resource.h"
 				>
 			</File>
 		</Filter>
@@ -232,24 +232,20 @@
 			Name="moc"
 			>
 			<File
-				RelativePath=".\moc_Markdown.cpp"
+				RelativePath="..\src\moc_Markdown.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\moc_QLiteNoteWindow.cpp"
+				RelativePath="..\src\moc_QLiteNoteWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\moc_QTreeWidgetEx.cpp"
+				RelativePath="..\src\moc_QTreeWidgetEx.cpp"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\app.ico"
-			>
-		</File>
-		<File
-			RelativePath=".\QtLiteNote.rc"
+			RelativePath="..\src\QtLiteNote.rc"
 			>
 		</File>
 	</Files>

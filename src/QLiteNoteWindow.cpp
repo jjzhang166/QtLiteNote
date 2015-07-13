@@ -626,9 +626,14 @@ void QLiteNoteWindow::ShowNote()
             if (file.open(QIODevice::ReadOnly)) {
                 QTextStream text(&file);
                 text.setCodec("UTF-8");
-                QString mk = text.readAll();
+
+                //QString mk = text.readAll();
+                QVector<QString> ss;
+                while (!text.atEnd()) {
+                    ss.push_back(text.readLine());
+                }
                
-                m_thread->InsertMarkdown(mk);
+                m_thread->InsertMarkdown(ss);
 
             } else {
                 WebBlack();

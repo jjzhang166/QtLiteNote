@@ -3,6 +3,7 @@
 #include "qstring.h"
 #include "qthread.h"
 #include "qlist.h"
+#include "qvector.h"
 #include "qmutex.h"
 
 //将纯文本转化为html格式，加入html的首尾部分和css样式
@@ -19,7 +20,7 @@ public:
     MarkdownThread();
     ~MarkdownThread();
 
-    void InsertMarkdown(const QString&md);
+    void InsertMarkdown(const QVector<QString> &md);
     void Stop();
 
 protected:
@@ -30,7 +31,7 @@ signals:
 
 private:
     QMutex m_lock;
-    QList<QString> m_markdowns;
+    QList<QVector<QString>> m_markdowns;
     volatile bool m_is_stoped;
 
 };

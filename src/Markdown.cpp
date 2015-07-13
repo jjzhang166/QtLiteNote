@@ -47,14 +47,14 @@ void ConvertHead(QString &str)
     }    
 }
 
-QString ConvertToMarkdown(const QString &txt)
+QString ConvertToMarkdown(const QVector<QString> &ls)
 {
-    QStringList ls = txt.split("\r\n");
+    //QStringList ls = txt.split("\r\n");
     
     QString body = QString::fromUtf8(s_head);
 
     for (int i = 0; i < ls.size(); ++i) {
-        QString &s = ls[i];
+        QString s = ls[i];
 
         if (s.isEmpty()) {
             body += "<p/>";
@@ -105,7 +105,7 @@ void MarkdownThread::run()
 {
     while (!m_is_stoped) {
         bool is_empty;
-        QString md;
+        QVector<QString> md;
 
         m_lock.lock();
         is_empty = m_markdowns.isEmpty();
@@ -122,7 +122,7 @@ void MarkdownThread::run()
     }
 }
 
-void MarkdownThread::InsertMarkdown(const QString&md)
+void MarkdownThread::InsertMarkdown(const QVector<QString> &md)
 {
     m_lock.lock();
     m_markdowns.clear();
