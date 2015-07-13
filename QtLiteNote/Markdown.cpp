@@ -5,7 +5,7 @@
 //想要在网页中显示中文，得在head头中指定utf-8
 static char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "<style type=\"text/css\">"
-"body{ color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; font-family:\\5FAE\\8F6F\\96C5\\9ED1, DejaVu Sans Mono; } p { font-size: 14px; line-height: 22px; margin-top: 3px;margin-bottom:3px; }"
+"body{ color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; } p { font-size: 14px; line-height: 22px; margin-top: 3px;margin-bottom:3px; }"
 "</style>"
 "</head>"
 "<body><p/>"
@@ -15,6 +15,38 @@ static char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\
 
 static char *s_end = "</body> </html>";
 
+int GetHead(QString &str)
+{
+    for (int i = 0; i < str.size(); ++i) {
+        if (str[i] != '#') {
+            str = str.mid(i);
+            return i;
+        }
+        if (i == 6) {
+            return 6;
+        }
+    }
+    return 0;
+}
+
+void ConvertHead(QString &str)
+{
+    if (str.isEmpty()) {
+        return;
+    }
+    if (str[0] == '#') {
+        int h = GetHead(str);
+        
+        if (!str.isEmpty() && h >= 1 && h <= 6) {
+            char s1[10], s2[10];
+            sprintf_s(s1, 10, "<h%d>", h);
+            sprintf_s(s2, 10, "</h%d>", h);
+
+            str = s1 + str + s2;
+        }
+    }    
+}
+
 QString ConvertToMarkdown(const QString &txt)
 {
     QStringList ls = txt.split("\r\n");
@@ -23,14 +55,28 @@ QString ConvertToMarkdown(const QString &txt)
 
     for (int i = 0; i < ls.size(); ++i) {
         QString &s = ls[i];
-        int len = s.length();
+
+        if (s.isEmpty()) {
+            body += "<p/>";
+            continue;
+        } 
+        s.replace('&', "&amp;");
+        s.replace('<', "&lt;");
+        s.replace('>', "&gt;");
+        s.replace('"', "&quot;");
+        s.replace('\'', "&qpos;");
+
+        if (s[0] == '#') {
+            ConvertHead(s);
+        } else {
+            s.replace(' ', "&nbsp;");
+        }
+
         body += s + "<p/>";
     }
     body += s_end;
     return body;
 }
-
-
 
 void WriteMdToHtml(const QString &md, const QString &path)
 {

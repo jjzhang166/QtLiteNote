@@ -21,8 +21,8 @@ bool QCopyFile(const QString &src, const QString &dst)
     return QFile::copy(src, dst);
 }
 
-// ½«D:\fold ÎÄ¼ş¼Ğ¸´ÖÆµ½ e:\trashÎÄ¼ş¼ĞÏÂ
-// ½«Éú³Ée:\trash\foldÎÄ¼ş¼Ğ
+// å°†D:\fold æ–‡ä»¶å¤¹å¤åˆ¶åˆ° e:\trashæ–‡ä»¶å¤¹ä¸‹
+// å°†ç”Ÿæˆe:\trash\foldæ–‡ä»¶å¤¹
 bool QCopyDir(const QString &src_path, const QString &dst_path)
 {
     QFileInfo file(src_path);

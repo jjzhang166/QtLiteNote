@@ -66,11 +66,12 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
 
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(itemEdited(QTreeWidgetItem*)), this, SLOT(TreeItemEdited(QTreeWidgetItem*)));
+    connect(m_tree, SIGNAL(itemRename(QTreeWidgetItem*)), this, SLOT(TreeItemRename(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(rightClick(QTreeWidgetItem*)), this, SLOT(TreeRightClick(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(doubleClick(QTreeWidgetItem*)), this, SLOT(TreeItemDoubleClick(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemExpanded(QTreeWidgetItem *)), this, SLOT(TreeItemExpand(QTreeWidgetItem *)));
     connect(m_tree, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(TreeItemCollapsed(QTreeWidgetItem*)));
+    connect(m_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
 
     m_webview = new QWebView(this);
 
@@ -89,8 +90,9 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     setWindowIcon(QIcon(":/ras/app.png"));
     setCentralWidget(m_split);
 
-//    QString path = QDir::currentPath();
-    //QString path("G:\\txtNote");
+    //QString path = QDir::currentPath();
+    //path = QString("G:\\txtNote");
+
     RefreshRoot(path);
     WebBlack();
 
@@ -113,7 +115,6 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
         case Qt::Key_F5:
-            //printf("Window_F5\n");
             ShowNote();
             m_webview->pageAction(QWebPage::Reload);
             break;
@@ -288,7 +289,7 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
     std::list<QString> t1 = dirs.toStdList();
 
     filters.push_back("*.txt");
-    filters.push_back("*.html");
+    //filters.push_back("*.html");
 
     QStringList files = dir.entryList(filters, QDir::Files);
 
@@ -312,7 +313,11 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
 
     for (int i = 0; i < files.size(); ++i) {
         QStringList name;
-        name.push_back(files[i]);
+        QString s = files[i];
+        int index = s.lastIndexOf(".");
+        s = s.mid(0, index);
+
+        name.push_back(s);
 
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, m_note_icon);
@@ -391,7 +396,7 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
     } // end r==Yes
 }
 
-void QLiteNoteWindow::TreeItemEdited(QTreeWidgetItem *item)
+void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 {
     if (item) {
         QString txt = item->data(0, 0).toString();
@@ -400,7 +405,7 @@ void QLiteNoteWindow::TreeItemEdited(QTreeWidgetItem *item)
         QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
         QString old_path = item->data(1, 0).toString();
         QFileInfo info(old_path);
-        QString new_path = info.absolutePath() + QDir::separator() + name;
+        QString new_path = info.absolutePath() + QDir::separator() + name + ".txt";
 
         QDir d("");
         if (!d.rename(old_path, new_path)) {
@@ -450,16 +455,28 @@ void QLiteNoteWindow::ClearNode(QTreeWidgetItem *node)
 
 void QLiteNoteWindow::TreeItemDoubleClick(QTreeWidgetItem *item)
 {
-    if (item) {
-        QString s = item->data(1, 0).toString();
-        EditNote(s);
-    }
+    //if (item) {
+        //QString s = item->data(1, 0).toString();
+        //EditNote(s);
+    //}
 }
 
 void QLiteNoteWindow::TreeItemCollapsed(QTreeWidgetItem *item)
 {
     if (item) {
         item->setIcon(0, m_dir_icon);
+    }
+}
+
+void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
+{
+    if (item) {
+        QString path = item->data(1, 0).toString();
+        QFileInfo f(path);
+
+        if (f.isFile()) {
+            EditNote(path);
+        }
     }
 }
 
@@ -610,7 +627,7 @@ void QLiteNoteWindow::ShowNote()
                 QTextStream text(&file);
                 text.setCodec("UTF-8");
                 QString mk = text.readAll();
-
+               
                 m_thread->InsertMarkdown(mk);
 
             } else {
