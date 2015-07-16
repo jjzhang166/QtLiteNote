@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="QtLiteNote"
+	Name="LiteNote"
 	ProjectGUID="{A24573CA-F883-436E-8711-E8FFD9788E56}"
 	RootNamespace="QtLiteNote"
 	Keyword="Win32Proj"
