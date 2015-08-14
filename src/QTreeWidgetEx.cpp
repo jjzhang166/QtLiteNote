@@ -7,8 +7,9 @@ m_now_select_node(NULL),
 m_pre_click_time(0),
 m_start_edit(false)
 {
-    connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(UpdateEdit(QTreeWidgetItem*)));
     setSelectionMode(SingleSelection);
+
+    connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(UpdateEdit(QTreeWidgetItem*)));
     m_time.start();
 }
 

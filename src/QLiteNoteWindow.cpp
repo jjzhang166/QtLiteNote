@@ -64,6 +64,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_tree->setRootIsDecorated(true);
     m_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
 
+
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemRename(QTreeWidgetItem*)), this, SLOT(TreeItemRename(QTreeWidgetItem*)));
@@ -173,7 +174,7 @@ void QLiteNoteWindow::CreateAction()
     m_resume_trash_action = new QAction("恢复删除文件", this);
     connect(m_resume_trash_action, SIGNAL(triggered()), this, SLOT(ResumeTrash()));
 
-    m_rename_action = new QAction("重全名", this);
+    m_rename_action = new QAction("改名", this);
     m_rename_action->setIcon(QIcon(":/ras/rename.png"));
     connect(m_rename_action, SIGNAL(triggered()), this, SLOT(RenameItem()));
 }
