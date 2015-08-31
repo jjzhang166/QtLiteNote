@@ -78,7 +78,6 @@ QString ConvertToMarkdown(const QVector<QString> &ls)
             
             
         } else {
-            
             s.replace(' ', "&nbsp;");
         }
 

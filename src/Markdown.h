@@ -7,7 +7,7 @@
 #include "qmutex.h"
 
 //将纯文本转化为html格式，加入html的首尾部分和css样式
-QString ConvertToMarkdown(const QString &txt);
+//QString ConvertToMarkdown(const QString &txt);
 
 //将html写入文件
 void WriteMdToHtml(const QString &md, const QString &path);
