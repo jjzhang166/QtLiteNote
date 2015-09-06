@@ -406,7 +406,13 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
         QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
         QString old_path = item->data(1, 0).toString();
         QFileInfo info(old_path);
-        QString new_path = info.absolutePath() + QDir::separator() + name + ".txt";
+
+        QString new_path;
+        if (info.isFile()) {
+            new_path = info.absolutePath() + QDir::separator() + name + ".txt";
+        } else {
+            new_path = info.absolutePath();
+        }
 
         QDir d("");
         if (!d.rename(old_path, new_path)) {
@@ -418,6 +424,7 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
         if (info.isDir()) {
            RefreshNode(item);
         }
+
     }
 }
 

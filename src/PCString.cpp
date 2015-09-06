@@ -65,7 +65,13 @@ void PCStringCut(PCString *str, int len)
 PCString* PCStringClone(PCString *str)
 {
     PCString *new_str = (PCString*)malloc(sizeof(PCString));
-    new_str->allocated_len = str->allocated_len;
+
+    if (str->is_shared) {
+        new_str->allocated_len = str->len+1;
+        
+    } else {
+        new_str->allocated_len = str->allocated_len;
+    }
     new_str->text = (char*)malloc(new_str->allocated_len);
     strcpy(new_str->text, str->text);
     new_str->len = str->len;
@@ -76,7 +82,7 @@ PCString* PCStringClone(PCString *str)
 void PCStringFree(PCString **str)
 {
     if (*str) {
-
+//        int is_shard = (*str)->is_shared;
         if (!(*str)->is_shared) {
             if ((*str)->text) {
                 free((*str)->text);
@@ -103,12 +109,12 @@ void PCStringAppend(PCString *str, const PCString *append)
 {
     int new_all = str->len + append->len + 1;
     if (new_all <= str->allocated_len) {
-       //直接连接 
+       //鐩存帴杩炴帴 
         strcat(str->text, append->text);
         str->len += append->len;
 
     } else {
-        //新增alloc
+        //鏂板alloc
         PCStringSetAlloc(str, new_all*2);
         PCStringAppend(str, append);
     }
@@ -160,6 +166,7 @@ void PCStringRemove(PCString *str, int start, int len)
 
     if (sub) {
         PCStringAppend(str, sub);
+        
         PCStringFree(&sub);
     }
 
@@ -168,7 +175,7 @@ void PCStringRemove(PCString *str, int start, int len)
 
 void PCStringInsert(PCString *str, const PCString *sub, int start)
 {
-    //正则的值[0,len-1],就像在vim中如果仅仅用i命令是无法在末尾增加字符
+    //姝ｅ垯鐨勫�糩0,len-1],灏卞儚鍦╲im涓鏋滀粎浠呯敤i鍛戒护鏄棤娉曞湪鏈熬澧炲姞瀛楃
     if (start >= str->len) {
         PCStringAppend(str, sub);
         return;
@@ -185,4 +192,24 @@ void PCStringInsert(PCString *str, const PCString *sub, int start)
     PCStringAppend(str, sub2);
 
     PCStringFree(&sub2);
+}
+
+int PCStringFindChar(PCString *str, const char ch)
+{
+    for (int i = 0; i < str->len; ++i) {
+        if (str->text[i] == ch) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int PCStringFindLastChar(PCString *str, const char ch)
+{
+    for (int i = str->len-1; i >= 0; --i) {
+        if (str->text[i] == ch) {
+            return i;
+        }
+    }
+    return -1;
 }

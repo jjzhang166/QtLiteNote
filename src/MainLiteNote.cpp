@@ -38,7 +38,7 @@ char *ConvertMarkdown(char **strs, int count);
 
 void TestString()
 {
-    QFile file("D:\\std.txt");
+    QFile file("D:\\new.txt");
     file.open(QIODevice::ReadOnly);
     QTextStream text(&file);
     text.setCodec("UTF-8");
@@ -69,10 +69,12 @@ void TestString()
 int main(int argc, char **argv)
 {
 
-   //return ShowLiteNote(argc, argv);
+   return ShowLiteNote(argc, argv);
     //TestPCString();
-    TestString();
+    //TestString();
     
+
+    _CrtDumpMemoryLeaks();
 
     return 0;
 }
