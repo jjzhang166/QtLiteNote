@@ -93,10 +93,16 @@ void PCStringInsert(PCString *str, const PCString *sub, int start);
 * 在PCString中从头开始找char, 如果找到则返回其对应的index,否则返回-1
 *
 */
-int PCStringFindChar(PCString *str, const char ch);
+int PCStringFindChar(PCString *str, const char ch, int from);
 
 /* 
 * 在 PCString中从尾开始找char, 如果找到则返回其对应的index,否则返回-1
 *
 */
-int PCStringFindLastChar(PCString *str, const char ch);
+int PCStringFindLastChar(PCString *str, const char ch, int from);
+
+/* 
+* 将str中所有的ch字符都替换为sub 
+*
+*/
+void PCStringReplace(PCString *str, const char ch, const PCString *sub);

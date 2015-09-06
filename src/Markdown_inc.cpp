@@ -140,7 +140,7 @@ int IsNumber(char ch)
 //是否有有序列表,前面跟 数字.空格<ol> </ol>
 int IsOl(PCString *line)
 {
-    int black_index = PCStringFindChar(line, ' ');
+    int black_index = PCStringFindChar(line, ' ', 0);
     if (black_index < 2) {
         return 0;
     }
@@ -188,7 +188,7 @@ PCString* ConvertLi(PCString *line)
 {
     PCString *tag_li2 = PCStringNewFromPChar("</li>", 0);
 
-    int black_index = PCStringFindChar(line, ' ');
+    int black_index = PCStringFindChar(line, ' ', 0);
     int start_index = -1;
     for (int i = black_index+1; i < line->len; ++i) {
         if (line->text[i] != ' ') {

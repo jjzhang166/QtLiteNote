@@ -194,9 +194,12 @@ void PCStringInsert(PCString *str, const PCString *sub, int start)
     PCStringFree(&sub2);
 }
 
-int PCStringFindChar(PCString *str, const char ch)
+int PCStringFindChar(PCString *str, const char ch, int from)
 {
-    for (int i = 0; i < str->len; ++i) {
+    if (from < 0) {
+        from = 0;
+    }
+    for (int i = from; i < str->len; ++i) {
         if (str->text[i] == ch) {
             return i;
         }
@@ -204,12 +207,34 @@ int PCStringFindChar(PCString *str, const char ch)
     return -1;
 }
 
-int PCStringFindLastChar(PCString *str, const char ch)
+int PCStringFindLastChar(PCString *str, const char ch, int from)
 {
-    for (int i = str->len-1; i >= 0; --i) {
+    if (from > str->len-1) {
+        from = str->len-1;
+    }
+    for (int i = from; i >= 0; --i) {
         if (str->text[i] == ch) {
             return i;
         }
     }
     return -1;
+}
+
+void PCStringReplace(PCString *str, const char ch, const PCString *sub)
+{
+    int i = 0;
+    while (1) {
+        int index = PCStringFindChar(str, ch, i);
+
+        if (index == -1) {
+            return;
+        }
+        PCStringRemove(str, index, 1);
+        PCStringInsert(str, sub, index);
+        i += sub->len;
+
+        if (i >= str->len) {
+            return;
+        }
+    }
 }

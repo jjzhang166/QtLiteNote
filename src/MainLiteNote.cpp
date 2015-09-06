@@ -66,12 +66,13 @@ void TestString()
     return;
 }
 
+
 int main(int argc, char **argv)
 {
 
-   return ShowLiteNote(argc, argv);
-    //TestPCString();
+   //return ShowLiteNote(argc, argv);
     //TestString();
+    //TestString2();
     
 
     _CrtDumpMemoryLeaks();
