@@ -21,6 +21,18 @@
 		04B767091B4E77D0006B9641 /* QtWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767081B4E77D0006B9641 /* QtWebKit.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		04C0595E1B6F18F100129B37 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = folder.iconset;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# iconutil\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		04B766E71B4E7641006B9641 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -137,6 +149,7 @@
 				04B766E71B4E7641006B9641 /* CopyFiles */,
 			);
 			buildRules = (
+				04C0595E1B6F18F100129B37 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -235,7 +248,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/source/qt-4.8.4/include/QtGui /Users/xiangism/source/qt-4.8.4/include /Users/xiangism/source/qt-4.8.4/include/QtCore /Users/xiangism/source/qt-4.8.4/include/QtWebKit";
+				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/work/source/qt-4.8.4/include/QtGui /Users/xiangism/work/source/qt-4.8.4/include /Users/xiangism/work/source/qt-4.8.4/include/QtCore /Users/xiangism/work/source/qt-4.8.4/include/QtWebKit";
 			};
 			name = Debug;
 		};
@@ -272,13 +285,14 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/source/qt-4.8.4/include/QtGui /Users/xiangism/source/qt-4.8.4/include /Users/xiangism/source/qt-4.8.4/include/QtCore /Users/xiangism/source/qt-4.8.4/include/QtWebKit";
+				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/work/source/qt-4.8.4/include/QtGui /Users/xiangism/work/source/qt-4.8.4/include /Users/xiangism/work/source/qt-4.8.4/include/QtCore /Users/xiangism/work/source/qt-4.8.4/include/QtWebKit";
 			};
 			name = Release;
 		};
 		04B766F11B4E7641006B9641 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -290,10 +304,12 @@
 		04B766F21B4E7641006B9641 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

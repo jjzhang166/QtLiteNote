@@ -666,6 +666,10 @@ void QLiteNoteWindow::EditNote(const QString &path)
         char str[1024];
         sprintf(str, "%s \"%s\"", "open", f.absoluteFilePath().toLocal8Bit().data());
         system(str);
+        printf("EditNote-xbc: %s\n", str);
+//        QFileInfo f(path);
+//        printf("EditNote: %s\n", f.absoluteFilePath().toLocal8Bit().data());
+//        QDesktopServices::openUrl(QUrl(path.toUtf8()));
 
 #endif 
     }
