@@ -19,6 +19,8 @@
 		04B767051B4E76AD006B9641 /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767041B4E76AD006B9641 /* QtCore.framework */; };
 		04B767071B4E76B3006B9641 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767061B4E76B3006B9641 /* QtGui.framework */; };
 		04B767091B4E77D0006B9641 /* QtWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767081B4E77D0006B9641 /* QtWebKit.framework */; };
+		04D823B61B9D6A1D00761017 /* Markdown_inc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */; };
+		04D823B91B9D6A2A00761017 /* PCString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B71B9D6A2A00761017 /* PCString.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -64,6 +66,9 @@
 		04B767041B4E76AD006B9641 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../Library/Frameworks/QtCore.framework; sourceTree = "<group>"; };
 		04B767061B4E76B3006B9641 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../../../Library/Frameworks/QtGui.framework; sourceTree = "<group>"; };
 		04B767081B4E77D0006B9641 /* QtWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKit.framework; path = ../../../../../Library/Frameworks/QtWebKit.framework; sourceTree = "<group>"; };
+		04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Markdown_inc.cpp; path = src/Markdown_inc.cpp; sourceTree = SOURCE_ROOT; };
+		04D823B71B9D6A2A00761017 /* PCString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCString.cpp; path = src/PCString.cpp; sourceTree = SOURCE_ROOT; };
+		04D823B81B9D6A2A00761017 /* PCString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCString.h; path = src/PCString.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +131,9 @@
 		04B766EB1B4E7641006B9641 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				04D823B71B9D6A2A00761017 /* PCString.cpp */,
+				04D823B81B9D6A2A00761017 /* PCString.h */,
+				04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */,
 				045499121B53A16D00202CE9 /* MainLiteNote.cpp */,
 				045499131B53A16D00202CE9 /* Markdown.cpp */,
 				045499141B53A16D00202CE9 /* QFileEx.cpp */,
@@ -197,10 +205,12 @@
 				0454991A1B53A16D00202CE9 /* QFileEx.cpp in Sources */,
 				0454991B1B53A16D00202CE9 /* QLiteNoteWindow.cpp in Sources */,
 				0454990C1B53A14000202CE9 /* moc_QTreeWidgetEx.cpp in Sources */,
+				04D823B91B9D6A2A00761017 /* PCString.cpp in Sources */,
 				045499191B53A16D00202CE9 /* Markdown.cpp in Sources */,
 				0454991C1B53A16D00202CE9 /* QTreeWidgetEx.cpp in Sources */,
 				0454991D1B53A16D00202CE9 /* ras_ras.cpp in Sources */,
 				0454990A1B53A14000202CE9 /* moc_Markdown.cpp in Sources */,
+				04D823B61B9D6A1D00761017 /* Markdown_inc.cpp in Sources */,
 				045499181B53A16D00202CE9 /* MainLiteNote.cpp in Sources */,
 				0454990B1B53A14000202CE9 /* moc_QLiteNoteWindow.cpp in Sources */,
 			);

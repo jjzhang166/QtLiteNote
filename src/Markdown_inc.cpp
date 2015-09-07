@@ -1,6 +1,12 @@
 #include "PCString.h"
 #include <stdio.h>
 
+/*
+objective-c 与标准c不兼容的地方
+ 1. oc不支持&变量引用
+ 2. oc不支持全局变量用函数的返回值来初始化
+ */
+
 /*static char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html\"; charset=\"UTF-8\"/>"
 "<style type=\"text/css\">"
 "body{ background-color: #c7edcc; color: #444444; line-height: 1; padding: 5px; word-wrap: break-word; } p { font-family: \".HelveticaNeueInterface-Regular\";  font-size: 50px; margin-top: 3px;margin-bottom:3px; }"
@@ -41,15 +47,41 @@ extern char *s_head;
 static char *s_end = "</body> </html>";
 
 
-PCString *tag_br = PCStringNewFromPChar("<br/>", 0);
-PCString *tag_p = PCStringNewFromPChar("<p/>", 0);
-PCString *tag_tab = PCStringNewFromPChar("&emsp;&emsp;&emsp;&emsp;", 0);
-PCString *tag_ol1 = PCStringNewFromPChar("<ol>", 0);
-PCString *tag_ol2 = PCStringNewFromPChar("</ol><p/>", 0);
-PCString *tag_ul1 = PCStringNewFromPChar("<ul>", 0);
-PCString *tag_ul2 = PCStringNewFromPChar("</ul><p/>", 0);
-PCString *tag_code1 = PCStringNewFromPChar("<pre><code>", 0);
-PCString *tag_code2 = PCStringNewFromPChar("</code></pre><p/>", 0);
+PCString *tag_br;
+PCString *tag_p;
+PCString *tag_tab;
+PCString *tag_ol1;
+PCString *tag_ol2;
+PCString *tag_ul1;
+PCString *tag_ul2;
+PCString *tag_code1;
+PCString *tag_code2;
+
+void InitTag()
+{
+    tag_br = PCStringNewFromPChar("<br/>", 0);
+    tag_p = PCStringNewFromPChar("<p/>", 0);
+    tag_tab = PCStringNewFromPChar("&emsp;&emsp;&emsp;&emsp;", 0);
+    tag_ol1 = PCStringNewFromPChar("<ol>", 0);
+    tag_ol2 = PCStringNewFromPChar("</ol><p/>", 0);
+    tag_ul1 = PCStringNewFromPChar("<ul>", 0);
+    tag_ul2 = PCStringNewFromPChar("</ul><p/>", 0);
+    tag_code1 = PCStringNewFromPChar("<pre><code>", 0);
+    tag_code2 = PCStringNewFromPChar("</code></pre><p/>", 0);
+}
+
+void FreeTag()
+{
+    PCStringFree(&tag_br);
+    PCStringFree(&tag_p);
+    PCStringFree(&tag_tab);
+    PCStringFree(&tag_ol1);
+    PCStringFree(&tag_ol2);
+    PCStringFree(&tag_ul1);
+    PCStringFree(&tag_ul2);
+    PCStringFree(&tag_code1);
+    PCStringFree(&tag_code2);
+}
 
 //判断是否为标题
 // @level 返回标题的层次[1,6]
@@ -222,26 +254,26 @@ PCString* ConvertLi(PCString *line)
     return result;
 }
 
-void ConvertNormal(PCString *line, int &section, PCString *result)
+void ConvertNormal(PCString *line, int *section, PCString *result)
 {
     if (line->len == 0) {
-        section = 0;
+        *section = 0;
         PCStringAppend(result, tag_br);
     }
     else if (line->text[0] == '#') {
-        section = 0;
+        *section = 0;
 
         PCString *r = ConvertHead(line);
         PCStringAppend(result, r);
         PCStringFree(&r);
 
     } else if (IsCode(line)) {
-        section = 1;
+        *section = 1;
 
         PCStringAppend(result, tag_code1);
 
     } else if (IsOl(line)) {
-        section = 2;
+        *section = 2;
 
         PCStringAppend(result, tag_ol1);
 
@@ -251,7 +283,7 @@ void ConvertNormal(PCString *line, int &section, PCString *result)
         PCStringFree(&r);
 
     } else if (IsUl(line)) {
-        section = 3;
+        *section = 3;
 
         PCStringAppend(result, tag_ul1);
 
@@ -261,15 +293,21 @@ void ConvertNormal(PCString *line, int &section, PCString *result)
         PCStringFree(&r);
     }
     else {
-        section = 0;
-
-        PCStringAppend(result, line);
+        *section = 0;
+        
+        PCString *text = PCStringClone(line);
+        ConvertHtmlTag(text);
+        PCStringAppend(result, text);
         PCStringAppend(result, tag_br);
+        
+        PCStringFree(&text);
     }
 }
 
 char* ConvertMarkdown(char **strs, int count)
 {
+    InitTag();
+    
     PCString *result = PCStringNewFromPChar(s_head, 0);
     PCString *html_end = PCStringNewFromPChar(s_end, 0);
 
@@ -286,7 +324,7 @@ char* ConvertMarkdown(char **strs, int count)
         PCString *line = PCStringNewFromPChar(strs[i], 1);
 
         if (section == 0) {
-            ConvertNormal(line, section, result);
+            ConvertNormal(line, &section, result);
 
         } else if (section == 1) {
             
@@ -316,7 +354,7 @@ char* ConvertMarkdown(char **strs, int count)
             }
             else {
                 PCStringAppend(result, tag_ol2);
-                ConvertNormal(line, section, result);
+                ConvertNormal(line, &section, result);
             }
         } else if (section == 3) { //ul
             if (IsUl(line)) {
@@ -331,7 +369,7 @@ char* ConvertMarkdown(char **strs, int count)
             }
             else {
                 PCStringAppend(result, tag_ul2);
-                ConvertNormal(line, section, result);
+                ConvertNormal(line, &section, result);
             }
         }
       
@@ -352,5 +390,8 @@ char* ConvertMarkdown(char **strs, int count)
     
     PCStringFree(&result);
     PCStringFree(&html_end);
+    
+    FreeTag();
+    
     return p;
 }

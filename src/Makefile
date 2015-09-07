@@ -1,4 +1,4 @@
-QtPath = /home/xiangism/source/qt-4.8.4
+QtPath = /home/xiangism/work/source/qt-4.8.4
 QtLiteNote : *.cpp
 	g++ -o QtLiteNote *.cpp -I$(QtPath)/include \
 		-I$(QtPath)/include/QtCore \
