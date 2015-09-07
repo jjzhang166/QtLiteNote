@@ -38,7 +38,7 @@ char *ConvertMarkdown(char **strs, int count);
 
 void TestString()
 {
-    QFile file("D:\\std.txt");
+    QFile file("D:\\new.txt");
     file.open(QIODevice::ReadOnly);
     QTextStream text(&file);
     text.setCodec("UTF-8");
@@ -66,13 +66,21 @@ void TestString()
     return;
 }
 
+// Horizontal Rules
+// Hard Line Breaks
+// End a line with two or more
+// 123
+// 65
+
 int main(int argc, char **argv)
 {
 
-   //return ShowLiteNote(argc, argv);
-    //TestPCString();
-    TestString();
+   return ShowLiteNote(argc, argv);
+    //TestString();
+    //TestString2();
     
+
+    //_CrtDumpMemoryLeaks();
 
     return 0;
 }

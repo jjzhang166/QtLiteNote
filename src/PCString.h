@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include <tchar.h>
+//#include <tchar.h>
 
 typedef struct _PCString PCString;
 
@@ -9,82 +9,102 @@ struct _PCString {
     int len;
     int allocated_len;
 
-    int is_shared; //ÊÇ·ñºÍÆäËüµÄPCString»òÕßÔ­Ê¼µÄchar*ÀàĞÍ¹²Ïítext£¬Èç¹ûÊÇ¹²ÏíÄÇÃ´ÔÚPCStringFreeÖĞ½«²»»áÊÍ·Åtext
+    int is_shared; //æ˜¯å¦å’Œå…¶å®ƒçš„PCStringæˆ–è€…åŸå§‹çš„char*ç±»å‹å…±äº«textï¼Œå¦‚æœæ˜¯å…±äº«é‚£ä¹ˆåœ¨PCStringFreeä¸­å°†ä¸ä¼šé‡Šæ”¾text
 };
 
 /* 
 * 
-* µÃÓÃPCStringFree()ÊÍ·ÅÄÚ´æ
+* å¾—ç”¨PCStringFree()é‡Šæ”¾å†…å­˜
 */
 PCString* PCStringNew(int size);
 
 /* 
-* »ñÈ¡cÀàĞÍµÄ×Ö·û´® 
-* @return ·µ»ØÖµµÃµ½free()À´ÊÍ·ÅÄÚ´æ
+* è·å–cç±»å‹çš„å­—ç¬¦ä¸² 
+* @return è¿”å›å€¼å¾—åˆ°free()æ¥é‡Šæ”¾å†…å­˜
 */
 char* PCStrringToPChar(PCString *str);
 
 
 /* 
-* @ch Ô­Ê¼µÄchar*×Ö·û´®  
-* @is_shared Èç¹ûÎªtrue,ÄÇÃ´ÔÚPCStringFree()Ê±½«²»»áÊÍ·ÅtextÖĞµÄÄÚ´æ
-*            Èç¹ûÎªfalse,
+* @ch åŸå§‹çš„char*å­—ç¬¦ä¸²  
+* @is_shared å¦‚æœä¸ºtrue,é‚£ä¹ˆåœ¨PCStringFree()æ—¶å°†ä¸ä¼šé‡Šæ”¾textä¸­çš„å†…å­˜
+*            å¦‚æœä¸ºfalse,
 */
 PCString* PCStringNewFromPChar(char *ch, int is_shared);
 
 /* 
-* ³¢ÊÔÔö´óallocµÄÈİÁ¿£¬Èç¹û@size±ÈÏÖÓĞµÄĞ¡£¬½«Ê²Ã´Ò²²»»á×ö 
+* å°è¯•å¢å¤§allocçš„å®¹é‡ï¼Œå¦‚æœ@sizeæ¯”ç°æœ‰çš„å°ï¼Œå°†ä»€ä¹ˆä¹Ÿä¸ä¼šåš 
 *
 */
 void PCStringSetAlloc(PCString *str, int size);
 
 /* 
-* ½«strÇ¿ÖÆ²Ã¼ôÎª³¤¶ÈÎªlen£¬Èç¹ûstr->len±È@lenĞ¡£¬½«Ê²Ã´Ò²²»»á×ö 
-*£º 
+* å°†strå¼ºåˆ¶è£å‰ªä¸ºé•¿åº¦ä¸ºlenï¼Œå¦‚æœstr->lenæ¯”@lenå°ï¼Œå°†ä»€ä¹ˆä¹Ÿä¸ä¼šåš 
+*ï¼š 
 */
 void PCStringCut(PCString *str, int len);
 
 /* 
 *  
-* µÃÓÃPCStringFree()ÊÍ·ÅÄÚ´æ
+* å¾—ç”¨PCStringFree()é‡Šæ”¾å†…å­˜
 */
 PCString* PCStringClone(PCString *str);
 
 /* 
-* Çå³ıstrÖĞµÄÎÄ±¾£¬µ«²»ÊÍ·ÅÄÚ´æ 
+* æ¸…é™¤strä¸­çš„æ–‡æœ¬ï¼Œä½†ä¸é‡Šæ”¾å†…å­˜ 
 *
 */
 void PCStringClear(PCString *str);
 
 /* 
-* ÊÍ·ÅÄÚ´æ 
+* é‡Šæ”¾å†…å­˜ 
 */
 void PCStringFree(PCString **str);
 
 void PCStringAppend(PCString *str, const PCString *append);
 
 /* 
-* ´Óstart¿ªÊ¼,Éú³É³¤¶ÈÎªlenµÄstr×Ó×Ö·û´®
-* @start Èç¹ûĞ¡ÓÚ0£¬ÄÇÃ´½«×Ô¶¯Ö¸Ïò0£¬²¢ÇÒ»áÏàÓ¦ĞŞ¸Älen
-*        Èç¹ûstart³¬¹ıÁËstr,ÄÇÃ´½«·µ»Ø¿ÕÖµ
-* @len   Èç¹ûstart+len ³¬¹ıstr, ÄÇÃ´½«×Ô¶¯¼õĞ¡lenÒÔÊÊÓ¦str
-*        lenÈç¹ûÎª¸ºÊı£¬ÄÇÃ´¾ÍÊÇ½ØÈ¡´Óstart¿ªÊ¼ÍùºóËùÓĞµÄ×Ö·û´®
-* @return µÃÓĞPCStringFree()ÊÍ·ÅÄÚ´æ
+* ä»startå¼€å§‹,ç”Ÿæˆé•¿åº¦ä¸ºlençš„strå­å­—ç¬¦ä¸²
+* @start å¦‚æœå°äº0ï¼Œé‚£ä¹ˆå°†è‡ªåŠ¨æŒ‡å‘0ï¼Œå¹¶ä¸”ä¼šç›¸åº”ä¿®æ”¹len
+*        å¦‚æœstartè¶…è¿‡äº†str,é‚£ä¹ˆå°†è¿”å›ç©ºå€¼
+* @len   å¦‚æœstart+len è¶…è¿‡str, é‚£ä¹ˆå°†è‡ªåŠ¨å‡å°lenä»¥é€‚åº”str
+*        lenå¦‚æœä¸ºè´Ÿæ•°ï¼Œé‚£ä¹ˆå°±æ˜¯æˆªå–ä»startå¼€å§‹å¾€åæ‰€æœ‰çš„å­—ç¬¦ä¸²
+* @return å¾—æœ‰PCStringFree()é‡Šæ”¾å†…å­˜
 */
 PCString* PCStringSub(const PCString *str, int start, int len);
 
 /* 
-* ´Óstart¿ªÊ¼,ÒÆ³ı³¤¶ÈÎªlenµÄ²¿·Ö
-* @start Èç¹ûĞ¡ÓÚ0£¬ÄÇÃ´½«×Ô¶¯Ö¸Ïò0£¬²¢ÇÒ»áÏàÓ¦ĞŞ¸Älen
-*        Èç¹ûstart³¬¹ıÁËstr,ÄÇÃ´½«·µ»Ø¿ÕÖµ
-* @len   Èç¹ûstart+len ³¬¹ıstr, ÄÇÃ´½«×Ô¶¯¼õĞ¡lenÒÔÊÊÓ¦str
-*        lenÈç¹ûÎª¸ºÊı£¬ÄÇÃ´½«É¾³ı´Óstart¿ªÊ¼ÍùºóËùÓĞµÄ×Ö·û´®
+* ä»startå¼€å§‹,ç§»é™¤é•¿åº¦ä¸ºlençš„éƒ¨åˆ†
+* @start å¦‚æœå°äº0ï¼Œé‚£ä¹ˆå°†è‡ªåŠ¨æŒ‡å‘0ï¼Œå¹¶ä¸”ä¼šç›¸åº”ä¿®æ”¹len
+*        å¦‚æœstartè¶…è¿‡äº†str,é‚£ä¹ˆå°†è¿”å›ç©ºå€¼
+* @len   å¦‚æœstart+len è¶…è¿‡str, é‚£ä¹ˆå°†è‡ªåŠ¨å‡å°lenä»¥é€‚åº”str
+*        lenå¦‚æœä¸ºè´Ÿæ•°ï¼Œé‚£ä¹ˆå°†åˆ é™¤ä»startå¼€å§‹å¾€åæ‰€æœ‰çš„å­—ç¬¦ä¸²
 */
 void PCStringRemove(PCString *str, int start, int len);
 
 /* 
-* ½«sub²åÈëµ½strÖĞµÄstartÎ»ÖÃ 
-* @start ÔÚstartÎ»ÖÃÖ®Ç°²åÈë,¾ÍÏñÔÚvimÖĞ°´iÒ»Ñù
-*        Èç¹ûstartĞ¡ÓÚ0Ôò×Ô¶¯ÕıÔòµ½0,Èç¹ûstart³¬¹ıstr£¬½«»áÔÚÎ²²¿Ôö¼Ó£¬Ïàµ±ÓÚPCStringAppend
+* å°†subæ’å…¥åˆ°strä¸­çš„startä½ç½® 
+* @start åœ¨startä½ç½®ä¹‹å‰æ’å…¥,å°±åƒåœ¨vimä¸­æŒ‰iä¸€æ ·
+*        å¦‚æœstartå°äº0åˆ™è‡ªåŠ¨æ­£åˆ™åˆ°0,å¦‚æœstartè¶…è¿‡strï¼Œå°†ä¼šåœ¨å°¾éƒ¨å¢åŠ ï¼Œç›¸å½“äºPCStringAppend
 */
 void PCStringInsert(PCString *str, const PCString *sub, int start);
+
+/* 
+* åœ¨PCStringä¸­ä»å¤´å¼€å§‹æ‰¾char, å¦‚æœæ‰¾åˆ°åˆ™è¿”å›å…¶å¯¹åº”çš„index,å¦åˆ™è¿”å›-1
+*
+*/
+int PCStringFindChar(PCString *str, const char ch, int from);
+
+/* 
+* åœ¨ PCStringä¸­ä»å°¾å¼€å§‹æ‰¾char, å¦‚æœæ‰¾åˆ°åˆ™è¿”å›å…¶å¯¹åº”çš„index,å¦åˆ™è¿”å›-1
+*
+*/
+int PCStringFindLastChar(PCString *str, const char ch, int from);
+
+/* 
+* å°†strä¸­æ‰€æœ‰çš„chå­—ç¬¦éƒ½æ›¿æ¢ä¸ºsub 
+*
+*/
+void PCStringReplace(PCString *str, const char ch, const PCString *sub);
+
+void PCStringReplace2(PCString *str, const char ch, char *sub);
