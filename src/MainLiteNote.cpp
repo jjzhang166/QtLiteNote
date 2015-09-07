@@ -66,16 +66,21 @@ void TestString()
     return;
 }
 
+// Horizontal Rules
+// Hard Line Breaks
+// End a line with two or more
+// 123
+// 65
 
 int main(int argc, char **argv)
 {
 
-   //return ShowLiteNote(argc, argv);
+   return ShowLiteNote(argc, argv);
     //TestString();
     //TestString2();
     
 
-    _CrtDumpMemoryLeaks();
+    //_CrtDumpMemoryLeaks();
 
     return 0;
 }

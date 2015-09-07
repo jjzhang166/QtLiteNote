@@ -96,6 +96,15 @@ void GetHead(char *str, int *level, int *textStart)
     *textStart = len;
 }
 
+void ConvertHtmlTag(PCString *str)
+{
+    PCStringReplace2(str, '&', "&amp;");
+    PCStringReplace2(str, '<', "&lt;");
+    PCStringReplace2(str, '>', "&gt;");
+    PCStringReplace2(str, '"', "&quot;");
+    PCStringReplace2(str, '\'', "&qpos;");
+}
+
 PCString* ConvertHead(PCString *line)
 {
     int level = 0, textStart = 0;
@@ -106,15 +115,16 @@ PCString* ConvertHead(PCString *line)
         sprintf(s1, "<h%d>", level);
         sprintf(s2, "</h%d><p/>", level);
 
-        PCString *r = PCStringNewFromPChar(s1, 0);
+        PCString *result = PCStringNewFromPChar(s1, 0);
         PCString *text = PCStringSub(line, textStart, -1);
+        ConvertHtmlTag(text);
         PCString *p2 = PCStringNewFromPChar(s2, 0);
-        PCStringAppend(r, text);
-        PCStringAppend(r, p2);
+        PCStringAppend(result, text);
+        PCStringAppend(result, p2);
         
         PCStringFree(&text);
         PCStringFree(&p2);
-        return r;
+        return result;
     }
     return PCStringClone(line);
 }
@@ -200,14 +210,16 @@ PCString* ConvertLi(PCString *line)
         PCString *r = PCStringNewFromPChar("<li></li>", 0);
         return r;
     }
-    PCString *t = PCStringSub(line, start_index, -1);
-    PCString *r = PCStringNewFromPChar("<li>", 0);
-    PCStringAppend(r, t);
-    PCStringAppend(r, tag_li2);
-    PCStringFree(&tag_li2);
-    PCStringFree(&t);
+    PCString *text = PCStringSub(line, start_index, -1);
+    ConvertHtmlTag(text);
 
-    return r;
+    PCString *result = PCStringNewFromPChar("<li>", 0);
+    PCStringAppend(result, text);
+    PCStringAppend(result, tag_li2);
+    PCStringFree(&tag_li2);
+    PCStringFree(&text);
+
+    return result;
 }
 
 void ConvertNormal(PCString *line, int &section, PCString *result)
@@ -282,8 +294,12 @@ char* ConvertMarkdown(char **strs, int count)
                 section = 0;
                 PCStringAppend(result, tag_code2);
             } else {
-                PCStringAppend(result, line);
+                PCString *text = PCStringClone(line);
+                ConvertHtmlTag(text);
+                PCStringAppend(result, text);
                 PCStringAppend(result, tag_br);
+
+                PCStringFree(&text);
             }
 
         } else if (section == 2) { //ol

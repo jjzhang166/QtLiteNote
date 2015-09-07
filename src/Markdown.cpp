@@ -6,7 +6,7 @@
 char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "<style type=\"text/css\">"
 "body{background-color:#c7edcc; color: #444444; "
-"line-height: 1; padding: 1px; word-wrap: break-word; font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; } "
+"line-height: 1; padding: 1px; word-wrap: break-word; font-family: Courier New; } "
 "p { "
 "font-size: 14px; line-height: 25px;"
 "margin-top: 3px;margin-bottom:3px; }"
@@ -57,7 +57,7 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
     "border-radius: 3px;"
 "}"
 "code {"
-    "font-family: DejaVu Sans Mono, \5FAE\8F6F\96C5\9ED1;"
+    "font-family: Courier New;"
     "line-height: 1.5;"
     "font-size: 13px;"
     "background-color: #EBFFE1;"
@@ -71,7 +71,11 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
 "<body><p/>\n"
 ;
 
-//DejaVu Sans Mono, 
+// DejaVu Sans Mono, 
+// Courier New
+
+// 中国人的
+// 1122iiMM
 
 /*int GetHead(QString &str)
 {
@@ -204,7 +208,7 @@ void MarkdownThread::run()
             free(strs);
             
             //emit ConvertEnd(ConvertToMarkdown(md));
-            WriteMdToHtml(q, QString::fromUtf8("D:\\z_qt.html"));
+            //WriteMdToHtml(q, QString::fromUtf8("D:\\z_qt.html"));
             emit ConvertEnd(q);
         }
         QThread::msleep(20);

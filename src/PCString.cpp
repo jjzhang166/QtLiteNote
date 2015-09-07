@@ -238,3 +238,11 @@ void PCStringReplace(PCString *str, const char ch, const PCString *sub)
         }
     }
 }
+
+void PCStringReplace2(PCString *str, const char ch, char *sub)
+{
+    PCString *s2 = PCStringNewFromPChar(sub, 0);
+    PCStringReplace(str, ch, s2);
+
+    PCStringFree(&s2);
+}

@@ -106,3 +106,5 @@ int PCStringFindLastChar(PCString *str, const char ch, int from);
 *
 */
 void PCStringReplace(PCString *str, const char ch, const PCString *sub);
+
+void PCStringReplace2(PCString *str, const char ch, char *sub);
