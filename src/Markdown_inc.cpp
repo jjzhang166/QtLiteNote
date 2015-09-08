@@ -61,7 +61,7 @@ void InitTag()
 {
     tag_br = PCStringNewFromPChar("<br/>", 0);
     tag_p = PCStringNewFromPChar("<p/>", 0);
-    tag_tab = PCStringNewFromPChar("&emsp;&emsp;&emsp;&emsp;", 0);
+    tag_tab = PCStringNewFromPChar("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;", 0);
     tag_ol1 = PCStringNewFromPChar("<ol>", 0);
     tag_ol2 = PCStringNewFromPChar("</ol><p/>", 0);
     tag_ul1 = PCStringNewFromPChar("<ul>", 0);
@@ -363,6 +363,7 @@ char* ConvertMarkdown(char **strs, int count)
                 PCStringFree(&r);
             } else if (IsTab(line)) {
                 PCString *r = PCStringSub(line, 1, -1);
+                PCStringAppend(result, tag_tab);
                 PCStringAppend(result, r);
                 PCStringAppend(result, tag_br);
                 PCStringFree(&r);
