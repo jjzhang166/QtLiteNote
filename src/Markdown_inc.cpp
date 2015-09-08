@@ -61,7 +61,7 @@ void InitTag()
 {
     tag_br = PCStringNewFromPChar("<br/>", 0);
     tag_p = PCStringNewFromPChar("<p/>", 0);
-    tag_tab = PCStringNewFromPChar("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;", 0);
+    tag_tab = PCStringNewFromPChar("&emsp;&emsp;&emsp;&emsp;", 0);
     tag_ol1 = PCStringNewFromPChar("<ol>", 0);
     tag_ol2 = PCStringNewFromPChar("</ol><p/>", 0);
     tag_ul1 = PCStringNewFromPChar("<ul>", 0);
@@ -215,13 +215,19 @@ int IsTab(PCString *line)
     if (line->len <= 1) {
         return 0;
     }
+    
+    if (line->text[0] == '\t') {
+        return 1;
+    }
+    return 0;
+}
+
+int Is4Black(PCString *line)
+{
     if (line->len >= 5) {
         if (line->text[0] == ' ' && line->text[1] == ' ' && line->text[2] == ' ' && line->text[3] == ' ') {
             return 1;
         }
-    }
-    if (line->text[0] == '\t') {
-        return 1;
     }
     return 0;
 }
@@ -351,6 +357,9 @@ char* ConvertMarkdown(char **strs, int count)
                 PCStringAppend(result, r);
                 PCStringAppend(result, tag_br);
                 PCStringFree(&r);
+            } else if (Is4Black(line)) {
+                PCStringAppend(result, line);
+                PCStringAppend(result, tag_br);
             }
             else {
                 PCStringAppend(result, tag_ol2);
