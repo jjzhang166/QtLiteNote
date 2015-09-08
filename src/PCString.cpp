@@ -231,7 +231,7 @@ void PCStringReplace(PCString *str, const char ch, const PCString *sub)
         }
         PCStringRemove(str, index, 1);
         PCStringInsert(str, sub, index);
-        i += sub->len;
+        i = index + sub->len;
 
         if (i >= str->len) {
             return;
