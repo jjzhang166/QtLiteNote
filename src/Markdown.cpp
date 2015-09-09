@@ -132,7 +132,7 @@ QString ConvertToMarkdown(const QVector<QString> &ls)
         s.replace('<', "&lt;");
         s.replace('>', "&gt;");
         s.replace('"', "&quot;");
-        s.replace('\'', "&qpos;");
+        s.replace('\'', "&qpos;"); // 单引号不需要替换
 
         if (s[0] == '#') {
             ConvertHead(s);

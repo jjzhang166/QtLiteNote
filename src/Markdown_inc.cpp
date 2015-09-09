@@ -134,7 +134,7 @@ void ConvertHtmlTag(PCString *str)
     PCStringReplace2(str, '<', "&lt;");
     PCStringReplace2(str, '>', "&gt;");
     PCStringReplace2(str, '"', "&quot;");
-    PCStringReplace2(str, '\'', "&qpos;");
+    //PCStringReplace2(str, '\'', "&qpos;"); //单引号不需要替换
 }
 
 PCString* ConvertHead(PCString *line)

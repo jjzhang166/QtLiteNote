@@ -66,6 +66,7 @@ void TestString()
     return;
 }
 
+void ConvertHtmlTag(PCString *str);
 // Horizontal Rules
 // Hard Line Breaks
 // End a line with two or more
@@ -74,6 +75,8 @@ void TestString()
 
 int main(int argc, char **argv)
 {
+    //PCString *str = PCStringNewFromPChar("'xbc'", 0);
+    //ConvertHtmlTag(str);
 
    return ShowLiteNote(argc, argv);
     //TestString();
