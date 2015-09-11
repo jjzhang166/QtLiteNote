@@ -10,26 +10,16 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
 "p { "
 "font-size: 14px; line-height: 25px;"
 "margin-top: 3px;margin-bottom:3px; }"
-"ul, ol {"
-"padding: 0;"
-"margin: 0;"
-"}"
-"li {"
-    "line-height: 24px;"
-    "margin-left: 44px;"
-"}"
-"li ul, li ul {"
-    "margin-left: 24px;"
-"}"
-"ul, ol {"
-    "font-size: 14px;"
-    "line-height: 20px;"
-    "max-width: 100%"
-"}"
 "h1 {"
 "font-size: 28px;"
 "line-height: 35px;"
 "border-bottom: 1px solid;"
+"}"
+"ul, ol {"
+"font-size: 13px;"
+"line-height: 18px;"
+"max-width: 100%"
+"margin-left:30px;"
 "}"
 "h2 {"
 "font-size: 22px;"
@@ -208,7 +198,7 @@ void MarkdownThread::run()
             free(strs);
             
             //emit ConvertEnd(ConvertToMarkdown(md));
-            //WriteMdToHtml(q, QString::fromUtf8("D:\\z_qt.html"));
+            WriteMdToHtml(q, QString::fromUtf8("D:\\z_qt.html"));
             emit ConvertEnd(q);
         }
         QThread::msleep(20);

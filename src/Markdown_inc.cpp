@@ -346,7 +346,7 @@ char* ConvertMarkdown(char **strs, int count)
                 PCStringFree(&text);
             }
 
-        } else if (section == 2) { //ol
+        } else if (section == 2) { //ol,有序
             if (IsOl(line)) {
                 PCString *r = ConvertLi(line);
                 PCStringAppend(result, r);
@@ -365,7 +365,7 @@ char* ConvertMarkdown(char **strs, int count)
                 PCStringAppend(result, tag_ol2);
                 ConvertNormal(line, &section, result);
             }
-        } else if (section == 3) { //ul
+        } else if (section == 3) { //ul,无序
             if (IsUl(line)) {
                 PCString *r = ConvertLi(line);
                 PCStringAppend(result, r);
@@ -376,6 +376,9 @@ char* ConvertMarkdown(char **strs, int count)
                 PCStringAppend(result, r);
                 PCStringAppend(result, tag_br);
                 PCStringFree(&r);
+            }  else if (Is4Black(line)) {
+                PCStringAppend(result, line);
+                PCStringAppend(result, tag_br);
             }
             else {
                 PCStringAppend(result, tag_ul2);
