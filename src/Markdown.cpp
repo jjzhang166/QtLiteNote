@@ -10,16 +10,16 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
 "p { "
 "font-size: 14px; line-height: 25px;"
 "margin-top: 3px;margin-bottom:3px; }"
+"ul, ol {"
+"font-size: 14px;"
+"line-height: 22px;"
+"max-width: 100%"
+"margin-left:30px;"
+"}"
 "h1 {"
 "font-size: 28px;"
 "line-height: 35px;"
 "border-bottom: 1px solid;"
-"}"
-"ul, ol {"
-"font-size: 13px;"
-"line-height: 18px;"
-"max-width: 100%"
-"margin-left:30px;"
 "}"
 "h2 {"
 "font-size: 22px;"
@@ -60,6 +60,12 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
 "</head>"
 "<body><p/>\n"
 ;
+
+/*char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
+"</head>"
+"<body><p/>\n"
+;*/
+
 
 // DejaVu Sans Mono, 
 // Courier New
