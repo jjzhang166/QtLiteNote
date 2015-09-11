@@ -3,21 +3,22 @@
 #include <stdio.h>
 
 //想要在网页中显示中文，得在head头中指定utf-8
+//Courier New,
+// QWebView不支持指定同时指定英文字体和中文字体，只看指定的第一种字体，所以为了妥协就全部用微软雅黑吧,code中使用Courier New
 char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "<style type=\"text/css\">"
 "body{background-color:#c7edcc; color: #444444; "
-"line-height: 1; padding: 1px; word-wrap: break-word; font-family: Courier New; } "
+"line-height: 1; padding: 1px; word-wrap: break-word; font-family:  \\5FAE\\8F6F\\96C5\\9ED1; } "
 "p { "
-"font-size: 14px; line-height: 25px;"
+"font-size: 16px; line-height: 27px;"
 "margin-top: 3px;margin-bottom:3px; }"
 "ul, ol {"
-"font-size: 14px;"
-"line-height: 22px;"
+"line-height: 24px;"
 "max-width: 100%"
 "margin-left:30px;"
 "}"
 "h1 {"
-"font-size: 28px;"
+"font-size: 24px;"
 "line-height: 35px;"
 "border-bottom: 1px solid;"
 "}"
@@ -27,7 +28,7 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
 "color:#2F517B"
 "}"
 "h3 {"
-"font-size: 21px;"
+"font-size: 20px;"
 "text-decoration: underline;"
 "}"
 "h4 {"

@@ -75,6 +75,11 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     connect(m_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
 
     m_webview = new QWebView(this);
+    //QFont font;
+    //font.setFamily("微软雅黑");
+    //m_webview->setFont(font);
+    //m_webview->settings()->setFontFamily(QWebSettings::StandardFont, QString::fromUtf8("微软雅黑"));
+    //m_webview->settings()->globalSettings()->setFontFamily(QWebSettings::SerifFont, "微软雅黑");
 
     m_split = new QSplitter(Qt::Horizontal);
     m_split->addWidget(m_tree);
@@ -609,11 +614,10 @@ void QLiteNoteWindow::ConvertEnd(const QString &html)
     m_webview->setContent(html.toUtf8());
 
     //WriteMdToHtml(html, "temp.html");
-
     //QUrl u("temp.html");
     //m_webview->setUrl(u);
 
-    //QUrl u("http://www.cnblogs.com/xiangism");
+    //QUrl u("http://www.12306.cn/mormhweb/");
     //m_webview->setUrl(u);
 }
 
