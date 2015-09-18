@@ -3,20 +3,38 @@
 #include "qtextcodec.h"
 #include "qstring.h"
 #include "qfile.h"
+#include "qdir.h"
 #include "qtextstream.h"
 #include "PCString.h"
 #include <stdio.h>
+
+
+#import <Foundation/Foundation.h>
+
+char *GetNowPath();
+char *GetNowPath()
+{
+    NSString *str = [NSString stringWithFormat:@"xiangism"];
+    
+    const char *s = [str cStringUsingEncoding:NSUTF8StringEncoding];
+    char *ch = (char*)malloc(strlen(s)+1);
+    strcpy(ch, s);
+    return ch;
+}
 
 int ShowLiteNote(int argc, char **argv)
 {
     //printf("argv\n");
 
-    QString str(argv[0]);
-
+//    QString str(argv[0]);
     // 下面的正则实际上是[\\\/]
     // 因为 \ / 是特殊字符，所以要转义
-    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
-    str = str.mid(0, index);
+//    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
+//    str = str.mid(0, index);
+    QDir dir;
+    QString str = dir.currentPath();
+    char *ch = GetNowPath();
+    
 
     printf("%s\n", str.toLocal8Bit().data());
 
