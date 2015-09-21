@@ -660,7 +660,7 @@ void QLiteNoteWindow::EditNote(const QString &path)
     //QFileInfo f(path);
     //printf("EditNote: %s\n", path.toLocal8Bit().data());
     //QDesktopServices::openUrl(QUrl(path.toUtf8()));
-
+    
     QFileInfo f(path);
 
     if (f.isFile()) {

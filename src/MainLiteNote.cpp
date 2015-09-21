@@ -26,14 +26,30 @@ int ShowLiteNote(int argc, char **argv)
 {
     //printf("argv\n");
 
-//    QString str(argv[0]);
+    QString str(argv[0]);
+#if defined(Q_OS_WIN32)
     // 下面的正则实际上是[\\\/]
     // 因为 \ / 是特殊字符，所以要转义
-//    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
-//    str = str.mid(0, index);
-    QDir dir;
-    QString str = dir.currentPath();
-    char *ch = GetNowPath();
+    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
+    str = str.mid(0, index);
+#elif defined(Q_OS_LINUX)
+    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
+    str = str.mid(0, index);
+    
+#elif defined(Q_OS_MAC)
+    int count = 0;
+    for (int i = str.length()-1; i >= 0; --i) {
+        if (str[i] == '/') {
+            ++count;
+        }
+        if (count == 4) {
+            str = str.mid(0, i);
+            break;
+        }
+    }
+    
+#endif
+    
     
 
     printf("%s\n", str.toLocal8Bit().data());
