@@ -13,17 +13,6 @@
 #import <Foundation/Foundation.h>
 #endif
 
-char *GetNowPath();
-char *GetNowPath()
-{
-    NSString *str = [NSString stringWithFormat:@"xiangism"];
-    
-    const char *s = [str cStringUsingEncoding:NSUTF8StringEncoding];
-    char *ch = (char*)malloc(strlen(s)+1);
-    strcpy(ch, s);
-    return ch;
-}
-
 int ShowLiteNote(int argc, char **argv)
 {
     //printf("argv\n");
@@ -110,6 +99,12 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
+    QString str("MacLiteNote.app");
+    if (str.endsWith(".app")) {
+        int i = 3;
+    } else {
+        int i = 3;
+    }
     //PCString *str = PCStringNewFromPChar("'xbc'", 0);
     //ConvertHtmlTag(str);
 

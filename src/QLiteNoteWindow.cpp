@@ -258,7 +258,7 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
 
     for (int i = 2; i < fs.size(); ++i) {
         QString s = fs.at(i);
-        if (s.toLower() == "trash") {
+        if (s.toLower() == "trash" || s.endsWith(".app")) {
             continue;
         }
         QString full_path = path + QDir::separator() + s;
@@ -288,7 +288,6 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
     ClearNode(item);
     //RefreshNode(item, path, true);
 
-
     QDir dir(path);
     QStringList filters;
     QStringList dirs = dir.entryList(filters, QDir::Dirs);
@@ -296,14 +295,15 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
     std::list<QString> t1 = dirs.toStdList();
 
     filters.push_back("*.txt");
-    //filters.push_back("*.html");
 
     QStringList files = dir.entryList(filters, QDir::Files);
 
     for (int i = 2; i < dirs.size(); ++i) {
-        QString ss = path+QDir::separator()+dirs[i];
+        QString &dir = dirs[i];
+      
+        QString ss = path+QDir::separator()+dir;
         QStringList name;
-        name.push_back(dirs[i]);
+        name.push_back(dir);
 
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, m_dir_icon);
