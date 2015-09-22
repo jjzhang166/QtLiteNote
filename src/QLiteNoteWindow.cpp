@@ -6,7 +6,6 @@
 #include "QFileEx.h"
 
 #if defined(Q_OS_WIN32)
-
 #include <windows.h>
 int ShellExecute(const char* path)
 {
@@ -19,6 +18,8 @@ int ShellExecute(const char* path)
     ::ShellExecuteExA(&info);
     return 0;
 }
+#elif defined(Q_OS_MAC)
+#import <Foundation/Foundation.h>
 #endif
 
 
@@ -718,9 +719,17 @@ void QLiteNoteWindow::OpenExplorer()
         system(str);
         
 #elif defined(Q_OS_MAC)
-        char str[1024];
-        sprintf(str, "%s \"%s\"", "open ", f.absoluteDir().path().toLocal8Bit().data());
-        system(str);
+        QString p = f.absoluteFilePath();
+        char *pp = p.toLocal8Bit().data();
+//        char str[1024];
+//        sprintf(str, <#const char *, ...#>)
+//        NSString *path = [NSString stringWithFormat:@"%s", f.absoluteFilePath().toLocal8Bit().data()];
+        NSString *path = [NSString stringWithUTF8String:pp];
+//        sprintf(str, "%s \"%s\"", "open ", f.absoluteDir().path().toLocal8Bit().data());
+//        system(str);
+        NSMutableArray *urls = [[NSMutableArray alloc]init];
+        [urls addObject:[NSURL fileURLWithPath:path]];
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:urls];
 #endif
         //QUrl url = QUrl::fromEncoded(ss.toUtf8());
         //QDesktopServices::openUrl(url);

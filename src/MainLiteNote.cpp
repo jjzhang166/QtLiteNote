@@ -9,7 +9,9 @@
 #include <stdio.h>
 
 
+#if defined(Q_OS_MAC)
 #import <Foundation/Foundation.h>
+#endif
 
 char *GetNowPath();
 char *GetNowPath()
@@ -37,6 +39,7 @@ int ShowLiteNote(int argc, char **argv)
     str = str.mid(0, index);
     
 #elif defined(Q_OS_MAC)
+    // 在mac中得用.app文件夹封装最后的可执行文件，所有实际的当前路径应该往上返回3层
     int count = 0;
     for (int i = str.length()-1; i >= 0; --i) {
         if (str[i] == '/') {
@@ -49,8 +52,6 @@ int ShowLiteNote(int argc, char **argv)
     }
     
 #endif
-    
-    
 
     printf("%s\n", str.toLocal8Bit().data());
 
@@ -86,12 +87,12 @@ void TestString()
         
         QByteArray arr = ss[i].toUtf8();
         char *p = arr.data();
-        int len = strlen(p);
+        size_t len = strlen(p);
         char *str = new char[len+1];
         strcpy(str, p);
         strs[i] = str;
     }
-    char *p = strs[ss.size()-1];
+//    char *p = strs[ss.size()-1];
     char *r = ConvertMarkdown(strs, ss.size());
 
     QString md = QString::fromUtf8(r);
