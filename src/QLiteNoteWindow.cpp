@@ -417,8 +417,10 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
         if (info.isFile()) {
             new_path = info.absolutePath() + QDir::separator() + name + ".txt";
         } else {
-            new_path = info.absolutePath();
+            new_path = info.absolutePath() + QDir::separator() + name;
         }
+        QByteArray a1 = old_path.toUtf8();
+        QByteArray a2 = new_path.toUtf8();
 
         QDir d("");
         if (!d.rename(old_path, new_path)) {
@@ -722,7 +724,7 @@ void QLiteNoteWindow::OpenExplorer()
         QString p = f.absoluteFilePath();
         char *pp = p.toLocal8Bit().data();
 //        char str[1024];
-//        sprintf(str, <#const char *, ...#>)
+//        sprintf(str, const char *, ...)
 //        NSString *path = [NSString stringWithFormat:@"%s", f.absoluteFilePath().toLocal8Bit().data()];
         NSString *path = [NSString stringWithUTF8String:pp];
 //        sprintf(str, "%s \"%s\"", "open ", f.absoluteDir().path().toLocal8Bit().data());

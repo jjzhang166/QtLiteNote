@@ -39,6 +39,7 @@ int ShowLiteNote(int argc, char **argv)
             break;
         }
     }
+//    str = QString::fromUtf8("/Users/xiangism/LiteNote/txtNote");
     
 #endif
 
@@ -99,12 +100,12 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
-    QString str("MacLiteNote.app");
+    /*QString str("MacLiteNote.app");
     if (str.endsWith(".app")) {
         int i = 3;
     } else {
         int i = 3;
-    }
+    }*/
     //PCString *str = PCStringNewFromPChar("'xbc'", 0);
     //ConvertHtmlTag(str);
 
