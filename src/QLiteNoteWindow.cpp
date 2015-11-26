@@ -1,5 +1,6 @@
-#include "QtGui"
-#include "QtWebKit"
+#include <QtWebKit/QtWebkit>
+#include <QtWidgets/qaction.h>
+#include <QtWidgets/QtWidgets>
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
 #include "Markdown.h"
@@ -20,6 +21,7 @@ int ShellExecute(const char* path)
 }
 #elif defined(Q_OS_MAC)
 #import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 #endif
 
 
@@ -627,6 +629,7 @@ void QLiteNoteWindow::ConvertEnd(const QString &html)
 void QLiteNoteWindow::WebBlack()
 {
     m_webview->setContent("<html><body> </body></html>");
+    
 }
 
 void QLiteNoteWindow::ShowNote()

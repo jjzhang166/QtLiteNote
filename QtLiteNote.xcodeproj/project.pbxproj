@@ -16,13 +16,14 @@
 		0454991B1B53A16D00202CE9 /* QLiteNoteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499151B53A16D00202CE9 /* QLiteNoteWindow.cpp */; };
 		0454991C1B53A16D00202CE9 /* QTreeWidgetEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499161B53A16D00202CE9 /* QTreeWidgetEx.cpp */; };
 		0454991D1B53A16D00202CE9 /* ras_ras.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499171B53A16D00202CE9 /* ras_ras.cpp */; };
-		04B767051B4E76AD006B9641 /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767041B4E76AD006B9641 /* QtCore.framework */; };
-		04B767071B4E76B3006B9641 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767061B4E76B3006B9641 /* QtGui.framework */; };
-		04B767091B4E77D0006B9641 /* QtWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B767081B4E77D0006B9641 /* QtWebKit.framework */; };
 		04BA3D3A1BB1040C003152ED /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA3D391BB1040C003152ED /* AppKit.framework */; };
 		04D823B61B9D6A1D00761017 /* Markdown_inc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */; };
 		04D823B91B9D6A2A00761017 /* PCString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B71B9D6A2A00761017 /* PCString.cpp */; };
 		04F9CF751BAC17B700CA1BEE /* MacWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9CF741BAC17B700CA1BEE /* MacWrap.m */; };
+		722DF69E1C046DFC00893A22 /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722DF6981C046BE900893A22 /* QtCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		722DF69F1C046E1D00893A22 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722DF69A1C046BF700893A22 /* QtGui.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		722DF6A31C046FA300893A22 /* QtWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722DF6A11C046F5000893A22 /* QtWidgets.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		723B02E61C06E516003DFD61 /* QtWebKitWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -38,13 +39,14 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		04B766E71B4E7641006B9641 /* CopyFiles */ = {
+		04B766E71B4E7641006B9641 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -65,14 +67,15 @@
 		045499161B53A16D00202CE9 /* QTreeWidgetEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QTreeWidgetEx.cpp; path = src/QTreeWidgetEx.cpp; sourceTree = SOURCE_ROOT; };
 		045499171B53A16D00202CE9 /* ras_ras.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ras_ras.cpp; path = src/ras_ras.cpp; sourceTree = SOURCE_ROOT; };
 		04B766E91B4E7641006B9641 /* QtLiteNote */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QtLiteNote; sourceTree = BUILT_PRODUCTS_DIR; };
-		04B767041B4E76AD006B9641 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../Library/Frameworks/QtCore.framework; sourceTree = "<group>"; };
-		04B767061B4E76B3006B9641 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../../../Library/Frameworks/QtGui.framework; sourceTree = "<group>"; };
-		04B767081B4E77D0006B9641 /* QtWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKit.framework; path = ../../../../../Library/Frameworks/QtWebKit.framework; sourceTree = "<group>"; };
 		04BA3D391BB1040C003152ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Markdown_inc.cpp; path = src/Markdown_inc.cpp; sourceTree = SOURCE_ROOT; };
 		04D823B71B9D6A2A00761017 /* PCString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCString.cpp; path = src/PCString.cpp; sourceTree = SOURCE_ROOT; };
 		04D823B81B9D6A2A00761017 /* PCString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCString.h; path = src/PCString.h; sourceTree = SOURCE_ROOT; };
 		04F9CF741BAC17B700CA1BEE /* MacWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MacWrap.m; path = src/MacWrap.m; sourceTree = SOURCE_ROOT; };
+		722DF6981C046BE900893A22 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtCore.framework; sourceTree = "<group>"; };
+		722DF69A1C046BF700893A22 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtGui.framework; sourceTree = "<group>"; };
+		722DF6A11C046F5000893A22 /* QtWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWidgets.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtWidgets.framework; sourceTree = "<group>"; };
+		723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKitWidgets.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtWebKitWidgets.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +83,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				723B02E61C06E516003DFD61 /* QtWebKitWidgets.framework in Frameworks */,
+				722DF6A31C046FA300893A22 /* QtWidgets.framework in Frameworks */,
+				722DF69F1C046E1D00893A22 /* QtGui.framework in Frameworks */,
+				722DF69E1C046DFC00893A22 /* QtCore.framework in Frameworks */,
 				04BA3D3A1BB1040C003152ED /* AppKit.framework in Frameworks */,
-				04B767051B4E76AD006B9641 /* QtCore.framework in Frameworks */,
-				04B767091B4E77D0006B9641 /* QtWebKit.framework in Frameworks */,
-				04B767071B4E76B3006B9641 /* QtGui.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,10 +119,11 @@
 		04B766E01B4E7641006B9641 = {
 			isa = PBXGroup;
 			children = (
+				723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */,
+				722DF6A11C046F5000893A22 /* QtWidgets.framework */,
+				722DF69A1C046BF700893A22 /* QtGui.framework */,
+				722DF6981C046BE900893A22 /* QtCore.framework */,
 				04BA3D391BB1040C003152ED /* AppKit.framework */,
-				04B767041B4E76AD006B9641 /* QtCore.framework */,
-				04B767061B4E76B3006B9641 /* QtGui.framework */,
-				04B767081B4E77D0006B9641 /* QtWebKit.framework */,
 				0454991E1B53A2EE00202CE9 /* head */,
 				0454991F1B53A30400202CE9 /* moc */,
 				04B766EA1B4E7641006B9641 /* Products */,
@@ -161,7 +166,7 @@
 			buildPhases = (
 				04B766E51B4E7641006B9641 /* Sources */,
 				04B766E61B4E7641006B9641 /* Frameworks */,
-				04B766E71B4E7641006B9641 /* CopyFiles */,
+				04B766E71B4E7641006B9641 /* Copy Files */,
 			);
 			buildRules = (
 				04C0595E1B6F18F100129B37 /* PBXBuildRule */,
@@ -179,6 +184,9 @@
 		04B766E11B4E7641006B9641 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = xiangism;
 				TargetAttributes = {
@@ -247,6 +255,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -262,11 +271,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACH_O_TYPE = mh_execute;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/work/source/qt-4.8.4/include/QtGui /Users/xiangism/work/source/qt-4.8.4/include /Users/xiangism/work/source/qt-4.8.4/include/QtCore /Users/xiangism/work/source/qt-4.8.4/include/QtWebKit";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -291,6 +302,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -299,11 +311,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACH_O_TYPE = mh_execute;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "/Users/xiangism/work/source/qt-4.8.4/include/QtGui /Users/xiangism/work/source/qt-4.8.4/include /Users/xiangism/work/source/qt-4.8.4/include/QtCore /Users/xiangism/work/source/qt-4.8.4/include/QtWebKit";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -312,9 +326,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
+					/Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/,
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LD_RUNPATH_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -324,9 +340,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
+					/Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/,
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LD_RUNPATH_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

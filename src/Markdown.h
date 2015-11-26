@@ -1,10 +1,10 @@
 #pragma once
 
-#include "qstring.h"
-#include "qthread.h"
-#include "qlist.h"
-#include "qvector.h"
-#include "qmutex.h"
+#include <QtCore/QString>
+#include <QtCore/QThread>
+#include <QtCore/QList>
+#include <QtCore/QVector>
+#include <QtCore/QMutex>
 
 //将纯文本转化为html格式，加入html的首尾部分和css样式
 //QString ConvertToMarkdown(const QString &txt);

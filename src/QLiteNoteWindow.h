@@ -1,5 +1,9 @@
 #pragma once
-#include "QMainWindow"
+#include <QtWidgets/qmainwindow.h>
+#include <QtWidgets/QSplitter>
+#include <QtWebKit/QtWebKit>
+#include <QtWebKitWidgets/QWebView>
+#include <QtGui/QtGui>
 
 class QTreeView;
 class QTreeWidget;

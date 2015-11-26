@@ -1,16 +1,17 @@
-#include "qapplication.h"
+#include <QtWidgets/qapplication.h>
 #include "QLiteNoteWindow.h"
-#include "qtextcodec.h"
-#include "qstring.h"
-#include "qfile.h"
-#include "qdir.h"
-#include "qtextstream.h"
+#include <QtCore/qtextcodec.h>
+#include <QtCore/qstring.h>
+#include <QtCore/qfile.h>
+#include <QtCore/qdir.h>
+#include <QtCore/qtextstream.h>
 #include "PCString.h"
 #include <stdio.h>
 
 
 #if defined(Q_OS_MAC)
 #import <Foundation/Foundation.h>
+//#pragma GCC visibility push(hidden)
 #endif
 
 int ShowLiteNote(int argc, char **argv)
@@ -18,18 +19,18 @@ int ShowLiteNote(int argc, char **argv)
     //printf("argv\n");
 
     QString str(argv[0]);
-#if defined(Q_OS_WIN32)
+//#if defined(Q_OS_WIN32)
     // 下面的正则实际上是[\\\/]
     // 因为 \ / 是特殊字符，所以要转义
     int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
     str = str.mid(0, index);
-#elif defined(Q_OS_LINUX)
-    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
-    str = str.mid(0, index);
+//#elif defined(Q_OS_LINUX)
+//    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
+//    str = str.mid(0, index);
     
-#elif defined(Q_OS_MAC)
+//#elif defined(Q_OS_MAC)
     // 在mac中得用.app文件夹封装最后的可执行文件，所有实际的当前路径应该往上返回3层
-    int count = 0;
+    /*int count = 0;
     for (int i = str.length()-1; i >= 0; --i) {
         if (str[i] == '/') {
             ++count;
@@ -38,16 +39,15 @@ int ShowLiteNote(int argc, char **argv)
             str = str.mid(0, i);
             break;
         }
-    }
-//    str = QString::fromUtf8("/Users/xiangism/LiteNote/txtNote");
+    }*/
     
-#endif
+//#endif
 
     printf("%s\n", str.toLocal8Bit().data());
 
     QTextCodec *c = QTextCodec::codecForName("UTF-8");
-    QTextCodec::setCodecForCStrings(c); //这里的设置是必须的，这样才能设置微软雅黑之类的字体
-    QTextCodec::setCodecForTr(c);
+//    QTextCodec::setCodecForCStrings(c); //这里的设置是必须的，这样才能设置微软雅黑之类的字体
+//    QTextCodec::setCodecForTr(c);
 
     QApplication app(argc, argv);
     QLiteNoteWindow *dlg = new QLiteNoteWindow(str);

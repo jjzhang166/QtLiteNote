@@ -1,16 +1,16 @@
 #pragma once
-#include "qfile.h"
+#include <QtCore/qfile.h>
 
-// src, dst¶¼ÊÇÍêÕûµÄÎÄ¼şÂ·¾¶
-// ±ÈÈç½« src=d:\1.txt ÒÆµ½dst=e:\temp\2.txt
-// Èç¹ûÒÑ¾­´æÔÚÎÄ¼şÔò¸²¸ÇÒÑÓĞÎÄ¼ş
-// dstËùÔÚµÄÎÄ¼ş¼Ğ²»±Ø´æÔÚ
+// src, dstéƒ½æ˜¯å®Œæ•´çš„æ–‡ä»¶è·¯å¾„
+// æ¯”å¦‚å°† src=d:\1.txt ç§»åˆ°dst=e:\temp\2.txt
+// å¦‚æœå·²ç»å­˜åœ¨æ–‡ä»¶åˆ™è¦†ç›–å·²æœ‰æ–‡ä»¶
+// dstæ‰€åœ¨çš„æ–‡ä»¶å¤¹ä¸å¿…å­˜åœ¨
 bool QCopyFile(const QString &src, const QString &dst);
 
-//src_path, dst_path¶¼ÊÇÍêÕûµÄÎÄ¼ş¼ĞÂ·¾¶
-// ±ÈÈç½« src=d:\dir ÒÆµ½ dst=e:\path
-//Èç¹ûÒÑ¾­´æÔÚÎÄ¼ş¼ĞÔòºÏ²¢ÆğÀ´
+//src_path, dst_pathéƒ½æ˜¯å®Œæ•´çš„æ–‡ä»¶å¤¹è·¯å¾„
+// æ¯”å¦‚å°† src=d:\dir ç§»åˆ° dst=e:\path
+//å¦‚æœå·²ç»å­˜åœ¨æ–‡ä»¶å¤¹åˆ™åˆå¹¶èµ·æ¥
 bool QCopyDir(const QString &src_path, const QString &dst_path);
 
-//µİ¹éÉ¾³ıÎÄ¼ş¼Ğ
+//é€’å½’åˆ é™¤æ–‡ä»¶å¤¹
 bool QDeleteDir(const QString &path);

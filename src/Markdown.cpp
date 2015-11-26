@@ -1,5 +1,5 @@
 #include "Markdown.h"
-#include "qdir.h"
+#include <QtCore/qdir.h>
 #include <stdio.h>
 
 //想要在网页中显示中文，得在head头中指定utf-8
@@ -156,13 +156,13 @@ char *ConvertMarkdown(char **strs, int count);
 
 void WriteMdToHtml(const QString &md, const QString &path)
 {
-    FILE *file = fopen(QDir::convertSeparators(path).toLocal8Bit().data(), "w");
+    /*FILE *file = fopen(QDir::convertSeparators(path).toLocal8Bit().data(), "w");
 
     if (file) {
         QByteArray arr = md.toUtf8();
         fwrite(arr.data(), arr.length(), 1, file);
         fclose(file);
-    }
+    }*/
 }
 
 MarkdownThread::MarkdownThread()

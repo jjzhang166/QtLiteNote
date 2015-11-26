@@ -1,6 +1,6 @@
 #pragma once
-#include <qtreewidget.h>
-#include <qdatetime.h>
+#include <QtWidgets/qtreewidget.h>
+#include <QtCore/qdatetime.h>
 
 class QTreeWidgetEx : public QTreeWidget
 {

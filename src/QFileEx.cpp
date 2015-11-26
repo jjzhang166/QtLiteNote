@@ -1,6 +1,6 @@
 #include "QFileEx.h"
-#include "qfileinfo.h"
-#include "QDir"
+#include <QtCore/qfileinfo.h>
+#include <QtCore/QDir>
 
 bool QCopyFile(const QString &src, const QString &dst)
 {
