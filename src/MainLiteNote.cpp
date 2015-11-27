@@ -48,6 +48,7 @@ int ShowLiteNote(int argc, char **argv)
     QTextCodec *c = QTextCodec::codecForName("UTF-8");
 //    QTextCodec::setCodecForCStrings(c); //这里的设置是必须的，这样才能设置微软雅黑之类的字体
 //    QTextCodec::setCodecForTr(c);
+    QTextCodec::setCodecForLocale(c);
 
     QApplication app(argc, argv);
     QLiteNoteWindow *dlg = new QLiteNoteWindow(str);
