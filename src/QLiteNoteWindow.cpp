@@ -118,6 +118,9 @@ QLiteNoteWindow::~QLiteNoteWindow(void)
 void QLiteNoteWindow::closeEvent(QCloseEvent *event)
 {
     WriteSettings();
+    event->ignore();
+//    hide()
+    showMinimized();
 }
 
 void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
