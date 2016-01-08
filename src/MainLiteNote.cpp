@@ -1,13 +1,5 @@
-//#include <QtWidgets/qapplication.h>
 #include "QLiteNoteWindow.h"
-
-
-#include <QtCore/qtextcodec.h>
-#include <QtCore/qstring.h>
-#include <QtCore/qfile.h>
-#include <QtCore/qdir.h>
-#include <QtCore/qtextstream.h>
-#include "Qt/qapplication.h"
+#include "QtHead.h"
 #include "PCString.h"
 #include <stdio.h>
 

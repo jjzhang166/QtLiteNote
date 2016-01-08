@@ -1,13 +1,6 @@
 #pragma once
 
-#if defined(Q_OS_WIN32)
-
-#import <QtCore/QtCore>
-#elif defined(Q_OS_MAC)
-//#include <QtCore/qfile.h>
-//#include <QtCore/qfileinfo.h>
-#include <QtCore/QtCore>
-#endif
+#include "QtHead.h"
 
 
 // src, dst都是完整的文件路径

@@ -1,5 +1,4 @@
 #include "Markdown.h"
-#include <QtCore/qdir.h>
 #include <stdio.h>
 
 //想要在网页中显示中文，得在head头中指定utf-8

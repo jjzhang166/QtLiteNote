@@ -233,6 +233,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\QtHead.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\QTreeWidgetEx.h"
 				>
 			</File>

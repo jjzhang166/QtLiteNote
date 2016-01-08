@@ -1,6 +1,3 @@
-#include <QtWebKit/QtWebkit>
-#include <QtGui/qaction.h>
-#include <QtGui/QtGui>
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
 #include "Markdown.h"
@@ -32,7 +29,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_edit_box(NULL),
     m_webview(NULL),
     m_now_item(NULL),
-    m_tree_font("å¾®è½¯é›…é»‘", 10),
+    m_tree_font("Î¢ÈíÑÅºÚ", 10),
     m_dir_icon(":/ras/dir.png"),
     m_dir_open_icon(":/ras/dir_open.png"),
     m_note_icon(":/ras/note.png"),
@@ -62,10 +59,15 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     CreateMenu();
     CreateStatus();
 
+    //QFont font;
+    //font.setFamily("Î¢ÈíÑÅºÚ");
+
     m_tree = new QTreeWidgetEx(this);
     m_tree->setHeaderHidden(true);
     m_tree->setRootIsDecorated(true);
     m_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
+    //m_tree->setFont(font);
+    //m_tree->setStyleSheet("Î¢ÈíÑÅºÚ");
 
 
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
@@ -79,10 +81,10 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
 
     m_webview = new QWebView(this);
     //QFont font;
-    //font.setFamily("å¾®è½¯é›…é»‘");
+    //font.setFamily("Î¢ÈíÑÅºÚ");
     //m_webview->setFont(font);
-    //m_webview->settings()->setFontFamily(QWebSettings::StandardFont, QString::fromUtf8("å¾®è½¯é›…é»‘"));
-    //m_webview->settings()->globalSettings()->setFontFamily(QWebSettings::SerifFont, "å¾®è½¯é›…é»‘");
+    //m_webview->settings()->setFontFamily(QWebSettings::StandardFont, QString::fromUtf8("Î¢ÈíÑÅºÚ"));
+    //m_webview->settings()->globalSettings()->setFontFamily(QWebSettings::SerifFont, "Î¢ÈíÑÅºÚ");
 
     m_split = new QSplitter(Qt::Horizontal);
     m_split->addWidget(m_tree);
@@ -164,7 +166,7 @@ void QLiteNoteWindow::CreateAction()
     m_exit_action = new QAction(tr("E&xit"), this);
     connect(m_exit_action, SIGNAL(triggered()), this, SLOT(close()));
 
-    m_about_action = new QAction(QString::fromUtf8("å…³äº"), this);
+    m_about_action = new QAction(QString::fromUtf8("¹ØÓÚ"), this);
     m_about_action->setIcon(QIcon(":/ras/app.png"));
     connect(m_about_action, SIGNAL(triggered()), this, SLOT(ShowAbout()));
 
@@ -189,23 +191,23 @@ void QLiteNoteWindow::CreateAction()
     m_open_explorer_action->setIcon(QIcon(":/ras/computer.png"));
     connect(m_open_explorer_action, SIGNAL(triggered()), this, SLOT(OpenExplorer()));
 
-    m_new_root_action = new QAction(tr("æ·»åŠ ç›®å½•"), this);
+    m_new_root_action = new QAction(tr("Ìí¼ÓÄ¿Â¼"), this);
     m_new_root_action->setIcon(m_dir_icon);
     connect(m_new_root_action, SIGNAL(triggered()), this, SLOT(NewRootDir()));
 
-    m_refresh_action = new QAction("å…¨éƒ¨åˆ·æ–°", this);
+    m_refresh_action = new QAction("È«²¿Ë¢ĞÂ", this);
     m_refresh_action->setIcon(QIcon(":/ras/refresh.png"));
     connect(m_refresh_action, SIGNAL(triggered()), this, SLOT(RefreshAll()));
 
-    m_show_tree_action = new QAction("æ˜¾ç¤ºå¯¼èˆª", this);
+    m_show_tree_action = new QAction("ÏÔÊ¾µ¼º½", this);
     m_show_tree_action->setCheckable(true);
     m_show_tree_action->setChecked(true);
     connect(m_show_tree_action, SIGNAL(triggered()), this, SLOT(ShowTreeCheck()));
 
-    m_resume_trash_action = new QAction("æ¢å¤åˆ é™¤æ–‡ä»¶", this);
+    m_resume_trash_action = new QAction("»Ö¸´É¾³ıÎÄ¼ş", this);
     connect(m_resume_trash_action, SIGNAL(triggered()), this, SLOT(ResumeTrash()));
 
-    m_rename_action = new QAction("æ”¹å", this);
+    m_rename_action = new QAction("¸ÄÃû", this);
     m_rename_action->setIcon(QIcon(":/ras/rename.png"));
     connect(m_rename_action, SIGNAL(triggered()), this, SLOT(RenameItem()));
 }
@@ -294,6 +296,7 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
         d->setIcon(0, QIcon(":/ras/dir.png"));
         d->setData(1, 0, full_path);
         d->setFont(0, m_tree_font);
+        QString q = m_tree_font.family();
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
         m_tree->insertTopLevelItem(m_tree->topLevelItemCount(), d);
@@ -374,7 +377,7 @@ void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
 
 void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 {
-    int r = QMessageBox::warning(this, "QtLiteNote", QString::fromUtf8("ç¡®å®šè¦åˆ é™¤å—?"), QMessageBox::Yes|QMessageBox::No);
+    int r = QMessageBox::warning(this, "QtLiteNote", QString::fromUtf8("È·¶¨ÒªÉ¾³ıÂğ?"), QMessageBox::Yes|QMessageBox::No);
 
     if (r == QMessageBox::Yes) {
         QString src = item->data(1, 0).toString();
@@ -386,13 +389,13 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
             QFile::remove(src);
 
         } else if (file.isDir()) {
-            //TODO:åˆ é™¤æ–‡ä»¶å¤¹
+            //TODO:É¾³ıÎÄ¼ş¼Ğ
             QCopyDir(src, m_trash_path);
             QDeleteDir(src);
         }
 
         if (item->parent()) {
-            //é€‰æ‹©åŒçº§èŠ‚ç‚¹,å¦‚æœæ²¡æœ‰åŒçº§èŠ‚ç‚¹åˆ™é€‰æ‹©çˆ¶èŠ‚ç‚¹
+            //Ñ¡ÔñÍ¬¼¶½Úµã,Èç¹ûÃ»ÓĞÍ¬¼¶½ÚµãÔòÑ¡Ôñ¸¸½Úµã
             QTreeWidgetItem *par = item->parent();
             int c = par->childCount();
 
@@ -432,8 +435,8 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 {
     if (item) {
         QString txt = item->data(0, 0).toString();
-        //windowsä¸‹ä¸æ”¯æŒçš„è·¯å¾„å­—ç¬¦ \ / : * ? " < > |
-        //å…¶å®ƒå¹³å°å°±æš‚æ—¶ä¹Ÿä¸ç”¨è¿™äº›å­—ç¬¦
+        //windowsÏÂ²»Ö§³ÖµÄÂ·¾¶×Ö·û \ / : * ? " < > |
+        //ÆäËüÆ½Ì¨¾ÍÔİÊ±Ò²²»ÓÃÕâĞ©×Ö·û
         QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
         QString old_path = item->data(1, 0).toString();
         QFileInfo info(old_path);
@@ -483,7 +486,7 @@ void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
 
 void QLiteNoteWindow::ClearNode(QTreeWidgetItem *node)
 {
-    int c = node->childCount(); //è¿™é‡Œçš„cæ˜¯ä¸ªè‚¯å®šå€¼ï¼Œä¸èƒ½æ”¾åˆ°forå¾ªç¯çš„()ä¸­å»
+    int c = node->childCount(); //ÕâÀïµÄcÊÇ¸ö¿Ï¶¨Öµ£¬²»ÄÜ·Åµ½forÑ­»·µÄ()ÖĞÈ¥
 
     for (int i = 0; i < c; ++i) {
         QTreeWidgetItem *d = node->child(0);
@@ -526,9 +529,9 @@ void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
     if (item) {
         item->setIcon(0, m_dir_open_icon);
 
-        //å°†åŒçº§çš„æ‰€æœ‰èŠ‚ç‚¹éƒ½æ”¶èµ·æ¥
-        //ç”±äºä¸èƒ½ç”¨ç›¸åŒçš„ä»£ç å¤„ç†æ ¹èŠ‚ç‚¹å’Œå­èŠ‚ç‚¹ï¼Œæ‰€ä»¥è¦å…ˆåˆ¤æ–­
-        //æ˜¯ä¸æ˜¯è€ƒè™‘å°†è¿™ä¸ªåŠŸèƒ½ç§»åˆ°QTreeWidgetExç±»ä¸­
+        //½«Í¬¼¶µÄËùÓĞ½Úµã¶¼ÊÕÆğÀ´
+        //ÓÉÓÚ²»ÄÜÓÃÏàÍ¬µÄ´úÂë´¦Àí¸ù½ÚµãºÍ×Ó½Úµã£¬ËùÒÔÒªÏÈÅĞ¶Ï
+        //ÊÇ²»ÊÇ¿¼ÂÇ½«Õâ¸ö¹¦ÄÜÒÆµ½QTreeWidgetExÀàÖĞ
         if (item->parent()) {
 
             for (int i = 0; i < item->parent()->childCount(); ++i) {
@@ -685,7 +688,7 @@ void QLiteNoteWindow::ShowNote()
 
 void QLiteNoteWindow::EditNote(const QString &path)
 {
-    //ç”¨qtçš„QDesktopServicesä¸æ”¯æŒä¸­æ–‡è·¯å¾„ï¼Œå°±ç®—è½¬åŒ–æˆutf8åä¹Ÿä¸è¡Œ
+    //ÓÃqtµÄQDesktopServices²»Ö§³ÖÖĞÎÄÂ·¾¶£¬¾ÍËã×ª»¯³Éutf8ºóÒ²²»ĞĞ
     //QFileInfo f(path);
     //printf("EditNote: %s\n", path.toLocal8Bit().data());
     //QDesktopServices::openUrl(QUrl(path.toUtf8()));
@@ -808,7 +811,7 @@ void QLiteNoteWindow::ShowTreeCheck()
 
 void QLiteNoteWindow::ResumeTrash()
 {
-    //TODO:æ¢å¤åˆ é™¤æ–‡ä»¶
+    //TODO:»Ö¸´É¾³ıÎÄ¼ş
 }
 
 void QLiteNoteWindow::RefreshAll()
@@ -871,8 +874,8 @@ void QLiteNoteWindow::ShowAbout()
     QMessageBox::about(this, tr("About QtLiteNote"),
         QString::fromUtf8("<h2>QtLiteNote 1.0</h2>"
         "<p>CopyRight &copy; 2015 xiangism Inc."
-        "<p>LiteNoteæ˜¯ä¸€æ¬¾åŸºäºMarkdownæ¸²æŸ“,<p>"
-        "   ä»¥ç®€æ´ã€å®ç”¨ä¸ºç›®çš„å¼€æºç¬”è®°è½¯ä»¶~"
+        "<p>LiteNoteÊÇÒ»¿î»ùÓÚMarkdownäÖÈ¾,<p>"
+        "   ÒÔ¼ò½à¡¢ÊµÓÃÎªÄ¿µÄ¿ªÔ´±Ê¼ÇÈí¼ş~"
         "<p><a href=\"http://www.cnblogs.com/xiangism\">cnblogs xiangism</a>"
         ));
 }
