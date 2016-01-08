@@ -7,7 +7,7 @@
 //#include <QtCore/qfile.h>
 //#include <QtCore/qfileinfo.h>
 #include <QtCore/QtCore>
-#end
+#endif
 
 
 // src, dst都是完整的文件路径
