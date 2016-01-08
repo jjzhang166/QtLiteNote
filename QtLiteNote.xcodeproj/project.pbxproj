@@ -119,11 +119,7 @@
 		04B766E01B4E7641006B9641 = {
 			isa = PBXGroup;
 			children = (
-				723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */,
-				722DF6A11C046F5000893A22 /* QtWidgets.framework */,
-				722DF69A1C046BF700893A22 /* QtGui.framework */,
-				722DF6981C046BE900893A22 /* QtCore.framework */,
-				04BA3D391BB1040C003152ED /* AppKit.framework */,
+				720838541C3FB21400B14320 /* Frameworks */,
 				0454991E1B53A2EE00202CE9 /* head */,
 				0454991F1B53A30400202CE9 /* moc */,
 				04B766EA1B4E7641006B9641 /* Products */,
@@ -155,6 +151,18 @@
 			);
 			name = src;
 			path = QtLiteNote;
+			sourceTree = "<group>";
+		};
+		720838541C3FB21400B14320 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */,
+				722DF6A11C046F5000893A22 /* QtWidgets.framework */,
+				722DF69A1C046BF700893A22 /* QtGui.framework */,
+				722DF6981C046BE900893A22 /* QtCore.framework */,
+				04BA3D391BB1040C003152ED /* AppKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

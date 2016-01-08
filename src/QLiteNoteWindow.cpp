@@ -118,14 +118,27 @@ QLiteNoteWindow::~QLiteNoteWindow(void)
 void QLiteNoteWindow::closeEvent(QCloseEvent *event)
 {
     WriteSettings();
-    event->ignore();
-//    hide()
-    showMinimized();
+    //event->ignore();
+    //hide()
+    //showMinimized();
 }
 
 void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
 {
+    //int scan_code = event->nativeScanCode();
+    //printf("keyPress: %d\n", scan_code);
+    
+    /*if (event->matches(Qt::ControlModifier)) {
+    }*/
+    
+    int key = event->key();
+    printf("key: %d\n", key);
+    
     switch (event->key()) {
+        case Qt::ControlModifier:
+            printf("command\n");
+            break;
+            
         case Qt::Key_F5:
             ShowNote();
             m_webview->pageAction(QWebPage::Reload);
@@ -133,6 +146,10 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
 
         case Qt::Key_Delete:
             printf("Win_Delete\n");
+            break;
+            
+        case Qt::Key_Meta:
+            printf("meta\n");
             break;
     }
   
