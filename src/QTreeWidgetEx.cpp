@@ -54,7 +54,7 @@ void QTreeWidgetEx::mousePressEvent(QMouseEvent *event)
     
     if (event->button() == Qt::LeftButton) {
 
-        //Í¨¹ýµ¥»÷À´¸Ä±ä½ÚµãµÄÊÕÕ¹Çé¿ö
+        //é€šè¿‡å•å‡»æ¥æ”¹å˜èŠ‚ç‚¹çš„æ”¶å±•æƒ…å†µ
         if (item->childCount() != 0) {
             if (item->isExpanded()) {
                 item->setExpanded(false);
@@ -97,7 +97,7 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
                 QTreeWidget::keyPressEvent(event);
                 break;
             }
-            //ÕâÀïÃ»ÓÐbreak. return,enter½«»á¼ÌÐøµ½spaceÖÐ
+            //è¿™é‡Œæ²¡æœ‰break. return,enterå°†ä¼šç»§ç»­åˆ°spaceä¸­
         case Qt::Key_Space:
             if (m_now_select_node) {
                 if (m_now_select_node->childCount() != 0) {
