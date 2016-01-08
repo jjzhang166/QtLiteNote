@@ -1,5 +1,7 @@
 //#include <QtWidgets/qapplication.h>
 #include "QLiteNoteWindow.h"
+
+
 #include <QtCore/qtextcodec.h>
 #include <QtCore/qstring.h>
 #include <QtCore/qfile.h>

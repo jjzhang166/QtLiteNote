@@ -1,5 +1,14 @@
 #pragma once
-#include <QtCore/qfile.h>
+
+#if defined(Q_OS_WIN32)
+
+#import <QtCore/QtCore>
+#elif defined(Q_OS_MAC)
+//#include <QtCore/qfile.h>
+//#include <QtCore/qfileinfo.h>
+#include <QtCore/QtCore>
+#end
+
 
 // src, dst都是完整的文件路径
 // 比如将 src=d:\1.txt 移到dst=e:\temp\2.txt

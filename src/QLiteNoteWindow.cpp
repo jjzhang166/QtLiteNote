@@ -118,18 +118,12 @@ QLiteNoteWindow::~QLiteNoteWindow(void)
 void QLiteNoteWindow::closeEvent(QCloseEvent *event)
 {
     WriteSettings();
-<<<<<<< HEAD
-    //event->ignore();
-    //hide()
-    //showMinimized();
-=======
 
 #if defined(Q_OS_MAC)
     event->ignore();
 //    hide()
     showMinimized();
 #endif
->>>>>>> refs/remotes/origin/master
 }
 
 void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)

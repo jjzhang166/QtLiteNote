@@ -20,10 +20,10 @@
 		04D823B61B9D6A1D00761017 /* Markdown_inc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */; };
 		04D823B91B9D6A2A00761017 /* PCString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B71B9D6A2A00761017 /* PCString.cpp */; };
 		04F9CF751BAC17B700CA1BEE /* MacWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9CF741BAC17B700CA1BEE /* MacWrap.m */; };
-		722DF69E1C046DFC00893A22 /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722DF6981C046BE900893A22 /* QtCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		722DF69F1C046E1D00893A22 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722DF69A1C046BF700893A22 /* QtGui.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		722DF6A31C046FA300893A22 /* QtWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722DF6A11C046F5000893A22 /* QtWidgets.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		723B02E61C06E516003DFD61 /* QtWebKitWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		727326281C3FBE5E003A566D /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727326241C3FBE5E003A566D /* QtCore.framework */; };
+		727326291C3FBE5E003A566D /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727326251C3FBE5E003A566D /* QtGui.framework */; };
+		7273262A1C3FBE5E003A566D /* QtWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727326261C3FBE5E003A566D /* QtWebKit.framework */; };
+		7273262B1C3FBE5E003A566D /* QtWebKitWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727326271C3FBE5E003A566D /* QtWebKitWidgets.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -72,10 +72,10 @@
 		04D823B71B9D6A2A00761017 /* PCString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCString.cpp; path = src/PCString.cpp; sourceTree = SOURCE_ROOT; };
 		04D823B81B9D6A2A00761017 /* PCString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCString.h; path = src/PCString.h; sourceTree = SOURCE_ROOT; };
 		04F9CF741BAC17B700CA1BEE /* MacWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MacWrap.m; path = src/MacWrap.m; sourceTree = SOURCE_ROOT; };
-		722DF6981C046BE900893A22 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtCore.framework; sourceTree = "<group>"; };
-		722DF69A1C046BF700893A22 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtGui.framework; sourceTree = "<group>"; };
-		722DF6A11C046F5000893A22 /* QtWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWidgets.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtWidgets.framework; sourceTree = "<group>"; };
-		723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKitWidgets.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtWebKitWidgets.framework; sourceTree = "<group>"; };
+		727326241C3FBE5E003A566D /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../Library/Frameworks/QtCore.framework; sourceTree = "<group>"; };
+		727326251C3FBE5E003A566D /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../../../Library/Frameworks/QtGui.framework; sourceTree = "<group>"; };
+		727326261C3FBE5E003A566D /* QtWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKit.framework; path = ../../../../../Library/Frameworks/QtWebKit.framework; sourceTree = "<group>"; };
+		727326271C3FBE5E003A566D /* QtWebKitWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKitWidgets.framework; path = ../../../../../Library/Frameworks/QtWebKitWidgets.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +83,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				723B02E61C06E516003DFD61 /* QtWebKitWidgets.framework in Frameworks */,
-				722DF6A31C046FA300893A22 /* QtWidgets.framework in Frameworks */,
-				722DF69F1C046E1D00893A22 /* QtGui.framework in Frameworks */,
-				722DF69E1C046DFC00893A22 /* QtCore.framework in Frameworks */,
+				727326281C3FBE5E003A566D /* QtCore.framework in Frameworks */,
+				727326291C3FBE5E003A566D /* QtGui.framework in Frameworks */,
+				7273262A1C3FBE5E003A566D /* QtWebKit.framework in Frameworks */,
+				7273262B1C3FBE5E003A566D /* QtWebKitWidgets.framework in Frameworks */,
 				04BA3D3A1BB1040C003152ED /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,10 +156,10 @@
 		720838541C3FB21400B14320 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				723B02E51C06E516003DFD61 /* QtWebKitWidgets.framework */,
-				722DF6A11C046F5000893A22 /* QtWidgets.framework */,
-				722DF69A1C046BF700893A22 /* QtGui.framework */,
-				722DF6981C046BE900893A22 /* QtCore.framework */,
+				727326241C3FBE5E003A566D /* QtCore.framework */,
+				727326251C3FBE5E003A566D /* QtGui.framework */,
+				727326261C3FBE5E003A566D /* QtWebKit.framework */,
+				727326271C3FBE5E003A566D /* QtWebKitWidgets.framework */,
 				04BA3D391BB1040C003152ED /* AppKit.framework */,
 			);
 			name = Frameworks;
@@ -334,11 +334,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
-					/Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/,
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				LD_RUNPATH_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -348,11 +347,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
-					/Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/,
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				LD_RUNPATH_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
