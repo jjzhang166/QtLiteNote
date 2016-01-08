@@ -1,6 +1,6 @@
 #include <QtWebKit/QtWebkit>
-#include <QtWidgets/qaction.h>
-#include <QtWidgets/QtWidgets>
+#include <QtGui/qaction.h>
+#include <QtGui/QtGui>
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
 #include "Markdown.h"
@@ -118,9 +118,12 @@ QLiteNoteWindow::~QLiteNoteWindow(void)
 void QLiteNoteWindow::closeEvent(QCloseEvent *event)
 {
     WriteSettings();
+
+#if defined(Q_OS_MAC)
     event->ignore();
 //    hide()
     showMinimized();
+#endif
 }
 
 void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)

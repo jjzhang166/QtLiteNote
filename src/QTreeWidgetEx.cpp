@@ -1,5 +1,5 @@
 #include "QTreeWidgetEx.h"
-#include <QtWidgets/qwidget.h>
+#include <QtGui/qwidget.h>
 #include <QtGui/QMouseEvent>
 
 QTreeWidgetEx::QTreeWidgetEx(QWidget *par)
