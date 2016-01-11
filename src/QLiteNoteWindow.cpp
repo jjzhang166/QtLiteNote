@@ -54,7 +54,8 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_help_menu(NULL),
     m_exit_action(NULL),
     m_about_action(NULL),
-    m_thread(NULL)
+    m_thread(NULL),
+    m_is_control_down(false)
 {
     CreateAction();
     CreateMenu();
@@ -123,9 +124,9 @@ void QLiteNoteWindow::closeEvent(QCloseEvent *event)
     WriteSettings();
 
 #if defined(Q_OS_MAC)
-    event->ignore();
+    //event->ignore();
 //    hide()
-    showMinimized();
+    //showMinimized();
 #endif
 }
 
@@ -141,8 +142,9 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
     printf("key: %d\n", key);
     
     switch (event->key()) {
-        case Qt::ControlModifier:
-            printf("command\n");
+        case Qt::Key_Control:
+            //printf("command down\n");
+            m_is_control_down = true;
             break;
             
         //TODO:在mac下还得加入command+r快捷键
@@ -150,6 +152,21 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
             ShowNote();
             m_webview->pageAction(QWebPage::Reload);
             break;
+            
+        case Qt::Key_R:
+            if (m_is_control_down) {
+                ShowNote(); 
+                m_webview->pageAction(QWebPage::Reload);
+            }
+            break;
+            
+#if defined(Q_OS_MAC)
+        case Qt::Key_W:
+            if (m_is_control_down) {
+                showMinimized();
+            }
+            break;
+#endif
 
         case Qt::Key_Delete:
             printf("Win_Delete\n");
@@ -160,6 +177,15 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
             break;
     }
   
+}
+void QLiteNoteWindow::keyReleaseEvent(QKeyEvent *event) 
+{
+    switch (event->key()) {
+        case Qt::Key_Control:
+            //printf("command up\n");
+            m_is_control_down = false;
+            break;
+    }
 }
 
 void QLiteNoteWindow::CreateAction()
