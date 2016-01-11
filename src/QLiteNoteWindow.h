@@ -22,6 +22,7 @@ public:
 protected:
     void closeEvent(QCloseEvent *event);
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 private:
     void CreateAction();
@@ -117,4 +118,6 @@ private:
     QAction *m_about_action;
 
     MarkdownThread *m_thread;
+    
+    bool m_is_control_down;
 };
