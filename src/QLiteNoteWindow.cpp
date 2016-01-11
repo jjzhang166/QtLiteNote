@@ -608,7 +608,13 @@ void QLiteNoteWindow::AddNewNote()
 
         if (info.isDir()) {
             QString new_path = FindNewFileName(path, QString(".txt"));
+
+#if defined(WIN32)
+            std::string gbk = ln::UTF8ToGBK(new_path.toUtf8().data());
+            FILE *file = fopen(gbk.c_str(), "wt");
+#elif defined(MAC)
             FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
+#endif
 
             fclose(file);
 
@@ -698,12 +704,10 @@ void QLiteNoteWindow::EditNote(const QString &path)
     QFileInfo f(path);
 
     if (f.isFile()) {
-#if defined(Q_OS_WIN32)
+#if defined(WIN32)
         QString s = QDir::convertSeparators(path);
-        //s.toStdWString();
         std::string gbk = ln::UTF8ToGBK(s.toUtf8().data());
         
-        //char *p = s.toLocal8Bit().data();
         ShellExecute(gbk.c_str());
 
 #elif defined(Q_OS_LINUX)
