@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteNote", "src\QtLiteNote.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPCString", "TestPCString\TestPCString.vcproj", "{E73C8FC6-4341-4C1F-863E-3A4EB04D79C8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWebImage", "TestWebImage\TestWebImage.vcproj", "{DE096827-0D93-41EF-AD60-B2E91CC1C29D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{E73C8FC6-4341-4C1F-863E-3A4EB04D79C8}.Debug|Win32.Build.0 = Debug|Win32
 		{E73C8FC6-4341-4C1F-863E-3A4EB04D79C8}.Release|Win32.ActiveCfg = Release|Win32
 		{E73C8FC6-4341-4C1F-863E-3A4EB04D79C8}.Release|Win32.Build.0 = Release|Win32
+		{DE096827-0D93-41EF-AD60-B2E91CC1C29D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DE096827-0D93-41EF-AD60-B2E91CC1C29D}.Debug|Win32.Build.0 = Debug|Win32
+		{DE096827-0D93-41EF-AD60-B2E91CC1C29D}.Release|Win32.ActiveCfg = Release|Win32
+		{DE096827-0D93-41EF-AD60-B2E91CC1C29D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
