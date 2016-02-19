@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		721A39481C76BCFB0074B666 /* moc_WebForm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 721A39441C76BCFB0074B666 /* moc_WebForm.cpp */; };
+		721A39491C76BCFB0074B666 /* TestWebImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 721A39451C76BCFB0074B666 /* TestWebImage.cpp */; };
+		721A394A1C76BCFB0074B666 /* WebForm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 721A39461C76BCFB0074B666 /* WebForm.cpp */; };
+		721A394D1C76BD100074B666 /* QtWebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721A394C1C76BD100074B666 /* QtWebKit.framework */; };
+		721A394F1C76BD180074B666 /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721A394E1C76BD180074B666 /* QtCore.framework */; };
+		721A39511C76BD200074B666 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721A39501C76BD200074B666 /* QtGui.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		721A39381C76BCC60074B666 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		721A393A1C76BCC60074B666 /* TestWebImage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestWebImage; sourceTree = BUILT_PRODUCTS_DIR; };
+		721A39441C76BCFB0074B666 /* moc_WebForm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_WebForm.cpp; sourceTree = SOURCE_ROOT; };
+		721A39451C76BCFB0074B666 /* TestWebImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestWebImage.cpp; sourceTree = SOURCE_ROOT; };
+		721A39461C76BCFB0074B666 /* WebForm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebForm.cpp; sourceTree = SOURCE_ROOT; };
+		721A39471C76BCFB0074B666 /* WebForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebForm.h; sourceTree = SOURCE_ROOT; };
+		721A394C1C76BD100074B666 /* QtWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKit.framework; path = ../../../../../../Library/Frameworks/QtWebKit.framework; sourceTree = "<group>"; };
+		721A394E1C76BD180074B666 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../../Library/Frameworks/QtCore.framework; sourceTree = "<group>"; };
+		721A39501C76BD200074B666 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../../../../Library/Frameworks/QtGui.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		721A39371C76BCC60074B666 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				721A394F1C76BD180074B666 /* QtCore.framework in Frameworks */,
+				721A394D1C76BD100074B666 /* QtWebKit.framework in Frameworks */,
+				721A39511C76BD200074B666 /* QtGui.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		721A39311C76BCC60074B666 = {
+			isa = PBXGroup;
+			children = (
+				721A394B1C76BD010074B666 /* Frameworks */,
+				721A393C1C76BCC60074B666 /* TestWebImage */,
+				721A393B1C76BCC60074B666 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		721A393B1C76BCC60074B666 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				721A393A1C76BCC60074B666 /* TestWebImage */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		721A393C1C76BCC60074B666 /* TestWebImage */ = {
+			isa = PBXGroup;
+			children = (
+				721A39441C76BCFB0074B666 /* moc_WebForm.cpp */,
+				721A39451C76BCFB0074B666 /* TestWebImage.cpp */,
+				721A39461C76BCFB0074B666 /* WebForm.cpp */,
+				721A39471C76BCFB0074B666 /* WebForm.h */,
+			);
+			path = TestWebImage;
+			sourceTree = "<group>";
+		};
+		721A394B1C76BD010074B666 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				721A39501C76BD200074B666 /* QtGui.framework */,
+				721A394E1C76BD180074B666 /* QtCore.framework */,
+				721A394C1C76BD100074B666 /* QtWebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		721A39391C76BCC60074B666 /* TestWebImage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 721A39411C76BCC60074B666 /* Build configuration list for PBXNativeTarget "TestWebImage" */;
+			buildPhases = (
+				721A39361C76BCC60074B666 /* Sources */,
+				721A39371C76BCC60074B666 /* Frameworks */,
+				721A39381C76BCC60074B666 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestWebImage;
+			productName = TestWebImage;
+			productReference = 721A393A1C76BCC60074B666 /* TestWebImage */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		721A39321C76BCC60074B666 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = xbc;
+				TargetAttributes = {
+					721A39391C76BCC60074B666 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 721A39351C76BCC60074B666 /* Build configuration list for PBXProject "TestWebImage" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 721A39311C76BCC60074B666;
+			productRefGroup = 721A393B1C76BCC60074B666 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				721A39391C76BCC60074B666 /* TestWebImage */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		721A39361C76BCC60074B666 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				721A39491C76BCFB0074B666 /* TestWebImage.cpp in Sources */,
+				721A394A1C76BCFB0074B666 /* WebForm.cpp in Sources */,
+				721A39481C76BCFB0074B666 /* moc_WebForm.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		721A393F1C76BCC60074B666 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		721A39401C76BCC60074B666 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		721A39421C76BCC60074B666 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		721A39431C76BCC60074B666 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		721A39351C76BCC60074B666 /* Build configuration list for PBXProject "TestWebImage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				721A393F1C76BCC60074B666 /* Debug */,
+				721A39401C76BCC60074B666 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		721A39411C76BCC60074B666 /* Build configuration list for PBXNativeTarget "TestWebImage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				721A39421C76BCC60074B666 /* Debug */,
+				721A39431C76BCC60074B666 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 721A39321C76BCC60074B666 /* Project object */;
+}

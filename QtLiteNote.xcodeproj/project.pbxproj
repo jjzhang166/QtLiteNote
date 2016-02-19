@@ -75,7 +75,6 @@
 		727326241C3FBE5E003A566D /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../../../Library/Frameworks/QtCore.framework; sourceTree = "<group>"; };
 		727326251C3FBE5E003A566D /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../../../Library/Frameworks/QtGui.framework; sourceTree = "<group>"; };
 		727326261C3FBE5E003A566D /* QtWebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKit.framework; path = ../../../../../Library/Frameworks/QtWebKit.framework; sourceTree = "<group>"; };
-		727326271C3FBE5E003A566D /* QtWebKitWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKitWidgets.framework; path = ../../../../../Library/Frameworks/QtWebKitWidgets.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +158,6 @@
 				727326241C3FBE5E003A566D /* QtCore.framework */,
 				727326251C3FBE5E003A566D /* QtGui.framework */,
 				727326261C3FBE5E003A566D /* QtWebKit.framework */,
-				727326271C3FBE5E003A566D /* QtWebKitWidgets.framework */,
 				04BA3D391BB1040C003152ED /* AppKit.framework */,
 			);
 			name = Frameworks;
