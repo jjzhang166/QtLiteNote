@@ -6,7 +6,17 @@
 // QWebView不支持指定同时指定英文字体和中文字体，只看指定的第一种字体，所以为了妥协就全部用微软雅黑吧,code中使用Courier New
 char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "<style type=\"text/css\">"
-"body{"
+
+"body{color: #444444;line-height: 1;padding: 5px;word-wrap: break-word;font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1;}h1, h2, h3, h4 {color: #111111;font-weight:bold;}h1, h2, h3, h4, h5, p {margin-bottom: 16px;padding: 0;} h1 {font-size: 28px;border-bottom: 1px solid;color:#D6615C;}h2 {font-size: 22px;margin: 20px 0 6px;font-weight: bold;color:#2F517B;}h3 {font-size: 18px;font-style:italic;}h4 {font-size: 18px;font-style:italic;}h5 {font-size: 16px;font-style:italic;} a {color: #0099ff;margin: 0;padding: 0;vertical-align: baseline;}a:link,a:visited{text-decoration:none;}a:hover{text-decoration:underline;} p {font-size: 14px;line-height: 20px;margin-top: 3px;}pre {padding: 4px 8px;max-width: 100%white-space: pre-wrap;line-height: 1.5;font-size: 13px;border: 1px solid #ddd;background-color: #f7f7f7;border-radius: 3px;}code {font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1;line-height: 1.5;font-size: 13px;border: 1px solid #ddd;background-color: #f7f7f7;border-radius: 3px;}pre code {border: 0px;}aside {display: block;float: right;width: 100%}blockquote {border-left:.5em solid #40AA53;padding: 0 2em;margin-left:0;max-width: 100%}blockquote cite {font-size:14px;line-height:20px;color:#bfbfbf;}  blockquote p { color: #666;max-width: 100%}hr {height: 1px;border: none;border-top: 1px dashed #0066CC}table {border-spacing: 0;border: 1px solid #ccc;}td, th{border: 1px solid #ccc;padding: 5px;}"
+"ul,ol{line-height:24px; margin-left:5px; font-size:14px;}"
+//ul, ol {padding: 0;margin: 0;} li {line-height: 24px; margin-left: 44px;} li ul, li ul {margin-left: 24px;} ul, ol {font-size: 14px;line-height: 20px;max-width: 100%}
+
+"</style>"
+"</head>"
+"<body><p/>\n"
+;
+
+/* "body{"
     "background-color:#c7edcc; color: #444444; "
     "line-height: 1; padding: 1px; word-wrap: break-word; font-family:  \\5FAE\\8F6F\\96C5\\9ED1; "
 "}"
@@ -61,11 +71,7 @@ char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/h
 "pre code {"
     "border: 1px;"
     "margin-top:0px;"
-"}"
-"</style>"
-"</head>"
-"<body><p/>\n"
-;
+"}" */
 
 /*char *s_head = "<html> <head> <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "</head>"
