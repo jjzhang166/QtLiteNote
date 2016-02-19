@@ -13,7 +13,7 @@ WebForm::WebForm(QWidget *parent)
         "content<p/>"
         //"<img src=\"file://T:\ITKnowledge\baidu.png\">"
         //"<img src=\"http://images0.cnblogs.com/blog2015/51397/201506/131428188327410.png\">"
-        "<img src=\"file:///T:/ITKnowledge/baidu.png\">"
+        "<img src=\"file:///Users/xiangbc/googlelogo_color_272x92dp.png\">"
         "<html/>";
     //m_webview->setUrl(QUrl("http://www.baidu.com"));
     m_webview->setContent(str);
@@ -22,7 +22,6 @@ WebForm::WebForm(QWidget *parent)
     btn->setText("refresh");
     btn->setGeometry(800, 0, 70, 25);
     connect(btn, SIGNAL(pressed()), this, SLOT(clickBtn()));
-    
 }
 
 WebForm::~WebForm(void)

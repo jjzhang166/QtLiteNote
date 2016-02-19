@@ -1,5 +1,6 @@
 #pragma once
-#include <QtGui>
+#include <QtGui/QtGui>
+
 
 class QWebView;
 
