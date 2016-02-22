@@ -24,3 +24,4 @@ lib
 ~*
 *.ini
 *.DS_Store
+*.sdf
