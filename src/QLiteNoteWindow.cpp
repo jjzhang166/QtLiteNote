@@ -731,7 +731,8 @@ void QLiteNoteWindow::EditNote(const QString &path)
 
     if (f.isFile()) {
 #if defined(WIN32)
-        QString s = QDir::convertSeparators(path);
+        //QString s = QDir::convertSeparators(path);
+        QString s = QDir::toNativeSeparators(path);
         std::string gbk = ln::UTF8ToGBK(s.toUtf8().data());
         
         ShellExecute(gbk.c_str());
@@ -777,7 +778,9 @@ void QLiteNoteWindow::OpenExplorer()
 
 #if defined(Q_OS_WIN32)
         QString path = tr("OpenInExplorer.exe ") +f.absoluteFilePath();
-        path = QDir::convertSeparators(path);
+        //path = QDir::convertSeparators(path);
+        path = QDir::toNativeSeparators(path);
+        
         std::string gbk = ln::UTF8ToGBK(path.toUtf8().data());
         system(gbk.c_str());
         

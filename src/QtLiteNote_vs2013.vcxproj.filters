@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="moc">
+      <UniqueIdentifier>{a0340dc6-d20a-498c-9632-4309a8c0cfe9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainLiteNote.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Markdown.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Markdown_inc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PCString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="QFileEx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="QLiteNoteWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="QTreeWidgetEx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ras_ras.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="moc_Markdown.cpp">
+      <Filter>moc</Filter>
+    </ClCompile>
+    <ClCompile Include="moc_QLiteNoteWindow.cpp">
+      <Filter>moc</Filter>
+    </ClCompile>
+    <ClCompile Include="moc_QTreeWidgetEx.cpp">
+      <Filter>moc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PCString.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Markdown.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="QFileEx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="QLiteNoteWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="QtHead.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="QTreeWidgetEx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="QtLiteNote.rc" />
+  </ItemGroup>
+</Project>
