@@ -9,8 +9,10 @@
 
 #elif defined(MAC)
 #import <QtCore/QtCore>
-#import <QtGui/QtGui>
+//#import <QtGui/QtGui>
 #import <QtWebkit/QtWebkit>
+#import <QtWebKitWidgets/QtWebKitWidgets>
+#import <QtWidgets/QtWidgets>
 #endif
 
 //#ifdef Q_OS_WIN32
