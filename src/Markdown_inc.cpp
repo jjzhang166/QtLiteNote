@@ -43,8 +43,8 @@ objective-c 与标准c不兼容的地方
 "<body><p/>"
 ;*/
 
-extern char *s_head;
-static char *s_end = "</body> </html>";
+extern const char *s_head;
+static const char *s_end = "</body> </html>";
 
 
 PCString *tag_br;

@@ -19,7 +19,7 @@ char* PCStrringToPChar(PCString *str)
     return pchar;
 }
 
-PCString* PCStringNewFromPChar(char *ch, int is_shared)
+PCString* PCStringNewFromPChar(const char *ch, int is_shared)
 {
     int len = strlen(ch);
     PCString *str = (PCString*)malloc(sizeof(PCString));
@@ -34,7 +34,7 @@ PCString* PCStringNewFromPChar(char *ch, int is_shared)
 
     } else {
         str->allocated_len = 0;
-        str->text = ch;
+        str->text = (char*)ch;
         str->len = len;
     }
     return str;
@@ -239,7 +239,7 @@ void PCStringReplace(PCString *str, const char ch, const PCString *sub)
     }
 }
 
-void PCStringReplace2(PCString *str, const char ch, char *sub)
+void PCStringReplace2(PCString *str, const char ch, const char *sub)
 {
     PCString *s2 = PCStringNewFromPChar(sub, 0);
     PCStringReplace(str, ch, s2);

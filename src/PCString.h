@@ -30,7 +30,7 @@ char* PCStrringToPChar(PCString *str);
 * @is_shared 如果为true,那么在PCStringFree()时将不会释放text中的内存
 *            如果为false,
 */
-PCString* PCStringNewFromPChar(char *ch, int is_shared);
+PCString* PCStringNewFromPChar(const char *ch, int is_shared);
 
 /* 
 * 尝试增大alloc的容量，如果@size比现有的小，将什么也不会做 
@@ -107,4 +107,4 @@ int PCStringFindLastChar(PCString *str, const char ch, int from);
 */
 void PCStringReplace(PCString *str, const char ch, const PCString *sub);
 
-void PCStringReplace2(PCString *str, const char ch, char *sub);
+void PCStringReplace2(PCString *str, const char ch, const char *sub);

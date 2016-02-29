@@ -25,3 +25,5 @@ lib
 *.ini
 *.DS_Store
 *.sdf
+build*debug
+build*release
