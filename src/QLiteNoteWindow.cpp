@@ -18,8 +18,8 @@ int ShellExecute(const char* path)
     return 0;
 }
 #elif defined(Q_OS_MAC)
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
+//#import <Foundation/Foundation.h>
+//#import <AppKit/AppKit.h>
 #endif
 
 
@@ -640,9 +640,8 @@ void QLiteNoteWindow::AddNewNote()
             FILE *file = fopen(gbk.c_str(), "wt");
 #elif defined(MAC)
             FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
-#endif
 
-            fclose(file);
+#endif
 
             ExpandAndSelectNew(new_path);
         }
@@ -743,15 +742,16 @@ void QLiteNoteWindow::EditNote(const QString &path)
         system(str);
 
 #elif defined(Q_OS_MAC)
-        char str[1024];
+        /*char str[1024];
         sprintf(str, "%s \"%s\"", "open", f.absoluteFilePath().toLocal8Bit().data());
-        system(str);
-        printf("EditNote-xbc: %s\n", str);
-//        QFileInfo f(path);
-//        printf("EditNote: %s\n", f.absoluteFilePath().toLocal8Bit().data());
-//        QDesktopServices::openUrl(QUrl(path.toUtf8()));
-
-#endif 
+        system(str);*/
+        //printf("EditNote-xbc: %s\n", str);
+        //QFileInfo f(path);
+        QUrl u = QUrl::fromLocalFile(path);
+        bool r = QDesktopServices::openUrl(u);
+        printf("EditNote: %s\n", path.data());
+        printf("result: %d\n", r);
+#endif
     }
 }
 
@@ -790,20 +790,20 @@ void QLiteNoteWindow::OpenExplorer()
         system(str);
         
 #elif defined(Q_OS_MAC)
-        QString p = f.absoluteFilePath();
+        /*QString p = f.absoluteFilePath();
         char *pp = p.toLocal8Bit().data();
-//        char str[1024];
-//        sprintf(str, const char *, ...)
-//        NSString *path = [NSString stringWithFormat:@"%s", f.absoluteFilePath().toLocal8Bit().data()];
         NSString *path = [NSString stringWithUTF8String:pp];
-//        sprintf(str, "%s \"%s\"", "open ", f.absoluteDir().path().toLocal8Bit().data());
-//        system(str);
         NSMutableArray *urls = [[NSMutableArray alloc]init];
         [urls addObject:[NSURL fileURLWithPath:path]];
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:urls];
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:urls];*/
+
+        //QUrl url = QUrl::fromEncoded(f.absoluteFilePath().toUtf8());
+        QUrl url = QUrl::fromLocalFile(f.absolutePath());
+        bool r = QDesktopServices::openUrl(url);
+
+        qDebug() << f.absolutePath();
+        qDebug() << r;
 #endif
-        //QUrl url = QUrl::fromEncoded(ss.toUtf8());
-        //QDesktopServices::openUrl(url);
     }
 }
 

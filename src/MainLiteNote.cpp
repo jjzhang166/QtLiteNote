@@ -5,7 +5,7 @@
 
 
 #if defined(Q_OS_MAC)
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
 //#pragma GCC visibility push(hidden)
 #endif
 
@@ -14,7 +14,7 @@ int ShowLiteNote(int argc, char **argv)
     //printf("argv\n");
 
     QString str(argv[0]);
-//#if defined(Q_OS_WIN32)
+#if defined(Q_OS_WIN32)
     // 下面的正则实际上是[\\\/]
     // 因为 \ / 是特殊字符，所以要转义
     int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
@@ -23,9 +23,9 @@ int ShowLiteNote(int argc, char **argv)
 //    int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
 //    str = str.mid(0, index);
     
-//#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MAC)
     // 在mac中得用.app文件夹封装最后的可执行文件，所有实际的当前路径应该往上返回3层
-    /*int count = 0;
+    int count = 0;
     for (int i = str.length()-1; i >= 0; --i) {
         if (str[i] == '/') {
             ++count;
@@ -34,9 +34,9 @@ int ShowLiteNote(int argc, char **argv)
             str = str.mid(0, i);
             break;
         }
-    }*/
+    }
     
-//#endif
+#endif
 
     printf("%s\n", str.toLocal8Bit().data());
 
