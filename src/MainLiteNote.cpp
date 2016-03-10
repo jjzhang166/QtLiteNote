@@ -6,13 +6,13 @@
 
 int ShowLiteNote(int argc, char **argv)
 {
-
     QString str(argv[0]);
 #if defined(Q_OS_WIN32)
     // 下面的正则实际上是[\\\/]
     // 因为 \ / 是特殊字符，所以要转义
     int index = str.lastIndexOf(QRegExp("[\\\\\\/]"));
     str = str.mid(0, index);
+    //QGridLayout
     
 #elif defined(Q_OS_MAC)
     // 在mac中得用.app文件夹封装最后的可执行文件，所有实际的当前路径应该往上返回3层
@@ -86,4 +86,3 @@ int main(int argc, char **argv)
 {
    return ShowLiteNote(argc, argv);
 }
-

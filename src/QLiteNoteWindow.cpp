@@ -5,7 +5,8 @@
 
 #if defined(Q_OS_WIN32)
 #include <windows.h>
-#include "lnWin/LString.h"
+#include "utility.h"
+
 int ShellExecute(const char* path)
 {
     SHELLEXECUTEINFOA info;
@@ -873,7 +874,7 @@ void QLiteNoteWindow::UpdateStatue()
             m_new_dir_action->setEnabled(false);
 
         } else if (f.isDir()) {
-            m_path_label->setText(s);
+            //m_path_label->setText(s);
 
             m_new_note_action->setEnabled(true);
             m_new_dir_action->setEnabled(true);

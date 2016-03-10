@@ -20,7 +20,8 @@ SOURCES +=\
     ../src/QFileEx.cpp \
     ../src/QLiteNoteWindow.cpp \
     ../src/QTreeWidgetEx.cpp \
-    ../src/ras_ras.cpp
+    ../src/ras_ras.cpp \
+    ../src/utility.cpp
 
 HEADERS  += \
     ../src/Markdown.h \
@@ -29,6 +30,8 @@ HEADERS  += \
     ../src/QLiteNoteWindow.h \
     ../src/QtHead.h \
     ../src/QTreeWidgetEx.h
+
+RC_FILE = LiteNote.rc
 
 #QMAKE_CFLAGS_RELEASE -= -MD
 #QMAKE_CXXFLAGS_RELEASE -= -MD
@@ -40,6 +43,9 @@ HEADERS  += \
 #QMAKE_CFLAGS_DEBUG -= -MDd
 #QMAKE_CXXFLAGS_DEBUG -= -MDd
 
-INCLUDEPATH += $$PWD/../../LiteNice/include
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MD -lLnWin_vs2013_MD
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MDd -lLnWin_vs2013_MDd
+#INCLUDEPATH += $$PWD/../../LiteNice/include
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MD -lLnWin_vs2013_MD
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MDd -lLnWin_vs2013_MDd
+
+DISTFILES += \
+    LiteNote.rc
