@@ -1,4 +1,5 @@
 #include "utility.h"
+//#if defined(Q_OS_WIN32)
 #include <windows.h>
 
 namespace ln
@@ -81,3 +82,4 @@ namespace ln
     }
 
 }
+//#endif

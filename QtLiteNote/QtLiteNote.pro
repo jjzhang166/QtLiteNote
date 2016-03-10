@@ -20,8 +20,7 @@ SOURCES +=\
     ../src/QFileEx.cpp \
     ../src/QLiteNoteWindow.cpp \
     ../src/QTreeWidgetEx.cpp \
-    ../src/ras_ras.cpp \
-    ../src/utility.cpp
+    ../src/ras_ras.cpp
 
 HEADERS  += \
     ../src/Markdown.h \
@@ -31,7 +30,20 @@ HEADERS  += \
     ../src/QtHead.h \
     ../src/QTreeWidgetEx.h
 
-RC_FILE = LiteNote.rc
+win32 {
+        RC_FILE = LiteNote.rc
+        DISTFILES += \
+            LiteNote.rc
+        SOURCES += \
+            ../src/utility.cpp
+        HEADERS += \
+            ../src/utility.h
+}
+macx {
+        ICON=app.icns
+}
+
+
 
 #QMAKE_CFLAGS_RELEASE -= -MD
 #QMAKE_CXXFLAGS_RELEASE -= -MD
@@ -47,5 +59,3 @@ RC_FILE = LiteNote.rc
 #win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MD -lLnWin_vs2013_MD
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MDd -lLnWin_vs2013_MDd
 
-DISTFILES += \
-    LiteNote.rc
