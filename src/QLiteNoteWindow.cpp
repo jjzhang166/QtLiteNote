@@ -639,9 +639,10 @@ void QLiteNoteWindow::AddNewNote()
 #if defined(WIN32)
             std::string gbk = ln::UTF8ToGBK(new_path.toUtf8().data());
             FILE *file = fopen(gbk.c_str(), "wt");
+            fclose(file);
 #elif defined(MAC)
             FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
-
+            fclose(file);
 #endif
 
             ExpandAndSelectNew(new_path);
