@@ -18,9 +18,6 @@ int ShellExecute(const char* path)
     ::ShellExecuteExA(&info);
     return 0;
 }
-#elif defined(Q_OS_MAC)
-//#import <Foundation/Foundation.h>
-//#import <AppKit/AppKit.h>
 #endif
 
 
@@ -123,32 +120,15 @@ QLiteNoteWindow::~QLiteNoteWindow(void)
 void QLiteNoteWindow::closeEvent(QCloseEvent *event)
 {
     WriteSettings();
-
-#if defined(Q_OS_MAC)
-    //event->ignore();
-//    hide()
-    //showMinimized();
-#endif
 }
 
 void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
 {
-    //int scan_code = event->nativeScanCode();
-    //printf("keyPress: %d\n", scan_code);
-    
-    /*if (event->matches(Qt::ControlModifier)) {
-    }*/
-    
-    int key = event->key();
-    printf("key: %d\n", key);
-    
     switch (event->key()) {
         case Qt::Key_Control:
-            //printf("command down\n");
             m_is_control_down = true;
             break;
             
-        //TODO:在mac下还得加入command+r快捷键
         case Qt::Key_F5:
             ShowNote();
             m_webview->pageAction(QWebPage::Reload);
@@ -183,7 +163,6 @@ void QLiteNoteWindow::keyReleaseEvent(QKeyEvent *event)
 {
     switch (event->key()) {
         case Qt::Key_Control:
-            //printf("command up\n");
             m_is_control_down = false;
             break;
     }
@@ -636,11 +615,11 @@ void QLiteNoteWindow::AddNewNote()
         if (info.isDir()) {
             QString new_path = FindNewFileName(path, QString(".txt"));
 
-#if defined(WIN32)
+#if defined(Q_OS_WIN32)
             std::string gbk = ln::UTF8ToGBK(new_path.toUtf8().data());
             FILE *file = fopen(gbk.c_str(), "wt");
             fclose(file);
-#elif defined(MAC)
+#elif defined(Q_OS_MAC)
             FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
             fclose(file);
 #endif
@@ -723,16 +702,10 @@ void QLiteNoteWindow::ShowNote()
 
 void QLiteNoteWindow::EditNote(const QString &path)
 {
-    //用qt的QDesktopServices不支持中文路径，就算转化成utf8后也不行
-    //QFileInfo f(path);
-    //printf("EditNote: %s\n", path.toLocal8Bit().data());
-    //QDesktopServices::openUrl(QUrl(path.toUtf8()));
-    
     QFileInfo f(path);
 
     if (f.isFile()) {
 #if defined(WIN32)
-        //QString s = QDir::convertSeparators(path);
         QString s = QDir::toNativeSeparators(path);
         std::string gbk = ln::UTF8ToGBK(s.toUtf8().data());
         
@@ -744,11 +717,6 @@ void QLiteNoteWindow::EditNote(const QString &path)
         system(str);
 
 #elif defined(Q_OS_MAC)
-        /*char str[1024];
-        sprintf(str, "%s \"%s\"", "open", f.absoluteFilePath().toLocal8Bit().data());
-        system(str);*/
-        //printf("EditNote-xbc: %s\n", str);
-        //QFileInfo f(path);
         QUrl u = QUrl::fromLocalFile(path);
         bool r = QDesktopServices::openUrl(u);
         printf("EditNote: %s\n", path.data());
@@ -780,7 +748,6 @@ void QLiteNoteWindow::OpenExplorer()
 
 #if defined(Q_OS_WIN32)
         QString path = tr("OpenInExplorer.exe ") +f.absoluteFilePath();
-        //path = QDir::convertSeparators(path);
         path = QDir::toNativeSeparators(path);
         
         std::string gbk = ln::UTF8ToGBK(path.toUtf8().data());
@@ -792,14 +759,6 @@ void QLiteNoteWindow::OpenExplorer()
         system(str);
         
 #elif defined(Q_OS_MAC)
-        /*QString p = f.absoluteFilePath();
-        char *pp = p.toLocal8Bit().data();
-        NSString *path = [NSString stringWithUTF8String:pp];
-        NSMutableArray *urls = [[NSMutableArray alloc]init];
-        [urls addObject:[NSURL fileURLWithPath:path]];
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:urls];*/
-
-        //QUrl url = QUrl::fromEncoded(f.absoluteFilePath().toUtf8());
         QUrl url = QUrl::fromLocalFile(f.absolutePath());
         bool r = QDesktopServices::openUrl(url);
 
