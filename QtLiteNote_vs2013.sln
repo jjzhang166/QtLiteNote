@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteNote", "src\QtLiteNote_vs2013.vcxproj", "{A24573CA-F883-436E-8711-E8FFD9788E56}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LnCore", "..\LiteNice\LnCore\LnCore_vs2013.vcxproj", "{BD478631-7259-44E8-971F-B5DE8EAE1309}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LnWin", "..\LiteNice\LnWin\LnWin_vs2013.vcxproj", "{D2E6DEFA-267C-4935-BB09-CFD92B551704}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +19,14 @@ Global
 		{A24573CA-F883-436E-8711-E8FFD9788E56}.Debug|Win32.Build.0 = Debug|Win32
 		{A24573CA-F883-436E-8711-E8FFD9788E56}.Release|Win32.ActiveCfg = Release|Win32
 		{A24573CA-F883-436E-8711-E8FFD9788E56}.Release|Win32.Build.0 = Release|Win32
+		{BD478631-7259-44E8-971F-B5DE8EAE1309}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BD478631-7259-44E8-971F-B5DE8EAE1309}.Debug|Win32.Build.0 = Debug|Win32
+		{BD478631-7259-44E8-971F-B5DE8EAE1309}.Release|Win32.ActiveCfg = Release|Win32
+		{BD478631-7259-44E8-971F-B5DE8EAE1309}.Release|Win32.Build.0 = Release|Win32
+		{D2E6DEFA-267C-4935-BB09-CFD92B551704}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D2E6DEFA-267C-4935-BB09-CFD92B551704}.Debug|Win32.Build.0 = Debug|Win32
+		{D2E6DEFA-267C-4935-BB09-CFD92B551704}.Release|Win32.ActiveCfg = Release|Win32
+		{D2E6DEFA-267C-4935-BB09-CFD92B551704}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

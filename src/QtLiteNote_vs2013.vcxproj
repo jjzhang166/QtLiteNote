@@ -64,7 +64,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5WebKitd.lib;Qt5WebViewd.lib;Qt5WebKitWidgetsd.lib;LnCore_mtd_vs2013.lib;LnWin_mtd_vs2013.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5WebKitd.lib;Qt5WebViewd.lib;Qt5WebKitWidgetsd.lib;LnCore_vs2013_MDd.lib;LnWin_vs2013_MDd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Qt5.5.1\lib;..\..\LiteNice\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
