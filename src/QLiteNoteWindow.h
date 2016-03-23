@@ -28,6 +28,7 @@ private:
     void CreateAction();
     void CreateMenu();
     void CreateStatus();
+    void CreateMkLevelTree();
 
     void RefreshRoot(const QString &path);
     void RefreshNode(QTreeWidgetItem *item, bool scan_child_dir = false);
@@ -61,6 +62,8 @@ private slots:
     void TreeItemCollapsed(QTreeWidgetItem *item);
     void TreeItemKeyItem(QTreeWidgetItem *item);
 
+    void MarkLevelItemSelect(QTreeWidgetItem *item);
+
     void ConvertEnd(const QString &html);
 
     void AddNewNote();
@@ -72,6 +75,7 @@ private slots:
     void RefreshAll();
     void NewRootDir();
     void ShowTreeCheck();
+    void ShowMkLevekCheck();
     void ResumeTrash();
 
     void ShowAbout();
@@ -84,6 +88,7 @@ private:
     QTreeWidgetEx *m_tree;
     QTextEdit *m_edit_box;
     QWebView *m_webview;
+    QTreeWidgetEx *m_mkLevel_tree;
 
     QTreeWidgetItem *m_now_item;
 
@@ -104,6 +109,7 @@ private:
     QAction *m_new_root_action;
     QAction *m_refresh_action;
     QAction *m_show_tree_action;
+    QAction *m_show_mkLevel_action;
     QAction *m_resume_trash_action;
     QAction *m_rename_action;
 

@@ -17,7 +17,6 @@ public:
 
     void StartEdit(QTreeWidgetItem *item);
 
-
 protected slots:
     void UpdateEdit(QTreeWidgetItem *item);
     

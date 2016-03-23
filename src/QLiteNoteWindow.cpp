@@ -27,6 +27,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_tree(NULL),
     m_edit_box(NULL),
     m_webview(NULL),
+    m_mkLevel_tree(NULL),
     m_now_item(NULL),
     m_tree_font(QString::fromUtf8("微软雅黑"), 10),
     m_dir_icon(":/ras/dir.png"),
@@ -42,6 +43,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_open_explorer_action(NULL),
     m_refresh_action(NULL),
     m_show_tree_action(NULL),
+    m_show_mkLevel_action(NULL),
     m_resume_trash_action(NULL),
     m_rename_action(NULL),
     m_new_root_action(NULL),
@@ -59,16 +61,12 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     CreateMenu();
     CreateStatus();
 
-    //QFont font;
-    //font.setFamily("微软雅黑");
-
     m_tree = new QTreeWidgetEx(this);
     m_tree->setHeaderHidden(true);
     m_tree->setRootIsDecorated(true);
     m_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
     //m_tree->setFont(font);
     //m_tree->setStyleSheet("微软雅黑");
-
 
     connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
@@ -80,15 +78,13 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     connect(m_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
 
     m_webview = new QWebView(this);
-    //QFont font;
-    //font.setFamily("微软雅黑");
-    //m_webview->setFont(font);
-    //m_webview->settings()->setFontFamily(QWebSettings::StandardFont, QString::fromUtf8("微软雅黑"));
-    //m_webview->settings()->globalSettings()->setFontFamily(QWebSettings::SerifFont, "微软雅黑");
+
+    CreateMkLevelTree();
 
     m_split = new QSplitter(Qt::Horizontal);
     m_split->addWidget(m_tree);
     m_split->addWidget(m_webview);
+    m_split->addWidget(m_mkLevel_tree);
     m_split->setStretchFactor(1, 1);
 
     m_thread = new MarkdownThread;
@@ -100,9 +96,6 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
 
     setWindowIcon(QIcon(":/ras/app.png"));
     setCentralWidget(m_split);
-
-    //QString path = QDir::currentPath();
-    //path = QString("G:\\txtNote");
 
     RefreshRoot(path);
     WebBlack();
@@ -207,10 +200,15 @@ void QLiteNoteWindow::CreateAction()
     m_refresh_action->setIcon(QIcon(":/ras/refresh.png"));
     connect(m_refresh_action, SIGNAL(triggered()), this, SLOT(RefreshAll()));
 
-    m_show_tree_action = new QAction(QString::fromUtf8("显示导航"), this);
+    m_show_tree_action = new QAction(QString::fromUtf8("显示目录导航"), this);
     m_show_tree_action->setCheckable(true);
     m_show_tree_action->setChecked(true);
     connect(m_show_tree_action, SIGNAL(triggered()), this, SLOT(ShowTreeCheck()));
+
+    m_show_mkLevel_action = new QAction(QString::fromUtf8("显示内容结构"), this);
+    m_show_mkLevel_action->setCheckable(true);
+    m_show_mkLevel_action->setChecked(true);
+    connect(m_show_mkLevel_action, SIGNAL(triggered()), this, SLOT(ShowMkLevekCheck()));
 
     m_resume_trash_action = new QAction(QString::fromUtf8("恢复删除文件"), this);
     connect(m_resume_trash_action, SIGNAL(triggered()), this, SLOT(ResumeTrash()));
@@ -219,7 +217,6 @@ void QLiteNoteWindow::CreateAction()
     m_rename_action->setIcon(QIcon(":/ras/rename.png"));
     connect(m_rename_action, SIGNAL(triggered()), this, SLOT(RenameItem()));
 }
-
 
 void QLiteNoteWindow::CreateMenu()
 {
@@ -239,6 +236,7 @@ void QLiteNoteWindow::CreateMenu()
 
     m_options_menu = menuBar()->addMenu(tr("&Options"));
     m_options_menu->addAction(m_show_tree_action);
+    m_options_menu->addAction(m_show_mkLevel_action);
 
     m_help_menu = menuBar()->addMenu(tr("&Help"));
     m_help_menu->addAction(m_about_action);
@@ -276,6 +274,28 @@ void QLiteNoteWindow::CreateStatus()
     statusBar()->addWidget(m_path_label, 1);
 }
 
+void QLiteNoteWindow::CreateMkLevelTree()
+{
+    m_mkLevel_tree = new QTreeWidgetEx(this);
+    m_mkLevel_tree->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_mkLevel_tree->setHeaderHidden(true);
+    m_mkLevel_tree->setRootIsDecorated(true);
+    m_mkLevel_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
+
+    QStringList name;
+    name.push_back("click");
+    QTreeWidgetItem *d = new QTreeWidgetItem(name);
+    m_mkLevel_tree->insertTopLevelItem(0, d);
+
+    QStringList name2;
+    name2.push_back("click2");
+    QTreeWidgetItem *d2 = new QTreeWidgetItem(name2);
+    m_mkLevel_tree->insertTopLevelItem(0, d2);
+
+    connect(m_mkLevel_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(MarkLevelItemSelect(QTreeWidgetItem*)));
+    
+}
+
 void QLiteNoteWindow::RefreshRoot(const QString &path)
 {
     QDir dir(path);
@@ -304,7 +324,7 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
         d->setIcon(0, QIcon(":/ras/dir.png"));
         d->setData(1, 0, full_path);
         d->setFont(0, m_tree_font);
-        QString q = m_tree_font.family();
+        //QString q = m_tree_font.family();
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
         m_tree->insertTopLevelItem(m_tree->topLevelItemCount(), d);
@@ -532,6 +552,11 @@ void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
     }
 }
 
+void QLiteNoteWindow::MarkLevelItemSelect(QTreeWidgetItem *item)
+{
+    printf("MarkLevel\n");
+}
+
 void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
 {
     if (item) {
@@ -658,7 +683,7 @@ void QLiteNoteWindow::ConvertEnd(const QString &html)
 {
     m_webview->setContent(html.toUtf8());
 
-    //WriteMdToHtml(html, "temp.html");
+    WriteMdToHtml(html, "temp.html");
     //QUrl u("temp.html");
     //m_webview->setUrl(u);
 
@@ -669,7 +694,6 @@ void QLiteNoteWindow::ConvertEnd(const QString &html)
 void QLiteNoteWindow::WebBlack()
 {
     m_webview->setContent("<html><body> </body></html>");
-    
 }
 
 void QLiteNoteWindow::ShowNote()
@@ -685,7 +709,6 @@ void QLiteNoteWindow::ShowNote()
                 QTextStream text(&file);
                 text.setCodec("UTF-8");
 
-                //QString mk = text.readAll();
                 QVector<QString> ss;
                 while (!text.atEnd()) {
                     ss.push_back(text.readLine());
@@ -799,13 +822,27 @@ void QLiteNoteWindow::NewRootDir()
 
 void QLiteNoteWindow::ShowTreeCheck()
 {
-    QList<int> ss;
+    QList<int> ss = m_split->sizes();
     if (m_show_tree_action->isChecked()) {
-        ss.push_back(150);
-        ss.push_back(1);
+        //ss.push_back(150);
+        //ss.push_back(1);
+        ss[0] = 150;
+    }
+    else {
+        //ss.push_back(0);
+        //ss.push_back(1);
+        ss[0] = 0;
+    }
+    m_split->setSizes(ss);
+}
+
+void QLiteNoteWindow::ShowMkLevekCheck()
+{
+    QList<int> ss = m_split->sizes();
+    if (m_show_mkLevel_action->isChecked()) {
+        ss[2] = 150;
     } else {
-        ss.push_back(0);
-        ss.push_back(1);
+        ss[2] = 0;
     }
     m_split->setSizes(ss);
 }
@@ -853,7 +890,8 @@ void QLiteNoteWindow::WriteSettings()
     settings.setValue("geometry", saveGeometry());
 
     QList<int> ss = m_split->sizes();
-    settings.setValue("split", ss[0]);
+    //settings.setValue("split", ss[0]);
+
 }
 
 void QLiteNoteWindow::ReadSettings()
@@ -867,7 +905,7 @@ void QLiteNoteWindow::ReadSettings()
     QList<int> ss;
     ss.push_back(s==0 ? 150 : s);
     ss.push_back(100);
-    m_split->setSizes(ss);
+    //m_split->setSizes(ss);
 }
 
 void QLiteNoteWindow::ShowAbout()

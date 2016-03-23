@@ -137,7 +137,6 @@ void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)
 void QTreeWidgetEx::UpdateEdit(QTreeWidgetItem *item)
 {
     if (item && m_start_edit) {
-        
         m_start_edit = false;
         emit itemRename(item);
     }
