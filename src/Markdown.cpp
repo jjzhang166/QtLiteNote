@@ -172,7 +172,7 @@ void MarkdownThread::run()
             }
             free(strs);
             
-            //WriteMdToHtml(q, QString::fromUtf8("D:\\z_qt.html"));
+            WriteMdToHtml(q, QString::fromUtf8("D:\\temp_mk.html"));
             emit ConvertEnd(q);
         }
         QThread::msleep(20);

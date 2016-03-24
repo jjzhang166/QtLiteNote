@@ -3,16 +3,14 @@
 //#if defined(WIN32)
 #include "QtCore/QtCore"
 #include "QtGui/QtGui"
-#include "QtWebKit/QtWebKit"
-#include "QtWebKitWidgets/QWebView"
 #include "QtWidgets/QtWidgets"
+#include "QtWebKitWidgets/QtWebKitWidgets"
 
 //#elif defined(MAC)
 //#import <QtCore/QtCore>
 //#import <QtGui/QtGui>
-//#import <QtWebkit/QtWebkit>
-//#import <QtWebKitWidgets/QtWebKitWidgets>
 //#import <QtWidgets/QtWidgets>
+//#import <QtWebKitWidgets/QtWebKitWidgets>
 //#endif
 
 //#ifdef Q_OS_WIN32

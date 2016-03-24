@@ -85,7 +85,7 @@ private:
     QString m_trash_path;
     QSplitter *m_split;
 
-    QTreeWidgetEx *m_tree;
+    QTreeWidgetEx *m_note_tree;
     QTextEdit *m_edit_box;
     QWebView *m_webview;
     QTreeWidgetEx *m_mkLevel_tree;

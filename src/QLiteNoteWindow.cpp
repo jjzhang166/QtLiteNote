@@ -24,7 +24,7 @@ int ShellExecute(const char* path)
 QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     : QMainWindow(parent),
     m_split(NULL),
-    m_tree(NULL),
+    m_note_tree(NULL),
     m_edit_box(NULL),
     m_webview(NULL),
     m_mkLevel_tree(NULL),
@@ -61,28 +61,28 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     CreateMenu();
     CreateStatus();
 
-    m_tree = new QTreeWidgetEx(this);
-    m_tree->setHeaderHidden(true);
-    m_tree->setRootIsDecorated(true);
-    m_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
+    m_note_tree = new QTreeWidgetEx(this);
+    m_note_tree->setHeaderHidden(true);
+    m_note_tree->setRootIsDecorated(true);
+    m_note_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
     //m_tree->setFont(font);
     //m_tree->setStyleSheet("微软雅黑");
 
-    connect(m_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(itemRename(QTreeWidgetItem*)), this, SLOT(TreeItemRename(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(rightClick(QTreeWidgetItem*)), this, SLOT(TreeRightClick(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(doubleClick(QTreeWidgetItem*)), this, SLOT(TreeItemDoubleClick(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(itemExpanded(QTreeWidgetItem *)), this, SLOT(TreeItemExpand(QTreeWidgetItem *)));
-    connect(m_tree, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(TreeItemCollapsed(QTreeWidgetItem*)));
-    connect(m_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(TreeItemSelect(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(itemDelete(QTreeWidgetItem*)), this, SLOT(TreeItemDelete(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(itemRename(QTreeWidgetItem*)), this, SLOT(TreeItemRename(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(rightClick(QTreeWidgetItem*)), this, SLOT(TreeRightClick(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(doubleClick(QTreeWidgetItem*)), this, SLOT(TreeItemDoubleClick(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(itemExpanded(QTreeWidgetItem *)), this, SLOT(TreeItemExpand(QTreeWidgetItem *)));
+    connect(m_note_tree, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(TreeItemCollapsed(QTreeWidgetItem*)));
+    connect(m_note_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
 
     m_webview = new QWebView(this);
 
     CreateMkLevelTree();
 
     m_split = new QSplitter(Qt::Horizontal);
-    m_split->addWidget(m_tree);
+    m_split->addWidget(m_note_tree);
     m_split->addWidget(m_webview);
     m_split->addWidget(m_mkLevel_tree);
     m_split->setStretchFactor(1, 1);
@@ -285,12 +285,14 @@ void QLiteNoteWindow::CreateMkLevelTree()
     QStringList name;
     name.push_back("click");
     QTreeWidgetItem *d = new QTreeWidgetItem(name);
+    d->setData(1, Qt::UserRole, 1);
     m_mkLevel_tree->insertTopLevelItem(0, d);
 
     QStringList name2;
     name2.push_back("click2");
     QTreeWidgetItem *d2 = new QTreeWidgetItem(name2);
-    m_mkLevel_tree->insertTopLevelItem(0, d2);
+    d2->setData(1, Qt::UserRole, 2);
+    m_mkLevel_tree->insertTopLevelItem(1, d2);
 
     connect(m_mkLevel_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(MarkLevelItemSelect(QTreeWidgetItem*)));
     
@@ -302,13 +304,13 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
     QStringList filters;
     QStringList fs = dir.entryList(filters, QDir::Dirs);
 
-    int c = m_tree->topLevelItemCount();
+    int c = m_note_tree->topLevelItemCount();
     for (int i = 0; i < c; ++i) {
-        QTreeWidgetItem *item = m_tree->topLevelItem(i);
+        QTreeWidgetItem *item = m_note_tree->topLevelItem(i);
         ClearNode(item);
     }
-    m_tree->clear();
-    m_tree->SetNowItemOnly(NULL);
+    m_note_tree->clear();
+    m_note_tree->SetNowItemOnly(NULL);
     m_now_item = NULL;
 
     for (int i = 2; i < fs.size(); ++i) {
@@ -327,13 +329,13 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
         //QString q = m_tree_font.family();
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
-        m_tree->insertTopLevelItem(m_tree->topLevelItemCount(), d);
+        m_note_tree->insertTopLevelItem(m_note_tree->topLevelItemCount(), d);
 
         RefreshNode(d);
     }
 
-    if (m_tree->topLevelItemCount() != 0) {
-        m_tree->SetSelectItem(m_tree->topLevelItem(0));
+    if (m_note_tree->topLevelItemCount() != 0) {
+        m_note_tree->SetSelectItem(m_note_tree->topLevelItem(0));
     }
 }
 
@@ -431,28 +433,28 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
                 int index = par->indexOfChild(item);
 
                 if (index == c-1) {
-                    m_tree->SetSelectItem(par->child(c - 2));
+                    m_note_tree->SetSelectItem(par->child(c - 2));
                 } else {
-                    m_tree->SetSelectItem(par->child(index+1));
+                    m_note_tree->SetSelectItem(par->child(index+1));
                 }
             } else {
-               m_tree->SetSelectItem(par);
+               m_note_tree->SetSelectItem(par);
             }
             par->removeChild(item);
             delete item;
 
         } else {
-            int c = m_tree->topLevelItemCount();
+            int c = m_note_tree->topLevelItemCount();
             if (c > 1) {
-                int index = m_tree->indexOfTopLevelItem(item);
+                int index = m_note_tree->indexOfTopLevelItem(item);
 
                 if (index == c-1) {
-                    m_tree->SetSelectItem(m_tree->topLevelItem(c-2));
+                    m_note_tree->SetSelectItem(m_note_tree->topLevelItem(c-2));
                 } else {
-                    m_tree->SetSelectItem(m_tree->topLevelItem(index+1));
+                    m_note_tree->SetSelectItem(m_note_tree->topLevelItem(index+1));
                 }
             }
-            m_tree->removeItemWidget(item, 0);
+            m_note_tree->removeItemWidget(item, 0);
             delete item;
         }
 
@@ -554,7 +556,24 @@ void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
 
 void QLiteNoteWindow::MarkLevelItemSelect(QTreeWidgetItem *item)
 {
-    printf("MarkLevel\n");
+    int index = item->data(1, Qt::UserRole).toInt();
+    printf("MarkLevel: %d\n", index);
+    if (index == 1) {
+        QUrl u("file:///d:\\temp.html");
+        m_webview->setUrl(u);
+        m_webview->reload();
+    } else if (index == 2) {
+        //m_webview->
+        QUrl u("#123");
+        //m_webview->setUrl(u);
+        //m_webview->reload();
+        //m_webview->load(u);
+        QWebPage *page = m_webview->page();
+        QWebFrame *frame = page->mainFrame();
+        //frame->scrollPosition(QPoint(0, 800));
+        frame->scrollToAnchor("123");
+        //printf("%d\n", frame);
+    }
 }
 
 void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
@@ -575,8 +594,8 @@ void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
                 }
             }
         } else {
-            for (int i = 0; i < m_tree->topLevelItemCount(); ++i) {
-                QTreeWidgetItem *it = m_tree->topLevelItem(i);
+            for (int i = 0; i < m_note_tree->topLevelItemCount(); ++i) {
+                QTreeWidgetItem *it = m_note_tree->topLevelItem(i);
 
                 if (it != item) {
                     it->setExpanded(false);
@@ -603,8 +622,8 @@ void QLiteNoteWindow::ExpandAndSelectNew(const QString &path)
             QString s = item->data(1, 0).toString();
 
             if (s == path) {
-                m_tree->SetSelectItem(item);
-                m_tree->StartEdit(item);
+                m_note_tree->SetSelectItem(item);
+                m_note_tree->StartEdit(item);
                 break;
             }
         }
@@ -683,12 +702,10 @@ void QLiteNoteWindow::ConvertEnd(const QString &html)
 {
     m_webview->setContent(html.toUtf8());
 
-    WriteMdToHtml(html, "temp.html");
-    //QUrl u("temp.html");
+    //WriteMdToHtml(html, "d:\\temp.html");
+    //QUrl u("file:///d:\\temp.html");
     //m_webview->setUrl(u);
-
-    //QUrl u("http://www.12306.cn/mormhweb/");
-    //m_webview->setUrl(u);
+    //m_webview->reload();
 }
 
 void QLiteNoteWindow::WebBlack()
@@ -759,7 +776,7 @@ void QLiteNoteWindow::EditNote()
 void QLiteNoteWindow::RenameItem()
 {
     if (m_now_item) {
-        m_tree->StartEdit(m_now_item);
+        m_note_tree->StartEdit(m_now_item);
     }
 }
 
@@ -806,15 +823,15 @@ void QLiteNoteWindow::NewRootDir()
    d->setFont(0, m_tree_font);
    d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
-   m_tree->insertTopLevelItem(m_tree->topLevelItemCount(), d);
+   m_note_tree->insertTopLevelItem(m_note_tree->topLevelItemCount(), d);
 
-   for (int i = 0; i < m_tree->topLevelItemCount(); ++i) {
-       QTreeWidgetItem *item = m_tree->topLevelItem(i);
+   for (int i = 0; i < m_note_tree->topLevelItemCount(); ++i) {
+       QTreeWidgetItem *item = m_note_tree->topLevelItem(i);
        QString s = item->data(1, 0).toString();
 
        if (s == new_path) {
-           m_tree->SetSelectItem(item);
-           m_tree->StartEdit(item);
+           m_note_tree->SetSelectItem(item);
+           m_note_tree->StartEdit(item);
            break;
        }
    }
