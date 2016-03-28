@@ -130,14 +130,13 @@ public:
     void Analyse();
 
 private:
-    void ActionTop(int i, int &stat);
+	bool ActionTop(int i, int &stat);
     void ActionUl(int i, int &stat);
     void ActionOl(int i, int &stat);
     void ActionUlCode(int i, int &stat);
     void ActionOlCode(int i, int &stat);
-    std::pair<bool, std::string> GetHeadLevel(int i);
-    std::pair<bool, std::string> GetUlItem(int i);
-    std::pair<bool, std::string> GetOlItem(int i);
+    std::pair<int, std::string> GetHeadLevel(int i);
+	std::pair<bool, std::string> GetUlOLItem(int i, std::string pat);
     std::pair<bool, std::string> GetTabStart(int i);
     bool IsCodeLine(int i);
     bool IsTabCodeLine(int i);

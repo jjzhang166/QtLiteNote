@@ -3,6 +3,8 @@
 #include "PCString.h"
 #include "MkNode.h"
 #include <stdio.h>
+#include <regex>
+#include <string>
 
 
 int ShowLiteNote(int argc, char **argv)
@@ -75,6 +77,24 @@ void TestString()
     return;
 }
 
+void TestRegex()
+{
+	std::regex pat("^#+");
+	std::smatch match;
+	std::string text("###   head sdf");
+	if (std::regex_search(text, match, pat)) {
+		//std::ssub_match pre = match.prefix();
+		std::ssub_match suf = match.suffix();
+
+		std::string s1(text.begin(), suf.first);
+		std::string s2(suf.first, text.end());
+		
+		printf("\n");
+	}
+
+	return;
+}
+
 void ConvertHtmlTag(PCString *str);
 // Horizontal Rules
 // Hard Line Breaks
@@ -85,5 +105,6 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
+	TestRegex();
     return ShowLiteNote(argc, argv);
 }

@@ -1,7 +1,24 @@
 #include "MkNode.h"
 #include <stdio.h>
 #include <regex>
+#include <algorithm>
+#include <functional>
 
+inline std::string& ltrim(std::string &ss)
+{
+	int(*pf)(int) = isspace;
+	std::string::iterator p = std::find_if(ss.begin(), ss.end(), std::not1(std::ptr_fun(pf)));
+	ss.erase(ss.begin(), p);
+	return ss;
+}
+
+inline std::string& rtrim(std::string &ss)
+{
+	int(*pf)(int) = isspace;
+	std::string::reverse_iterator p = std::find_if(ss.rbegin(), ss.rend(), std::not1(std::ptr_fun(pf)));
+	ss.erase(p.base(), ss.end());
+	return ss;
+}
 
 void AnchorNode::AppendCh(AnchorNodePtr node)
 {
@@ -32,6 +49,13 @@ AnchorNodePtr MkNode::CreateAnchor(int id)
 void MkNode::appendCh(MkNodePtr ch)
 {
     m_chNodes.push_back(ch);
+}
+
+HeadNode::HeadNode(int level, const std::string &text)
+: m_headLevel(level),
+m_headText(text)
+{
+
 }
 
 void HeadNode::ToString(std::stringstream &stream)
@@ -214,32 +238,112 @@ MkSyntax::MkSyntax(std::vector<std::string> &lines)
 
 void MkSyntax::Analyse()
 {
-    
+	int stat = 0;
+	int i = -1;
+	while (1) {
+		++i;
+		if (m_lines.size() == i)
+			break;
+
+		if (stat == 0) {
+			ActionTop(i, stat);
+		}
+		else if (stat == 1) {
+
+		}
+		else if (stat == 2) {
+
+		}
+		else if (stat == 3) {
+
+		}
+		else if (stat == 13) {
+
+		}
+		else if (stat == 23) {
+
+		}
+		else {
+
+		}
+	}
 }
 
-void ActionTop(int i, int &stat)
+bool MkSyntax::ActionTop(int i, int &stat)
+{
+	std::pair<int, std::string> head = GetHeadLevel(i);
+	int headLevel = head.first;
+	std::string text = head.second;
+
+	if (headLevel >= 1 && headLevel <= 6 && !text.empty()) {
+		MkNodePtr headNode(new HeadNode(headLevel, text));
+		m_content.AppendTop(headNode);
+		return true;
+	}
+
+	//TODO:
+}
+
+void MkSyntax::ActionUl(int i, int &stat)
 {
 
 }
 
-void ActionUl(int i, int &stat)
+void MkSyntax::ActionOl(int i, int &stat)
 {
 
 }
 
-void ActionOl(int i, int &stat)
+void MkSyntax::ActionUlCode(int i, int &stat)
 {
 
 }
 
-void ActionUlCode(int i, int &stat)
+void MkSyntax::ActionOlCode(int i, int &stat)
 {
 
 }
 
-void ActionOlCode(int i, int &stat)
+std::pair<int, std::string> MkSyntax::GetHeadLevel(int i)
 {
+	std::string &line = m_lines[i];
+	std::regex pat("^#+");
+	std::smatch match;
+	if (std::regex_search(line, match, pat)) {
+		std::ssub_match suf = match.suffix();
 
+		std::string h(line.begin(), suf.first);
+		std::string after(suf.first, line.end());
+		after = ltrim(after);
+
+		return std::make_pair(h.size(), after);
+	}
+	return std::make_pair(0, "");
+}
+
+std::pair<bool, std::string> MkSyntax::GetUlOLItem(int i, std::string pat)
+{
+	//"^\* "
+	//"^[0-9]+\. "
+	std::string &line = m_lines[i];
+	std::regex reg(pat);
+	std::smatch match;
+	if (std::regex_search(line, match, pat)) {
+		std::ssub_match suf = match.suffix();
+		std::string after(suf.first, line.end());
+		after = ltrim(after);
+		return std::make_pair(true, after);
+	}
+	return std::make_pair(false, "");
+}
+
+std::pair<bool, std::string> MkSyntax::GetTabStart(int i)
+{
+	std::string &line = m_lines[i];
+	if (line.size() >= 2 && line[0] == '\t') {
+		return std::make_pair(true, line.substr(1));
+	}
+	if (line.size() >= 5 && line)
 }
 
 
