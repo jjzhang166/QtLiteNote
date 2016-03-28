@@ -12,6 +12,9 @@
     <Filter Include="moc">
       <UniqueIdentifier>{a0340dc6-d20a-498c-9632-4309a8c0cfe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="markdownSyntax">
+      <UniqueIdentifier>{fad776b6-a1d0-4f03-bd5e-488fe08be00e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainLiteNote.cpp">
@@ -50,13 +53,13 @@
     <ClCompile Include="utility.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MkNode.cpp">
+      <Filter>markdownSyntax</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCString.h">
       <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Markdown.h">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="QFileEx.h">
       <Filter>头文件</Filter>
@@ -75,6 +78,12 @@
     </ClInclude>
     <ClInclude Include="utility.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Markdown.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MkNode.h">
+      <Filter>markdownSyntax</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
