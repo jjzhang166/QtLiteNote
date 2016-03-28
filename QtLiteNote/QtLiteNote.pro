@@ -20,7 +20,8 @@ SOURCES +=\
     ../src/QFileEx.cpp \
     ../src/QLiteNoteWindow.cpp \
     ../src/QTreeWidgetEx.cpp \
-    ../src/ras_ras.cpp
+    ../src/ras_ras.cpp \
+    ../src/MkNode.cpp
 
 HEADERS  += \
     ../src/Markdown.h \
@@ -28,7 +29,8 @@ HEADERS  += \
     ../src/QFileEx.h \
     ../src/QLiteNoteWindow.h \
     ../src/QtHead.h \
-    ../src/QTreeWidgetEx.h
+    ../src/QTreeWidgetEx.h \
+    ../src/MkNode.h
 
 win32 {
         RC_FILE = LiteNote.rc
@@ -42,7 +44,7 @@ win32 {
 macx {
         ICON=app.icns
 }
-
+CONFIG += c++11
 
 
 #QMAKE_CFLAGS_RELEASE -= -MD

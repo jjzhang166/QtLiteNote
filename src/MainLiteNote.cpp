@@ -1,6 +1,7 @@
 #include "QLiteNoteWindow.h"
 #include "QtHead.h"
 #include "PCString.h"
+#include "MkNode.h"
 #include <stdio.h>
 
 
@@ -84,5 +85,5 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
-   return ShowLiteNote(argc, argv);
+    return ShowLiteNote(argc, argv);
 }
