@@ -1,7 +1,7 @@
 #include "QLiteNoteWindow.h"
 #include "QtHead.h"
 #include "PCString.h"
-#include "MkNode.h"
+#include "MkNodePri.h"
 #include <stdio.h>
 #include <regex>
 #include <string>
@@ -47,6 +47,43 @@ int ShowLiteNote(int argc, char **argv)
 
 void WriteMdToHtml(const QString &md, const QString &path);
 char *ConvertMarkdown(char **strs, int count);
+
+void TestMkNode()
+{
+	QFile file("D:\\py.txt");
+	file.open(QIODevice::ReadOnly);
+	QTextStream text(&file);
+	text.setCodec("UTF-8");
+
+	std::vector<std::string> lines;
+	while (!text.atEnd()) {
+		QString str = text.readLine();
+		std::string s(str.toUtf8());
+		lines.push_back(s);
+	}
+	MkSyntax syn(lines);
+	syn.Analyse();
+	syn.GetMkContent();
+
+	std::stringstream stream;
+	{
+		QFile f2("d:\\css.txt");
+		f2.open(QIODevice::ReadOnly);
+		QTextStream css(&f2);
+		css.setCodec("UTF-8");
+		while (!css.atEnd()) {
+			QString str = css.readLine();
+			std::string s(str.toUtf8());
+			stream << s;
+		}
+	}
+	syn.ToString(stream);
+
+	stream << "</body></html>";
+
+	QString html = QString::fromUtf8(stream.str().c_str());
+    WriteMdToHtml(html, QString::fromUtf8("d:\\z_md.html"));
+}
 
 void TestString()
 {
@@ -105,6 +142,8 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
-	TestRegex();
+	//TestRegex();
+	TestMkNode();
+	return 0;
     return ShowLiteNote(argc, argv);
 }

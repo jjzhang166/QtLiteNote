@@ -115,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="Markdown.h" />
     <ClInclude Include="MkNode.h" />
+    <ClInclude Include="MkNodePri.h" />
     <ClInclude Include="PCString.h" />
     <ClInclude Include="QFileEx.h" />
     <ClInclude Include="QLiteNoteWindow.h" />

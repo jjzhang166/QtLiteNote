@@ -1,5 +1,6 @@
 #include "Markdown.h"
 #include <stdio.h>
+#include "MkNodePri.h"
 
 //想要在网页中显示中文，得在head头中指定utf-8
 //Courier New,
@@ -153,7 +154,7 @@ void MarkdownThread::run()
         }
         m_lock.unlock();
 
-        if (!is_empty) {
+        /*if (!is_empty) {
             char **strs = (char**)malloc(md.size() * sizeof(char*));
             for (int i = 0; i < md.size(); ++i) {
                QString &s = md[i];
@@ -171,10 +172,37 @@ void MarkdownThread::run()
                 free(strs[i]);
             }
             free(strs);
-            
-            WriteMdToHtml(q, QString::fromUtf8("D:\\temp_mk.html"));
             emit ConvertEnd(q);
-        }
+            //WriteMdToHtml(q, QString::fromUtf8("D:\\temp_mk.html"));
+        }*/
+		if (!is_empty) {
+			std::vector<std::string> lines;
+			for (int i = 0; i < md.size(); ++i) {
+				std::string s(md[i].toUtf8());
+				lines.push_back(s);
+			}
+			MkSyntax syn(lines);
+			syn.Analyse();
+			syn.GetMkContent();
+			std::stringstream stream;
+			{
+				QFile f2("d:\\css.txt");
+				f2.open(QIODevice::ReadOnly);
+				QTextStream css(&f2);
+				css.setCodec("UTF-8");
+				while (!css.atEnd()) {
+					QString str = css.readLine();
+					std::string s(str.toUtf8());
+					stream << s;
+				}
+			}
+			syn.ToString(stream);
+
+			stream << "</body></html>";
+			QString html = QString::fromUtf8(stream.str().c_str());
+			emit ConvertEnd(html);
+            WriteMdToHtml(html, QString::fromUtf8("D:\\temp_mk.html"));
+		}
         QThread::msleep(20);
     }
 }

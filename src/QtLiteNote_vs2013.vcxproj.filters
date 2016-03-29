@@ -82,6 +82,9 @@
     <ClInclude Include="Markdown.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MkNodePri.h">
+      <Filter>markdownSyntax</Filter>
+    </ClInclude>
     <ClInclude Include="MkNode.h">
       <Filter>markdownSyntax</Filter>
     </ClInclude>

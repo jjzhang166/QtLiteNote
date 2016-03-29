@@ -17,6 +17,7 @@
 *.suo
 *.user
 *.aps
+*.opensdf
 **/debug/
 **/release/
 lib
