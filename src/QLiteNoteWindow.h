@@ -11,6 +11,7 @@ class QTreeWidgetItem;
 class QTextEdit;
 class QWebView;
 class MarkdownThread;
+class AnchorNode;
 
 class QLiteNoteWindow : public QMainWindow
 {
@@ -52,6 +53,9 @@ private:
     void ShowNote();
     void WebBlack();
 
+	void SetMkLevel(AnchorNode *node);
+	void SetChLevel(QTreeWidgetItem *item, AnchorNode *node);
+
 private slots:
     void TreeItemSelect(QTreeWidgetItem *item);
     void TreeItemDelete(QTreeWidgetItem *item);
@@ -64,7 +68,7 @@ private slots:
 
     void MarkLevelItemSelect(QTreeWidgetItem *item);
 
-    void ConvertEnd(const QString &html);
+    void ConvertEnd(const QString &html, void *anchorNode);
 
     void AddNewNote();
     void AddNewDir();

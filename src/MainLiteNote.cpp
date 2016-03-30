@@ -48,9 +48,9 @@ int ShowLiteNote(int argc, char **argv)
 void WriteMdToHtml(const QString &md, const QString &path);
 char *ConvertMarkdown(char **strs, int count);
 
-void TestMkNode()
+std::vector<std::string> ReadMkUTF8(const char *filename)
 {
-	QFile file("D:\\py.txt");
+	QFile file(filename);
 	file.open(QIODevice::ReadOnly);
 	QTextStream text(&file);
 	text.setCodec("UTF-8");
@@ -61,6 +61,12 @@ void TestMkNode()
 		std::string s(str.toUtf8());
 		lines.push_back(s);
 	}
+	return lines;
+}
+
+void TestMkNode()
+{
+	std::vector<std::string> lines = ReadMkUTF8("D:\\base.txt");
 	MkSyntax syn(lines);
 	syn.Analyse();
 	syn.GetMkContent();
@@ -83,6 +89,33 @@ void TestMkNode()
 
 	QString html = QString::fromUtf8(stream.str().c_str());
     WriteMdToHtml(html, QString::fromUtf8("d:\\z_md.html"));
+}
+
+void ScanAnchor(AnchorNode *node, int level)
+{
+	printf("Anchor:");
+	for (int i = 0; i < node->m_level; ++i) {
+		printf(" ");
+	}
+	//printf("%d, %s\n", node->m_level, node->m_name.c_str());
+	printf("%d", node->m_level);
+	qDebug() << QString::fromUtf8(node->m_name.c_str());
+
+	for (int i = 0; i < node->m_children.size(); ++i) {
+		ScanAnchor(node->m_children[i], level + 1);
+	}
+}
+
+void TestMkNode2()
+{
+	std::vector<std::string> lines = ReadMkUTF8("D:\\py.txt");
+
+	std::pair<std::string, AnchorNode*> r = SyntaxMk(lines);
+	QString html = QString::fromUtf8(r.first.c_str());
+	WriteMdToHtml(html, QString::fromUtf8("d:\\z_md.html"));
+
+	ScanAnchor(r.second, 0);
+	ReleaseAnchorNode(r.second);
 }
 
 void TestString()
@@ -120,7 +153,6 @@ void TestRegex()
 	std::smatch match;
 	std::string text("###   head sdf");
 	if (std::regex_search(text, match, pat)) {
-		//std::ssub_match pre = match.prefix();
 		std::ssub_match suf = match.suffix();
 
 		std::string s1(text.begin(), suf.first);
@@ -139,11 +171,11 @@ void ConvertHtmlTag(PCString *str);
 // 123
 // 65
 
-
 int main(int argc, char **argv)
 {
 	//TestRegex();
-	TestMkNode();
-	return 0;
+	//TestMkNode();
+	TestMkNode2();
+	//return 0;
     return ShowLiteNote(argc, argv);
 }

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MarkdownThread_t {
-    QByteArrayData data[4];
-    char stringdata0[32];
+    QByteArrayData data[5];
+    char stringdata0[34];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,10 +32,11 @@ static const qt_meta_stringdata_MarkdownThread_t qt_meta_stringdata_MarkdownThre
 QT_MOC_LITERAL(0, 0, 14), // "MarkdownThread"
 QT_MOC_LITERAL(1, 15, 10), // "ConvertEnd"
 QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 4) // "html"
+QT_MOC_LITERAL(3, 27, 4), // "html"
+QT_MOC_LITERAL(4, 32, 1) // "P"
 
     },
-    "MarkdownThread\0ConvertEnd\0\0html"
+    "MarkdownThread\0ConvertEnd\0\0html\0P"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,10 +54,10 @@ static const uint qt_meta_data_MarkdownThread[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   19,    2, 0x06 /* Public */,
+       1,    2,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, QMetaType::QString, QMetaType::VoidStar,    3,    4,
 
        0        // eod
 };
@@ -67,14 +68,14 @@ void MarkdownThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         MarkdownThread *_t = static_cast<MarkdownThread *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->ConvertEnd((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 0: _t->ConvertEnd((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< void*(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (MarkdownThread::*_t)(const QString & );
+            typedef void (MarkdownThread::*_t)(const QString & , void * );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MarkdownThread::ConvertEnd)) {
                 *result = 0;
             }
@@ -119,9 +120,9 @@ int MarkdownThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void MarkdownThread::ConvertEnd(const QString & _t1)
+void MarkdownThread::ConvertEnd(const QString & _t1, void * _t2)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

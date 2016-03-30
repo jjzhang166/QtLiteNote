@@ -1,6 +1,7 @@
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
 #include "Markdown.h"
+#include "MkNode.h"
 #include "QFileEx.h"
 
 #if defined(Q_OS_WIN32)
@@ -19,7 +20,6 @@ int ShellExecute(const char* path)
     return 0;
 }
 #endif
-
 
 QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     : QMainWindow(parent),
@@ -88,7 +88,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_split->setStretchFactor(1, 1);
 
     m_thread = new MarkdownThread;
-    connect(m_thread, SIGNAL(ConvertEnd(const QString &)), this, SLOT(ConvertEnd(const QString&)));
+    connect(m_thread, SIGNAL(ConvertEnd(const QString &, void *)), this, SLOT(ConvertEnd(const QString&, void*)));
     m_thread->start();
 
     ReadSettings();
@@ -282,20 +282,7 @@ void QLiteNoteWindow::CreateMkLevelTree()
     m_mkLevel_tree->setRootIsDecorated(true);
     m_mkLevel_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
 
-    QStringList name;
-    name.push_back("click");
-    QTreeWidgetItem *d = new QTreeWidgetItem(name);
-    d->setData(1, Qt::UserRole, 1);
-    m_mkLevel_tree->insertTopLevelItem(0, d);
-
-    QStringList name2;
-    name2.push_back("click2");
-    QTreeWidgetItem *d2 = new QTreeWidgetItem(name2);
-    d2->setData(1, Qt::UserRole, 2);
-    m_mkLevel_tree->insertTopLevelItem(1, d2);
-
     connect(m_mkLevel_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(MarkLevelItemSelect(QTreeWidgetItem*)));
-    
 }
 
 void QLiteNoteWindow::RefreshRoot(const QString &path)
@@ -324,7 +311,7 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
 
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, QIcon(":/ras/dir.png"));
-        d->setData(1, 0, full_path);
+        d->setData(1, Qt::UserRole, full_path);
         d->setFont(0, m_tree_font);
         //QString q = m_tree_font.family();
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
@@ -341,20 +328,17 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
 
 void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
 {
-    QString path = item->data(1, 0).toString();
+    QString path = item->data(1, Qt::UserRole).toString();
 
     ClearNode(item);
-    //RefreshNode(item, path, true);
 
     QDir dir(path);
-    QStringList filters;
-    QStringList dirs = dir.entryList(filters, QDir::Dirs);
+    QStringList dirs = dir.entryList(QDir::Dirs);
 
-    std::list<QString> t1 = dirs.toStdList();
+	QStringList txt_filters;
+	txt_filters.push_back("*.txt");
+	QStringList files = dir.entryList(txt_filters, QDir::Files);
 
-    filters.push_back("*.txt");
-
-    QStringList files = dir.entryList(filters, QDir::Files);
 
     for (int i = 2; i < dirs.size(); ++i) {
         QString &dir = dirs[i];
@@ -365,7 +349,7 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
 
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, m_dir_icon);
-        d->setData(1, 0, ss);
+		d->setData(1, Qt::UserRole, ss);
         d->setFont(0, m_tree_font);
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
@@ -375,6 +359,7 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
             RefreshNode(d, false);
         }
     }
+
 
     for (int i = 0; i < files.size(); ++i) {
         QStringList name;
@@ -387,7 +372,7 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
         QTreeWidgetItem *d = new QTreeWidgetItem(name);
         d->setIcon(0, m_note_icon);
         d->setFont(0, m_tree_font);
-        d->setData(1, 0, path+QDir::separator()+files[i]);
+		d->setData(1, Qt::UserRole, path + QDir::separator() + files[i]);
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
         item->insertChild(item->childCount(), d);
@@ -410,7 +395,7 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
     int r = QMessageBox::warning(this, "QtLiteNote", QString::fromUtf8("确定要删除吗?"), QMessageBox::Yes|QMessageBox::No);
 
     if (r == QMessageBox::Yes) {
-        QString src = item->data(1, 0).toString();
+		QString src = item->data(1, Qt::UserRole).toString();
         QString name = src.mid(m_note_path.size()+1);
         QFileInfo file(src);
 
@@ -464,11 +449,11 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 {
     if (item) {
-        QString txt = item->data(0, 0).toString();
+		QString txt = item->data(0, Qt::UserRole).toString();
         //windows下不支持的路径字符 \ / : * ? " < > |
         //其它平台就暂时也不用这些字符
         QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
-        QString old_path = item->data(1, 0).toString();
+		QString old_path = item->data(1, Qt::UserRole).toString();
         QFileInfo info(old_path);
 
         QString new_path;
@@ -485,7 +470,7 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
             return;
         }
 
-        item->setData(1, 0, new_path);
+		item->setData(1, Qt::UserRole, new_path);
 
         if (info.isDir()) {
            RefreshNode(item);
@@ -500,7 +485,7 @@ void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
         m_now_item = item;
         UpdateStatue();
 
-        QString s = item->data(1, 0).toString();
+		QString s = item->data(1, Qt::UserRole).toString();
         QFileInfo file(s);
         if (file.isFile()) {
             //m_note_menu->exec(this->mapToParent(QPoint(x, y)));
@@ -545,7 +530,7 @@ void QLiteNoteWindow::TreeItemCollapsed(QTreeWidgetItem *item)
 void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
 {
     if (item) {
-        QString path = item->data(1, 0).toString();
+		QString path = item->data(1, Qt::UserRole).toString();
         QFileInfo f(path);
 
         if (f.isFile()) {
@@ -556,24 +541,13 @@ void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
 
 void QLiteNoteWindow::MarkLevelItemSelect(QTreeWidgetItem *item)
 {
-    int index = item->data(1, Qt::UserRole).toInt();
-    printf("MarkLevel: %d\n", index);
-    if (index == 1) {
-        QUrl u("file:///d:\\temp.html");
-        m_webview->setUrl(u);
-        m_webview->reload();
-    } else if (index == 2) {
-        //m_webview->
-        QUrl u("#123");
-        //m_webview->setUrl(u);
-        //m_webview->reload();
-        //m_webview->load(u);
-        QWebPage *page = m_webview->page();
-        QWebFrame *frame = page->mainFrame();
-        //frame->scrollPosition(QPoint(0, 800));
-        frame->scrollToAnchor("123");
-        //printf("%d\n", frame);
-    }
+	if (item) {
+		QString anchor = item->data(0, Qt::UserRole).toString();
+
+		QWebPage *page = m_webview->page();
+		QWebFrame *frame = page->mainFrame();
+		frame->scrollToAnchor(anchor);
+	}
 }
 
 void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
@@ -619,7 +593,7 @@ void QLiteNoteWindow::ExpandAndSelectNew(const QString &path)
 
         for (int i = 0; i < m_now_item->childCount(); ++i) {
             QTreeWidgetItem *item = m_now_item->child(i);
-            QString s = item->data(1, 0).toString();
+			QString s = item->data(1, Qt::UserRole).toString();
 
             if (s == path) {
                 m_note_tree->SetSelectItem(item);
@@ -653,7 +627,7 @@ QString QLiteNoteWindow::FindNewFileName(const QString &path, const QString &pos
 void QLiteNoteWindow::AddNewNote()
 {
     if (m_now_item) {
-        QString path = m_now_item->data(1, 0).toString();
+		QString path = m_now_item->data(1, Qt::UserRole).toString();
         QFileInfo info(path);
 
         if (info.isDir()) {
@@ -677,7 +651,7 @@ void QLiteNoteWindow::AddNewNote()
 void QLiteNoteWindow::AddNewDir()
 {
     if (m_now_item) {
-        QString path = m_now_item->data(1, 0).toString();
+		QString path = m_now_item->data(1, Qt::UserRole).toString();
         QFileInfo info(path);
 
         if (info.isDir()) {
@@ -698,14 +672,52 @@ void QLiteNoteWindow::DeleteItem()
     }
 }
 
-void QLiteNoteWindow::ConvertEnd(const QString &html)
+void QLiteNoteWindow::ConvertEnd(const QString &html, void *anchorNode)
 {
     m_webview->setContent(html.toUtf8());
+
+	AnchorNode *node = (AnchorNode*)anchorNode;
+	SetMkLevel(node);
+	ReleaseAnchorNode(node);
 
     //WriteMdToHtml(html, "d:\\temp.html");
     //QUrl u("file:///d:\\temp.html");
     //m_webview->setUrl(u);
-    //m_webview->reload();
+}
+
+void QLiteNoteWindow::SetMkLevel(AnchorNode *node)
+{
+	m_mkLevel_tree->SetSelectItem(NULL);
+	m_mkLevel_tree->clear();
+
+	for (int i = 0; i < node->m_children.size(); ++i) {
+		AnchorNode *p = node->m_children[i];
+		QStringList name;
+		name.push_back(QString::fromUtf8(p->m_name.c_str()));
+		QTreeWidgetItem *item = new QTreeWidgetItem(name);
+		item->setData(0, Qt::UserRole, QString::fromUtf8(p->m_anchorID.c_str()));
+		item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		m_mkLevel_tree->insertTopLevelItem(m_mkLevel_tree->topLevelItemCount(), item);
+
+		SetChLevel(item, p);
+	}
+	m_mkLevel_tree->expandAll();
+}
+
+void QLiteNoteWindow::SetChLevel(QTreeWidgetItem *item, AnchorNode *node)
+{
+	for (int i = 0; i < node->m_children.size(); ++i) {
+		AnchorNode *p = node->m_children[i];
+
+		QStringList name;
+		name.push_back(QString::fromUtf8(p->m_name.c_str()));
+		QTreeWidgetItem *ch = new QTreeWidgetItem(name);
+		ch->setData(0, Qt::UserRole, QString::fromUtf8(p->m_anchorID.c_str()));
+		ch->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+		item->insertChild(item->childCount(), ch);
+		SetChLevel(ch, p);
+	}
 }
 
 void QLiteNoteWindow::WebBlack()
@@ -716,7 +728,7 @@ void QLiteNoteWindow::WebBlack()
 void QLiteNoteWindow::ShowNote()
 {
     if (m_now_item) {
-        QString path = m_now_item->data(1, 0).toString();
+		QString path = m_now_item->data(1, Qt::UserRole).toString();
         QFileInfo f(path);
 
         if (f.isFile()) {
@@ -768,7 +780,7 @@ void QLiteNoteWindow::EditNote(const QString &path)
 void QLiteNoteWindow::EditNote()
 {
     if (m_now_item) {
-        QString s = m_now_item->data(1, 0).toString();
+		QString s = m_now_item->data(1, Qt::UserRole).toString();
         EditNote(s);
     }
 }
@@ -783,7 +795,7 @@ void QLiteNoteWindow::RenameItem()
 void QLiteNoteWindow::OpenExplorer()
 {
     if (m_now_item) {
-        QString s = m_now_item->data(1, 0).toString();
+		QString s = m_now_item->data(1, Qt::UserRole).toString();
         QFileInfo f(s);
 
 #if defined(Q_OS_WIN32)
@@ -827,7 +839,7 @@ void QLiteNoteWindow::NewRootDir()
 
    for (int i = 0; i < m_note_tree->topLevelItemCount(); ++i) {
        QTreeWidgetItem *item = m_note_tree->topLevelItem(i);
-       QString s = item->data(1, 0).toString();
+	   QString s = item->data(1, Qt::UserRole).toString();
 
        if (s == new_path) {
            m_note_tree->SetSelectItem(item);
@@ -841,13 +853,9 @@ void QLiteNoteWindow::ShowTreeCheck()
 {
     QList<int> ss = m_split->sizes();
     if (m_show_tree_action->isChecked()) {
-        //ss.push_back(150);
-        //ss.push_back(1);
         ss[0] = 150;
     }
     else {
-        //ss.push_back(0);
-        //ss.push_back(1);
         ss[0] = 0;
     }
     m_split->setSizes(ss);
@@ -878,7 +886,7 @@ void QLiteNoteWindow::UpdateStatue()
 {
     if (m_now_item) {
 
-        QString s = m_now_item->data(1, 0).toString();
+		QString s = m_now_item->data(1, Qt::UserRole).toString();
         QFileInfo f(s);
 
         if (f.isFile()) {
@@ -903,7 +911,6 @@ void QLiteNoteWindow::UpdateStatue()
 void QLiteNoteWindow::WriteSettings()
 {
     QSettings settings("Software xiangism", "QtLiteNote");
-
     settings.setValue("geometry", saveGeometry());
 
     QList<int> ss = m_split->sizes();

@@ -6,10 +6,14 @@
 
 inline std::string& ltrim(std::string &ss)
 {
-	int(*pf)(int) = isspace;
-	std::string::iterator p = std::find_if(ss.begin(), ss.end(), std::not1(std::ptr_fun(pf)));
-	ss.erase(ss.begin(), p);
-	return ss;
+	//int(*pf)(int) = isspace;
+	//std::string::iterator p = std::find_if(ss.begin(), ss.end(), std::not1(std::ptr_fun(pf)));
+	//ss.erase(ss.begin(), p);
+	//return ss;
+	//std::string s;
+	//ss.erase(ss.find_last_not_of(" \n\r\t") + 1);
+	//TODO: ÕÍ…∆£¨≤¢≤‚ ‘
+	ss.find_first_not_of(" \n\r\t");
 }
 
 inline std::string& rtrim(std::string &ss)
@@ -20,16 +24,20 @@ inline std::string& rtrim(std::string &ss)
 	return ss;
 }
 
-void AnchorNode::AppendCh(AnchorNodePtr node)
+AnchorNode::AnchorNode()
+	: m_level(0)
+{
+
+}
+
+void AnchorNode::AppendCh(AnchorNode* node)
 {
     m_children.push_back(node);
 }
 
-
 MkNode::MkNode()
 {
 }
-
 
 MkNode::~MkNode()
 {
@@ -40,10 +48,9 @@ void MkNode::ToString(std::stringstream &stream)
 
 }
 
-AnchorNodePtr MkNode::CreateAnchor(int id)
+AnchorNode* MkNode::CreateAnchor(int id)
 {
-   AnchorNodePtr e; 
-   return e;
+	return NULL;
 }
 
 void MkNode::appendCh(MkNodePtr ch)
@@ -68,13 +75,13 @@ void HeadNode::ToString(std::stringstream &stream)
     stream << "</h" << m_headLevel << ">";
 }
 
-AnchorNodePtr HeadNode::CreateAnchor(int id)
+AnchorNode* HeadNode::CreateAnchor(int id)
 {
     char str[1024];
     sprintf(str, "md_%d", id);
     m_headID = std::string(str);
 
-    AnchorNodePtr a(new AnchorNode);
+    AnchorNode* a = new AnchorNode;
     a->m_level = m_headLevel;
     a->m_anchorID = m_headID;
     a->m_name = m_headText;
@@ -194,29 +201,31 @@ void MkContent::ToString(std::stringstream &stream)
     }
 }
 
-void MkContent::CreateMkLevel()
+AnchorNode* MkContent::CreateMkLevel()
 {
-    std::vector<AnchorNodePtr> heads;
+    std::vector<AnchorNode*> heads;
     int headID = 0;
     for (int i = 0; i < m_tops.size(); ++i) {
-        AnchorNodePtr a = m_tops[i]->CreateAnchor(headID);
+        AnchorNode* a = m_tops[i]->CreateAnchor(headID);
         if (a) {
             heads.push_back(a);
             ++headID;
         }
     }
-    AnchorNodePtr n = CreateTree(heads);
+    AnchorNode* n = CreateTree(heads);
+	return n;
 }
 
-AnchorNodePtr MkContent::CreateTree(std::vector<AnchorNodePtr> &heads)
+AnchorNode* MkContent::CreateTree(std::vector<AnchorNode*> &heads)
 {
-    std::vector<AnchorNodePtr> cc;
-    cc.resize(7, AnchorNodePtr());
-	cc[0] = AnchorNodePtr(new AnchorNode);
+    std::vector<AnchorNode*> cc;
+    cc.resize(7, NULL);
+	cc[0] = new AnchorNode;
     
     for (int i = 0; i < heads.size(); ++i) {
         int level = heads[i]->m_level;
-        AnchorNodePtr an;
+        //AnchorNodePtr an;
+		AnchorNode *an;
         int ii = level - 1;
         while (ii >= 0) {
             if (cc[ii]) {
@@ -228,8 +237,7 @@ AnchorNodePtr MkContent::CreateTree(std::vector<AnchorNodePtr> &heads)
         an->AppendCh(heads[i]);
         cc[level] = heads[i];
         for (int ii = level+1; ii < 7; ++ii) {
-            AnchorNodePtr e;
-            cc[ii] = e;
+			cc[ii] = NULL;
         }
     }
     return cc[0];
@@ -293,9 +301,9 @@ void MkSyntax::Analyse()
 	}
 }
 
-void MkSyntax::GetMkContent()
+AnchorNode* MkSyntax::GetMkContent()
 {
-	m_content.CreateMkLevel();
+	return m_content.CreateMkLevel();
 }
 
 void MkSyntax::ToString(std::stringstream &stream)
@@ -520,15 +528,53 @@ bool MkSyntax::IsTabCodeLine(int i)
 	return false;
 }
 
-std::pair<AnchorNode*, std::string> SyntaxMk(std::vector<std::string> lines)
-{
+const char *css = "<html>"
+"<head>"
+"    <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
+"    <style type=\"text/css\">"
+"        body { color: #444444; font-size:14px; line-height:1.5; word-wrap: break-word; font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; }"
+"        h1, h2, h3, h4 { color: #111111; font-weight: bold; }"
+"        h1 { font-size: 22px; border-bottom: 1px solid; color: #D6615C; }"
+"        h2 { font-size: 20px; font-weight: bold; color: #2F517B; }"
+"        h3 { font-size: 18px; font-style: italic; }"
+"        h4 { font-size: 18px; font-style: italic; }"
+"        h5 { font-size: 16px; font-style: italic; }"
+"        h6 { font-size: 14px; font-style: italic; }"
+"        a { color: #0099ff; margin: 0; padding: 0; vertical-align: baseline; }"
+"        a:link, a:visited { text-decoration: none; }"
+"        a:hover { text-decoration: underline; }"
+"        pre { padding: 4px; max-width: 100%; line-height: 1.5; font-size: 12px; border: 1px solid #ddd; background-color: #f7f7f7;  }"
+"        code { font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; line-height: 1.5; font-size: 12px; background-color: #f7f7f7; }"
+"        td, th { border: 1px solid #ccc; padding: 5px; }"
+"        ul, ol { margin-left: 0px; font-size: 14px; line-height:1.5;}"
+"        aside { display: block; float: right; width: 100%; }"
+"        blockquote { border-left: .5em solid #40AA53; padding: 0 2em; margin-left: 0; max-width: 100%; }"
+"        blockquote cite { font-size: 14px; line-height: 20px; color: #bfbfbf; }"
+"        blockquote p { color: #666; max-width: 100%; }"
+"        table { border-spacing: 0; border: 1px; solid #ccc; }"
+"    </style>"
+"</head>"
+"<body>";
 
-	AnchorNode *node;
-	return std::make_pair(node, "");
+std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> lines)
+{
+	MkSyntax syn(lines);
+	syn.Analyse();
+
+	AnchorNode *node = syn.GetMkContent();
+	std::stringstream stream;
+	stream << css;
+	syn.ToString(stream);
+	stream << "</body></html>";
+	return std::make_pair(stream.str(), node);
 }
 
-void ReleaseAnchorNode(AnchorNode *)
+void ReleaseAnchorNode(AnchorNode *node)
 {
-	
+	if (node) {
+		for (int i = 0; i < node->m_children.size(); ++i) {
+			ReleaseAnchorNode(node->m_children[i]);
+		}
+		delete node;
+	}
 }
-

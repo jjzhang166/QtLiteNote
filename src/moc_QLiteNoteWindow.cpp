@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_QLiteNoteWindow_t {
-    QByteArrayData data[27];
-    char stringdata0[344];
+    QByteArrayData data[28];
+    char stringdata0[355];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,18 +44,19 @@ QT_MOC_LITERAL(11, 152, 15), // "TreeItemKeyItem"
 QT_MOC_LITERAL(12, 168, 19), // "MarkLevelItemSelect"
 QT_MOC_LITERAL(13, 188, 10), // "ConvertEnd"
 QT_MOC_LITERAL(14, 199, 4), // "html"
-QT_MOC_LITERAL(15, 204, 10), // "AddNewNote"
-QT_MOC_LITERAL(16, 215, 9), // "AddNewDir"
-QT_MOC_LITERAL(17, 225, 10), // "DeleteItem"
-QT_MOC_LITERAL(18, 236, 8), // "EditNote"
-QT_MOC_LITERAL(19, 245, 10), // "RenameItem"
-QT_MOC_LITERAL(20, 256, 12), // "OpenExplorer"
-QT_MOC_LITERAL(21, 269, 10), // "RefreshAll"
-QT_MOC_LITERAL(22, 280, 10), // "NewRootDir"
-QT_MOC_LITERAL(23, 291, 13), // "ShowTreeCheck"
-QT_MOC_LITERAL(24, 305, 16), // "ShowMkLevekCheck"
-QT_MOC_LITERAL(25, 322, 11), // "ResumeTrash"
-QT_MOC_LITERAL(26, 334, 9) // "ShowAbout"
+QT_MOC_LITERAL(15, 204, 10), // "anchorNode"
+QT_MOC_LITERAL(16, 215, 10), // "AddNewNote"
+QT_MOC_LITERAL(17, 226, 9), // "AddNewDir"
+QT_MOC_LITERAL(18, 236, 10), // "DeleteItem"
+QT_MOC_LITERAL(19, 247, 8), // "EditNote"
+QT_MOC_LITERAL(20, 256, 10), // "RenameItem"
+QT_MOC_LITERAL(21, 267, 12), // "OpenExplorer"
+QT_MOC_LITERAL(22, 280, 10), // "RefreshAll"
+QT_MOC_LITERAL(23, 291, 10), // "NewRootDir"
+QT_MOC_LITERAL(24, 302, 13), // "ShowTreeCheck"
+QT_MOC_LITERAL(25, 316, 16), // "ShowMkLevekCheck"
+QT_MOC_LITERAL(26, 333, 11), // "ResumeTrash"
+QT_MOC_LITERAL(27, 345, 9) // "ShowAbout"
 
     },
     "QLiteNoteWindow\0TreeItemSelect\0\0"
@@ -64,10 +65,11 @@ QT_MOC_LITERAL(26, 334, 9) // "ShowAbout"
     "TreeItemDoubleClick\0TreeItemExpand\0"
     "TreeItemCollapsed\0TreeItemKeyItem\0"
     "MarkLevelItemSelect\0ConvertEnd\0html\0"
-    "AddNewNote\0AddNewDir\0DeleteItem\0"
-    "EditNote\0RenameItem\0OpenExplorer\0"
-    "RefreshAll\0NewRootDir\0ShowTreeCheck\0"
-    "ShowMkLevekCheck\0ResumeTrash\0ShowAbout"
+    "anchorNode\0AddNewNote\0AddNewDir\0"
+    "DeleteItem\0EditNote\0RenameItem\0"
+    "OpenExplorer\0RefreshAll\0NewRootDir\0"
+    "ShowTreeCheck\0ShowMkLevekCheck\0"
+    "ResumeTrash\0ShowAbout"
 };
 #undef QT_MOC_LITERAL
 
@@ -94,19 +96,19 @@ static const uint qt_meta_data_QLiteNoteWindow[] = {
       10,    1,  142,    2, 0x08 /* Private */,
       11,    1,  145,    2, 0x08 /* Private */,
       12,    1,  148,    2, 0x08 /* Private */,
-      13,    1,  151,    2, 0x08 /* Private */,
-      15,    0,  154,    2, 0x08 /* Private */,
-      16,    0,  155,    2, 0x08 /* Private */,
-      17,    0,  156,    2, 0x08 /* Private */,
-      18,    0,  157,    2, 0x08 /* Private */,
-      19,    0,  158,    2, 0x08 /* Private */,
-      20,    0,  159,    2, 0x08 /* Private */,
-      21,    0,  160,    2, 0x08 /* Private */,
-      22,    0,  161,    2, 0x08 /* Private */,
-      23,    0,  162,    2, 0x08 /* Private */,
-      24,    0,  163,    2, 0x08 /* Private */,
-      25,    0,  164,    2, 0x08 /* Private */,
-      26,    0,  165,    2, 0x08 /* Private */,
+      13,    2,  151,    2, 0x08 /* Private */,
+      16,    0,  156,    2, 0x08 /* Private */,
+      17,    0,  157,    2, 0x08 /* Private */,
+      18,    0,  158,    2, 0x08 /* Private */,
+      19,    0,  159,    2, 0x08 /* Private */,
+      20,    0,  160,    2, 0x08 /* Private */,
+      21,    0,  161,    2, 0x08 /* Private */,
+      22,    0,  162,    2, 0x08 /* Private */,
+      23,    0,  163,    2, 0x08 /* Private */,
+      24,    0,  164,    2, 0x08 /* Private */,
+      25,    0,  165,    2, 0x08 /* Private */,
+      26,    0,  166,    2, 0x08 /* Private */,
+      27,    0,  167,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -118,7 +120,7 @@ static const uint qt_meta_data_QLiteNoteWindow[] = {
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    4,
-    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void, QMetaType::QString, QMetaType::VoidStar,   14,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -150,7 +152,7 @@ void QLiteNoteWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 6: _t->TreeItemCollapsed((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
         case 7: _t->TreeItemKeyItem((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
         case 8: _t->MarkLevelItemSelect((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 9: _t->ConvertEnd((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 9: _t->ConvertEnd((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< void*(*)>(_a[2]))); break;
         case 10: _t->AddNewNote(); break;
         case 11: _t->AddNewDir(); break;
         case 12: _t->DeleteItem(); break;

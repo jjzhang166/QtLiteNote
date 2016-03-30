@@ -8,7 +8,6 @@
 //将html写入文件
 void WriteMdToHtml(const QString &md, const QString &path);
 
-
 class MarkdownThread : public QThread
 {
     Q_OBJECT
@@ -23,7 +22,7 @@ protected:
     virtual void run();
 
 signals:
-    void ConvertEnd(const QString &html);
+    void ConvertEnd(const QString &html, void *P);
 
 private:
     QMutex m_lock;

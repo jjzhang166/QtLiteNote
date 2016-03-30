@@ -181,7 +181,7 @@ void MarkdownThread::run()
 				std::string s(md[i].toUtf8());
 				lines.push_back(s);
 			}
-			MkSyntax syn(lines);
+			/*			MkSyntax syn(lines);
 			syn.Analyse();
 			syn.GetMkContent();
 			std::stringstream stream;
@@ -197,11 +197,12 @@ void MarkdownThread::run()
 				}
 			}
 			syn.ToString(stream);
-
 			stream << "</body></html>";
-			QString html = QString::fromUtf8(stream.str().c_str());
-			emit ConvertEnd(html);
-            WriteMdToHtml(html, QString::fromUtf8("D:\\temp_mk.html"));
+			*/	
+			std::pair<std::string, AnchorNode*> r = SyntaxMk(lines);
+			QString html = QString::fromUtf8(r.first.c_str());
+			emit ConvertEnd(html, r.second);
+            //WriteMdToHtml(html, QString::fromUtf8("D:\\temp_mk.html"));
 		}
         QThread::msleep(20);
     }

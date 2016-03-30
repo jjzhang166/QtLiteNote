@@ -144,20 +144,27 @@ void QTreeWidgetEx::UpdateEdit(QTreeWidgetItem *item)
 
 void QTreeWidgetEx::SetSelectItem(QTreeWidgetItem *item)
 {
-    if (item != m_now_select_node) {
-        if (m_now_select_node) {
-            m_now_select_node->setSelected(false);
-        }
-        if (item) {
-            item->setSelected(true);
-            m_now_select_node = item;
-            scrollToItem(item);
-        } else {
-            m_now_select_node = NULL;
-        }
+	if (item == NULL) {
+		if (m_now_select_node) {
+			m_now_select_node->setSelected(false);
+		}
+		m_now_select_node = NULL;
+		return;
+	}
 
-        emit itemSelect(m_now_select_node);
-    }
+	if (item != m_now_select_node) {
+		if (m_now_select_node) {
+			m_now_select_node->setSelected(false);
+		}
+		if (item) {
+			item->setSelected(true);
+			m_now_select_node = item;
+			scrollToItem(item);
+		} else {
+			m_now_select_node = NULL;
+		}
+		emit itemSelect(m_now_select_node);
+	}
 }
 
 void QTreeWidgetEx::SetNowItemOnly(QTreeWidgetItem *item)

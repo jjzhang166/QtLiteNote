@@ -15,7 +15,7 @@ public:
     ~MkNode();
 
     virtual void ToString(std::stringstream &stream);
-    virtual AnchorNodePtr CreateAnchor(int id);
+    virtual AnchorNode* CreateAnchor(int id);
 
     void appendCh(MkNodePtr ch);
 
@@ -29,7 +29,7 @@ public:
     HeadNode(int level, const std::string &text);
 
     void ToString(std::stringstream &stream);
-    AnchorNodePtr CreateAnchor(int id);
+    AnchorNode* CreateAnchor(int id);
 
 private:
     int m_headLevel;
@@ -94,10 +94,10 @@ public:
     void AppendCodeContent(const std::string &text);
     void ToString(std::stringstream &stream);
 
-    void CreateMkLevel();
+    AnchorNode* CreateMkLevel();
 
 private:
-    AnchorNodePtr CreateTree(std::vector<AnchorNodePtr> &heads);
+    AnchorNode* CreateTree(std::vector<AnchorNode*> &heads);
 
 
 private:
@@ -113,7 +113,7 @@ public:
 
     void Analyse();
 	void ToString(std::stringstream &stream);
-	void GetMkContent();
+	AnchorNode* GetMkContent();
 
 private:
 	bool ActionTop(int i, int &stat);
