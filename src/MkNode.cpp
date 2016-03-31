@@ -152,6 +152,20 @@ TextNode::TextNode(const std::string &text)
 
 void TextNode::ToString(std::stringstream &stream)
 {
+    //TODO: 在这里对m_text进行滤镜操作
+    std::regex reg1("&");
+    m_text = std::regex_replace(m_text, reg1, "&amp;");
+
+    std::regex reg2("<");
+    m_text = std::regex_replace(m_text, reg2, "&lt;");
+
+    std::regex reg3(">");
+    m_text = std::regex_replace(m_text, reg3, "&gt;");
+
+    std::regex reg4("\"");
+    m_text = std::regex_replace(m_text, reg4, "&quot;");
+
+
     stream << m_text;
     stream << "<br/>";
 }
