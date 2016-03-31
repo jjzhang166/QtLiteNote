@@ -10,6 +10,7 @@ public:
     ~QTreeWidgetEx(void);
 
     virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
 
     void SetSelectItem(QTreeWidgetItem *item);

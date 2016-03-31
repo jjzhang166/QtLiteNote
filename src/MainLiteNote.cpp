@@ -6,6 +6,7 @@
 #include <regex>
 #include <string>
 
+std::string ltrim(std::string &ss);
 
 int ShowLiteNote(int argc, char **argv)
 {
@@ -108,7 +109,7 @@ void ScanAnchor(AnchorNode *node, int level)
 
 void TestMkNode2()
 {
-	std::vector<std::string> lines = ReadMkUTF8("D:\\py.txt");
+	std::vector<std::string> lines = ReadMkUTF8("D:\\lib.txt");
 
 	std::pair<std::string, AnchorNode*> r = SyntaxMk(lines);
 	QString html = QString::fromUtf8(r.first.c_str());
@@ -147,6 +148,14 @@ void TestString()
     return;
 }
 
+void TestLeftTrim()
+{
+	std::string s(" 向百123");
+	s = ltrim(s);
+
+	printf("\n");
+}
+
 void TestRegex()
 {
 	std::regex pat("^#+");
@@ -173,9 +182,13 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
+	//ln::LExceptionHandle *e = ln::LExceptionHandle::GetInstance();
+	//e->Start();
+
+	//TestLeftTrim();
 	//TestRegex();
 	//TestMkNode();
-	TestMkNode2();
+	//TestMkNode2();
 	//return 0;
     return ShowLiteNote(argc, argv);
 }

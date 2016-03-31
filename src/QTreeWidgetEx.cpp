@@ -76,7 +76,14 @@ void QTreeWidgetEx::mousePressEvent(QMouseEvent *event)
         SetSelectItem(item);
         emit rightClick(item);
     }
+}
 
+void QTreeWidgetEx::mouseReleaseEvent(QMouseEvent *event)
+{
+	QTreeWidgetItem *item = this->itemAt(event->x(), event->y());
+	if (item) {
+		SetSelectItem(item);
+	}
 }
 
 void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)

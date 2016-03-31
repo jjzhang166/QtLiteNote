@@ -67,6 +67,7 @@ private slots:
     void TreeItemKeyItem(QTreeWidgetItem *item);
 
     void MarkLevelItemSelect(QTreeWidgetItem *item);
+	void MarkLevelItemSelect2(QTreeWidgetItem *item, int column);
 
     void ConvertEnd(const QString &html, void *anchorNode);
 
@@ -92,7 +93,7 @@ private:
     QTreeWidgetEx *m_note_tree;
     QTextEdit *m_edit_box;
     QWebView *m_webview;
-    QTreeWidgetEx *m_mkLevel_tree;
+    QTreeWidget *m_mkLevel_tree;
 
     QTreeWidgetItem *m_now_item;
 

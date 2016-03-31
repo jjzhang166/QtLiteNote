@@ -4,24 +4,24 @@
 #include <algorithm>
 #include <functional>
 
-inline std::string& ltrim(std::string &ss)
+std::string ltrim(std::string &str)
 {
-	//int(*pf)(int) = isspace;
-	//std::string::iterator p = std::find_if(ss.begin(), ss.end(), std::not1(std::ptr_fun(pf)));
-	//ss.erase(ss.begin(), p);
-	//return ss;
-	//std::string s;
-	//ss.erase(ss.find_last_not_of(" \n\r\t") + 1);
-	//TODO: ÍêÉÆ£¬²¢²âÊÔ
-	ss.find_first_not_of(" \n\r\t");
+	if (str.empty()) {
+		return str;
+	}
+	int index = str.find_first_not_of(" \n\r\t");
+	if (index >= 0 && index < str.length()) {
+		return str.substr(index);
+	}
+	return str;
 }
 
-inline std::string& rtrim(std::string &ss)
+inline std::string& rtrim(std::string &str)
 {
 	int(*pf)(int) = isspace;
-	std::string::reverse_iterator p = std::find_if(ss.rbegin(), ss.rend(), std::not1(std::ptr_fun(pf)));
-	ss.erase(p.base(), ss.end());
-	return ss;
+	std::string::reverse_iterator p = std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun(pf)));
+	str.erase(p.base(), str.end());
+	return str;
 }
 
 AnchorNode::AnchorNode()
@@ -259,7 +259,7 @@ void MkSyntax::Analyse()
 	int i = -1;
 	while (1) {
 		++i;
-		printf("lineNum: %d\n", i);
+		//printf("lineNum: %d\n", i);
 
 		if (m_lines.size() == i)
 			break;
@@ -460,7 +460,7 @@ std::pair<int, std::string> MkSyntax::GetHeadLevel(int i)
 
 		std::string h(line.begin(), suf.first);
 		std::string after(suf.first, line.end());
-		//after = ltrim(after);
+		after = ltrim(after);
 
 		return std::make_pair(h.size(), after);
 	}

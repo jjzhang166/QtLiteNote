@@ -276,13 +276,14 @@ void QLiteNoteWindow::CreateStatus()
 
 void QLiteNoteWindow::CreateMkLevelTree()
 {
-    m_mkLevel_tree = new QTreeWidgetEx(this);
+    m_mkLevel_tree = new QTreeWidget(this);
     m_mkLevel_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_mkLevel_tree->setHeaderHidden(true);
     m_mkLevel_tree->setRootIsDecorated(true);
     m_mkLevel_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
 
-    connect(m_mkLevel_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(MarkLevelItemSelect(QTreeWidgetItem*)));
+    //connect(m_mkLevel_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(MarkLevelItemSelect(QTreeWidgetItem*)));
+	connect(m_mkLevel_tree, SIGNAL(itemPressed(QTreeWidgetItem *, int )), this, SLOT(MarkLevelItemSelect2(QTreeWidgetItem*,int)));
 }
 
 void QLiteNoteWindow::RefreshRoot(const QString &path)
@@ -550,6 +551,16 @@ void QLiteNoteWindow::MarkLevelItemSelect(QTreeWidgetItem *item)
 	}
 }
 
+void QLiteNoteWindow::MarkLevelItemSelect2(QTreeWidgetItem *item, int column)
+{
+	if (item) {
+		QString anchor = item->data(0, Qt::UserRole).toString();
+
+		QWebPage *page = m_webview->page();
+		QWebFrame *frame = page->mainFrame();
+		frame->scrollToAnchor(anchor);
+	}
+}
 void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
 {
     if (item) {
@@ -687,7 +698,6 @@ void QLiteNoteWindow::ConvertEnd(const QString &html, void *anchorNode)
 
 void QLiteNoteWindow::SetMkLevel(AnchorNode *node)
 {
-	m_mkLevel_tree->SetSelectItem(NULL);
 	m_mkLevel_tree->clear();
 
 	for (int i = 0; i < node->m_children.size(); ++i) {
@@ -913,9 +923,9 @@ void QLiteNoteWindow::WriteSettings()
     QSettings settings("Software xiangism", "QtLiteNote");
     settings.setValue("geometry", saveGeometry());
 
-    QList<int> ss = m_split->sizes();
-    //settings.setValue("split", ss[0]);
-
+    QList<int> si = m_split->sizes();
+	settings.setValue("left_split", si[0]);
+	settings.setValue("right_split", si[2]);
 }
 
 void QLiteNoteWindow::ReadSettings()
@@ -925,11 +935,14 @@ void QLiteNoteWindow::ReadSettings()
     QVariant geometry = settings.value("geometry");
     restoreGeometry(geometry.toByteArray());
 
-    int s = settings.value("split").toInt();
-    QList<int> ss;
-    ss.push_back(s==0 ? 150 : s);
-    ss.push_back(100);
-    //m_split->setSizes(ss);
+	//QList<QVariant> ss = settings.value("splits").toList();
+	QList<int> si;
+	int left = settings.value("left_split").toInt();
+	int right = settings.value("right_split").toInt();
+	si.push_back(left);
+	si.push_back(0);
+	si.push_back(right);
+	m_split->setSizes(si);
 }
 
 void QLiteNoteWindow::ShowAbout()
