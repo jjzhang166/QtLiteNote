@@ -152,7 +152,7 @@ TextNode::TextNode(const std::string &text)
 
 void TextNode::ToString(std::stringstream &stream)
 {
-    //TODO: 在这里对m_text进行滤镜操作
+    //在这里对m_text进行滤镜操作
     std::regex reg1("&");
     m_text = std::regex_replace(m_text, reg1, "&amp;");
 
