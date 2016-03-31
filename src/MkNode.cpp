@@ -457,6 +457,7 @@ std::pair<int, std::string> MkSyntax::GetHeadLevel(int i)
 	std::smatch match;
 	if (std::regex_search(line, match, pat)) {
 		std::ssub_match suf = match.suffix();
+		//suf.first._i;
 
 		std::string h(line.begin(), suf.first);
 		std::string after(suf.first, line.end());
