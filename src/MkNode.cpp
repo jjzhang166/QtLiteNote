@@ -457,10 +457,12 @@ std::pair<int, std::string> MkSyntax::GetHeadLevel(int i)
 	std::smatch match;
 	if (std::regex_search(line, match, pat)) {
 		std::ssub_match suf = match.suffix();
+        std::ssub_match pre = match.prefix();
 
-		std::string h(line.begin(), suf.first);
-		std::string after(suf.first, line.end());
-		after = ltrim(after);
+        std::string h(pre.first, suf.first);
+        std::string after(suf.first, suf.second);
+
+        after = ltrim(after);
 
 		return std::make_pair(h.size(), after);
 	}
@@ -484,8 +486,8 @@ std::pair<bool, std::string> MkSyntax::SplitStartItem(int i, std::string pat)
 	std::smatch match;
 	if (std::regex_search(line, match, reg)) {
 		std::ssub_match suf = match.suffix();
-		std::string after(suf.first, line.end());
-		//after = ltrim(after);
+        std::string after(suf.first, suf.second);
+        after = ltrim(after);
 		return std::make_pair(true, after);
 	}
 	return std::make_pair(false, "");
