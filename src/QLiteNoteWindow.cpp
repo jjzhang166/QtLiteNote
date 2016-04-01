@@ -528,11 +528,12 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 {
     if (item) {
-		QString txt = item->data(0, Qt::UserRole).toString();
+//        QString txt = item->data(0, Qt::UserRole).toString();
+        QString txt = item->text(0);
         //windows下不支持的路径字符 \ / : * ? " < > |
         //其它平台就暂时也不用这些字符
         QString name = txt.remove(QRegExp("[\\\\\\/:*?\"\\<\\>\\|]"));
-		QString old_path = item->data(1, Qt::UserRole).toString();
+        QString old_path = item->data(1, Qt::UserRole).toString();
         QFileInfo info(old_path);
 
         QString new_path;
@@ -541,8 +542,6 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
         } else {
             new_path = info.absolutePath() + QDir::separator() + name;
         }
-        QByteArray a1 = old_path.toUtf8();
-        QByteArray a2 = new_path.toUtf8();
 
         QDir d("");
         if (!d.rename(old_path, new_path)) {
@@ -562,11 +561,10 @@ void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
 {
 	if (item) {
 		m_now_item = item;
-		QString s = m_now_item->data(1, Qt::UserRole).toString();
-		QFileInfo file(s);
+        QString path = m_now_item->data(1, Qt::UserRole).toString();
+        QFileInfo file(path);
 		if (file.isFile()) {
-			m_now_note_path = s;
-
+            m_now_note_path = path;
 			m_note_menu->exec(cursor().pos());
 		} else if (file.isDir()) {
 			m_dir_menu->exec(cursor().pos());
@@ -924,7 +922,7 @@ void QLiteNoteWindow::NewRootDir()
    name.push_back(file.fileName());
    QTreeWidgetItem *d = new QTreeWidgetItem(name);
    d->setIcon(0, QIcon(":/ras/dir.png"));
-   d->setData(1, 0, new_path);
+   d->setData(1, Qt::UserRole, new_path);
    d->setFont(0, m_tree_font);
    d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
