@@ -80,10 +80,10 @@ void QTreeWidgetEx::mousePressEvent(QMouseEvent *event)
 
 void QTreeWidgetEx::mouseReleaseEvent(QMouseEvent *event)
 {
-	QTreeWidgetItem *item = this->itemAt(event->x(), event->y());
+	/*QTreeWidgetItem *item = this->itemAt(event->x(), event->y());
 	if (item) {
 		SetSelectItem(item);
-	}
+	}*/
 }
 
 void QTreeWidgetEx::keyPressEvent(QKeyEvent *event)

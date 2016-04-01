@@ -33,6 +33,7 @@ private:
 
     void RefreshRoot(const QString &path);
     void RefreshNode(QTreeWidgetItem *item, bool scan_child_dir = false);
+	void RefreshNowNote();
 
     //重载刷新某个节点的父节点，用于对节点删除或重命名后
     //不应该笼统地用这个函数，而应该分开，重命名后不需要刷新整个父节点
@@ -50,11 +51,13 @@ private:
     void WriteSettings();
     void ReadSettings();
 
-    void ShowNote();
+    void ShowNote(const QString &path);
     void WebBlack();
 
 	void SetMkLevel(AnchorNode *node);
 	void SetChLevel(QTreeWidgetItem *item, AnchorNode *node);
+
+	void NavigationTree(const QStringList &ps);
 
 private slots:
     void TreeItemSelect(QTreeWidgetItem *item);
@@ -66,7 +69,6 @@ private slots:
     void TreeItemCollapsed(QTreeWidgetItem *item);
     void TreeItemKeyItem(QTreeWidgetItem *item);
 
-    void MarkLevelItemSelect(QTreeWidgetItem *item);
 	void MarkLevelItemSelect2(QTreeWidgetItem *item, int column);
 
     void ConvertEnd(const QString &html, void *anchorNode);
@@ -86,7 +88,7 @@ private slots:
     void ShowAbout();
 
 private:
-    QString m_note_path;
+    QString m_note_root_path;
     QString m_trash_path;
     QSplitter *m_split;
 
@@ -95,7 +97,9 @@ private:
     QWebView *m_webview;
     QTreeWidget *m_mkLevel_tree;
 
-    QTreeWidgetItem *m_now_item;
+	QTreeWidgetItem *m_now_item;		//因为需要对文件夹有右键操作，所以必须得有这个字段
+	QString m_now_note_path;
+	QTreeWidgetItem *m_now_note_item;	//只存储笔记节点
 
     QFont m_tree_font;
 
@@ -131,4 +135,6 @@ private:
     MarkdownThread *m_thread;
     
     bool m_is_control_down;
+	bool m_is_refreshNote;
+	QPoint m_web_scroll;
 };

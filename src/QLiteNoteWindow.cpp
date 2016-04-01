@@ -21,6 +21,19 @@ int ShellExecute(const char* path)
 }
 #endif
 
+QTreeWidgetItem *FindChildWithText(QTreeWidgetItem *item, const QString &text)
+{
+	for (int i = 0; i < item->childCount(); ++i) {
+		QTreeWidgetItem *ch = item->child(i);
+		QString t = ch->text(0);
+		qDebug() << "FindItem: " << t;
+		if (t == text) {
+			return ch;
+		}
+	}
+	return NULL;
+}
+
 QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     : QMainWindow(parent),
     m_split(NULL),
@@ -29,6 +42,7 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_webview(NULL),
     m_mkLevel_tree(NULL),
     m_now_item(NULL),
+	m_now_note_item(NULL),
     m_tree_font(QString::fromUtf8("微软雅黑"), 10),
     m_dir_icon(":/ras/dir.png"),
     m_dir_open_icon(":/ras/dir_open.png"),
@@ -55,7 +69,8 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_exit_action(NULL),
     m_about_action(NULL),
     m_thread(NULL),
-    m_is_control_down(false)
+    m_is_control_down(false),
+	m_is_refreshNote(false)
 {
     CreateAction();
     CreateMenu();
@@ -100,8 +115,8 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     RefreshRoot(path);
     WebBlack();
 
-    m_note_path = path;
-    m_trash_path = m_note_path + QDir::separator() + "trash";
+    m_note_root_path = path;
+    m_trash_path = m_note_root_path + QDir::separator() + "trash";
     QDir dir(path);
     dir.mkdir("trash");
 }
@@ -122,16 +137,12 @@ void QLiteNoteWindow::keyPressEvent(QKeyEvent *event)
             m_is_control_down = true;
             break;
             
-        case Qt::Key_F5:
-            ShowNote();
-            m_webview->pageAction(QWebPage::Reload);
-            break;
+		case Qt::Key_F5:
+			RefreshNowNote();
+			break;
             
         case Qt::Key_R:
-            if (m_is_control_down) {
-                ShowNote(); 
-                m_webview->pageAction(QWebPage::Reload);
-            }
+			RefreshNowNote();
             break;
             
 #if defined(Q_OS_MAC)
@@ -282,7 +293,6 @@ void QLiteNoteWindow::CreateMkLevelTree()
     m_mkLevel_tree->setRootIsDecorated(true);
     m_mkLevel_tree->setVerticalScrollMode(QTreeWidget::ScrollPerPixel);
 
-    //connect(m_mkLevel_tree, SIGNAL(itemSelect(QTreeWidgetItem*)), this, SLOT(MarkLevelItemSelect(QTreeWidgetItem*)));
 	connect(m_mkLevel_tree, SIGNAL(itemPressed(QTreeWidgetItem *, int )), this, SLOT(MarkLevelItemSelect2(QTreeWidgetItem*,int)));
 }
 
@@ -340,7 +350,6 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
 	txt_filters.push_back("*.txt");
 	QStringList files = dir.entryList(txt_filters, QDir::Files);
 
-
     for (int i = 2; i < dirs.size(); ++i) {
         QString &dir = dirs[i];
       
@@ -361,7 +370,6 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
         }
     }
 
-
     for (int i = 0; i < files.size(); ++i) {
         QStringList name;
         QString s = files[i];
@@ -380,15 +388,87 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
     }
 }
 
+void QLiteNoteWindow::RefreshNowNote()
+{
+	m_is_refreshNote = true;
+	QWebPage *page = m_webview->page();
+	QWebFrame *frame = page->mainFrame();
+	m_web_scroll = frame->scrollPosition();
+
+	int r = m_now_note_path.indexOf(m_note_root_path);
+	if (r == 0) {
+		QString p = m_now_note_path.mid(m_note_root_path.length() + 1);
+		QStringList ps = p.split(QRegExp("[\\\\\\/]"));
+		NavigationTree(ps);
+	}
+	ShowNote(m_now_note_path);
+}
+
+void QLiteNoteWindow::NavigationTree(const QStringList &names)
+{
+	//m_note_tree->SetSelectItem(m_now_note_item);
+	//return;
+
+	qDebug() << "=============";
+	for (int i = 0; i < names.size(); ++i) {
+		qDebug() << names[i];
+	}
+	qDebug() << "=============";
+
+	if (names.empty()) {
+		return;
+	}
+	QString top = names[0];
+	QTreeWidgetItem *par = NULL;
+
+	for (int i = 0; i < m_note_tree->topLevelItemCount(); ++i) {
+		QTreeWidgetItem *item = m_note_tree->topLevelItem(i);
+		QString text = item->text(0);
+
+		if (top == text) {
+			par = item;
+			item->setExpanded(true);
+			break;
+		}
+	}
+	if (!par) {
+		return;
+	}
+
+	for (int i = 1; i < names.size()-1; ++i) {
+		qDebug() << "one:" << names[i];
+		if (!par) {
+			break;
+		}
+		QTreeWidgetItem *item = FindChildWithText(par, names[i]);
+		if (item) {
+			par = item;
+			item->setExpanded(true);
+		}
+	}
+	QString s = names[names.size() - 1];
+	int index = s.lastIndexOf(".");
+
+	QTreeWidgetItem *item = FindChildWithText(par, s.mid(0, index));
+	if (item) {
+		m_note_tree->SetSelectItem(item);
+	}
+	
+}
 
 void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
 {
-    if (item) {
-        m_now_item = item;
-        UpdateStatue();
-
-        ShowNote();
-    }
+	if (item) {
+		m_now_item = item;
+		QString s = m_now_item->data(1, Qt::UserRole).toString();
+		QFileInfo f(s);
+		if (f.isFile()) {
+			m_now_note_path = s;
+			m_now_note_item = item;
+			ShowNote(s);
+		}
+		UpdateStatue();
+	}
 }
 
 void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
@@ -397,7 +477,7 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 
     if (r == QMessageBox::Yes) {
 		QString src = item->data(1, Qt::UserRole).toString();
-        QString name = src.mid(m_note_path.size()+1);
+        QString name = src.mid(m_note_root_path.size()+1);
         QFileInfo file(src);
 
         if (file.isFile()) {
@@ -482,20 +562,21 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 
 void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
 {
-    if (item) {
-        m_now_item = item;
-        UpdateStatue();
+	if (item) {
+		m_now_item = item;
+		QString s = m_now_item->data(1, Qt::UserRole).toString();
+		QFileInfo file(s);
+		if (file.isFile()) {
+			m_now_note_item = item;
+			m_now_note_path = s;
 
-		QString s = item->data(1, Qt::UserRole).toString();
-        QFileInfo file(s);
-        if (file.isFile()) {
-            //m_note_menu->exec(this->mapToParent(QPoint(x, y)));
-            m_note_menu->exec(cursor().pos());
-        } else if (file.isDir()) {
-            m_dir_menu->exec(cursor().pos());
-        }
+			m_note_menu->exec(cursor().pos());
+		} else if (file.isDir()) {
+			m_dir_menu->exec(cursor().pos());
+		}
+		UpdateStatue();
 
-    } else {
+	} else {
         m_black_menu->exec(cursor().pos());
     }
 }
@@ -540,17 +621,6 @@ void QLiteNoteWindow::TreeItemKeyItem(QTreeWidgetItem *item)
     }
 }
 
-void QLiteNoteWindow::MarkLevelItemSelect(QTreeWidgetItem *item)
-{
-	if (item) {
-		QString anchor = item->data(0, Qt::UserRole).toString();
-
-		QWebPage *page = m_webview->page();
-		QWebFrame *frame = page->mainFrame();
-		frame->scrollToAnchor(anchor);
-	}
-}
-
 void QLiteNoteWindow::MarkLevelItemSelect2(QTreeWidgetItem *item, int column)
 {
 	if (item) {
@@ -561,6 +631,7 @@ void QLiteNoteWindow::MarkLevelItemSelect2(QTreeWidgetItem *item, int column)
 		frame->scrollToAnchor(anchor);
 	}
 }
+
 void QLiteNoteWindow::TreeItemExpand(QTreeWidgetItem *item)
 {
     if (item) {
@@ -686,12 +757,18 @@ void QLiteNoteWindow::DeleteItem()
 void QLiteNoteWindow::ConvertEnd(const QString &html, void *anchorNode)
 {
     m_webview->setContent(html.toUtf8());
+	if (m_is_refreshNote) {
+		QWebPage *page = m_webview->page();
+		QWebFrame *frame = page->mainFrame();
+		frame->setScrollPosition(m_web_scroll);
+		m_is_refreshNote = false;
+	}
 
 	AnchorNode *node = (AnchorNode*)anchorNode;
 	SetMkLevel(node);
 	ReleaseAnchorNode(node);
 
-    WriteMdToHtml(html, "d:\\temp.html");
+    //WriteMdToHtml(html, "d:\\temp.html");
     //QUrl u("file:///d:\\temp.html");
     //m_webview->setUrl(u);
 }
@@ -747,32 +824,29 @@ void QLiteNoteWindow::WebBlack()
     m_webview->setContent("<html><body> </body></html>");
 }
 
-void QLiteNoteWindow::ShowNote()
+void QLiteNoteWindow::ShowNote(const QString &path)
 {
-    if (m_now_item) {
-		QString path = m_now_item->data(1, Qt::UserRole).toString();
-        QFileInfo f(path);
+	QFileInfo f(path);
 
-        if (f.isFile()) {
-            QFile file(path);
+	if (f.isFile()) {
+		QFile file(path);
 
-            if (file.open(QIODevice::ReadOnly)) {
-                QTextStream text(&file);
-                text.setCodec("UTF-8");
+		if (file.open(QIODevice::ReadOnly)) {
+			QTextStream text(&file);
+			text.setCodec("UTF-8");
 
-				QDir dir = f.absoluteDir();
-                QVector<QString> ss;
-				ss.push_back(dir.path());
-                while (!text.atEnd()) {
-                    ss.push_back(text.readLine());
-                }
-                m_thread->InsertMarkdown(ss);
+			QDir dir = f.absoluteDir();
+			QVector<QString> ss;
+			ss.push_back(dir.path());
+			while (!text.atEnd()) {
+				ss.push_back(text.readLine());
+			}
+			m_thread->InsertMarkdown(ss);
 
-            } else {
-                WebBlack();
-            }
-        }
-    }
+		} else {
+			WebBlack();
+		}
+	}
 }
 
 void QLiteNoteWindow::EditNote(const QString &path)
@@ -845,7 +919,7 @@ void QLiteNoteWindow::OpenExplorer()
 
 void QLiteNoteWindow::NewRootDir()
 {
-   QString new_path = FindNewFileName(m_note_path, QString(""));
+   QString new_path = FindNewFileName(m_note_root_path, QString(""));
    QFileInfo file(new_path);
    QDir dir;
    dir.mkdir(new_path);
@@ -902,7 +976,7 @@ void QLiteNoteWindow::ResumeTrash()
 
 void QLiteNoteWindow::RefreshAll()
 {
-    RefreshRoot(m_note_path);
+    RefreshRoot(m_note_root_path);
 }
 
 void QLiteNoteWindow::UpdateStatue()

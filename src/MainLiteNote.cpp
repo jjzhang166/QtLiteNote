@@ -33,8 +33,6 @@ int ShowLiteNote(int argc, char **argv)
     
 #endif
 
-    //printf("%s\n", str.toLocal8Bit().data());
-
     QTextCodec *c = QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForLocale(c);
 
