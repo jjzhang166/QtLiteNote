@@ -109,7 +109,8 @@ void ScanAnchor(AnchorNode *node, int level)
 
 void TestMkNode2()
 {
-	std::vector<std::string> lines = ReadMkUTF8("D:\\lib.txt");
+//	std::vector<std::string> lines = ReadMkUTF8("D:\\lib.txt");
+    std::vector<std::string> lines = ReadMkUTF8("/Users/xiangbc/test.txt");
 
 	std::pair<std::string, AnchorNode*> r = SyntaxMk(lines);
 	QString html = QString::fromUtf8(r.first.c_str());
@@ -164,8 +165,8 @@ void TestRegex()
 	if (std::regex_search(text, match, pat)) {
 		std::ssub_match suf = match.suffix();
 
-		std::string s1(text.begin(), suf.first);
-		std::string s2(suf.first, text.end());
+        std::string s1(text.begin(), text.end());
+//        std::string s2(suf.begin(), text.end());
 		
 		printf("\n");
 	}
@@ -182,13 +183,13 @@ void ConvertHtmlTag(PCString *str);
 
 int main(int argc, char **argv)
 {
-	//ln::LExceptionHandle *e = ln::LExceptionHandle::GetInstance();
-	//e->Start();
+    //ln::LExceptionHandle *e = ln::LExceptionHandle::GetInstance();
+    //e->Start();
 
-	//TestLeftTrim();
-	//TestRegex();
-	//TestMkNode();
-	//TestMkNode2();
-	//return 0;
+    //TestLeftTrim();
+    //TestRegex();
+    //TestMkNode();
+//    TestMkNode2();
+//    return 0;
     return ShowLiteNote(argc, argv);
 }

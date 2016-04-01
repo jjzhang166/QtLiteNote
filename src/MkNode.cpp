@@ -152,6 +152,20 @@ TextNode::TextNode(const std::string &text)
 
 void TextNode::ToString(std::stringstream &stream)
 {
+    //在这里对m_text进行滤镜操作
+    std::regex reg1("&");
+    m_text = std::regex_replace(m_text, reg1, "&amp;");
+
+    std::regex reg2("<");
+    m_text = std::regex_replace(m_text, reg2, "&lt;");
+
+    std::regex reg3(">");
+    m_text = std::regex_replace(m_text, reg3, "&gt;");
+
+    std::regex reg4("\"");
+    m_text = std::regex_replace(m_text, reg4, "&quot;");
+
+
     stream << m_text;
     stream << "<br/>";
 }
@@ -457,11 +471,12 @@ std::pair<int, std::string> MkSyntax::GetHeadLevel(int i)
 	std::smatch match;
 	if (std::regex_search(line, match, pat)) {
 		std::ssub_match suf = match.suffix();
-		//suf.first._i;
+        std::ssub_match pre = match.prefix();
 
-		std::string h(line.begin(), suf.first);
-		std::string after(suf.first, line.end());
-		after = ltrim(after);
+        std::string h(pre.first, suf.first);
+        std::string after(suf.first, suf.second);
+
+        after = ltrim(after);
 
 		return std::make_pair(h.size(), after);
 	}
@@ -485,8 +500,8 @@ std::pair<bool, std::string> MkSyntax::SplitStartItem(int i, std::string pat)
 	std::smatch match;
 	if (std::regex_search(line, match, reg)) {
 		std::ssub_match suf = match.suffix();
-		std::string after(suf.first, line.end());
-		//after = ltrim(after);
+        std::string after(suf.first, suf.second);
+        after = ltrim(after);
 		return std::make_pair(true, after);
 	}
 	return std::make_pair(false, "");
