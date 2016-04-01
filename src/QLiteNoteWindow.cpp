@@ -700,6 +700,18 @@ void QLiteNoteWindow::SetMkLevel(AnchorNode *node)
 {
 	m_mkLevel_tree->clear();
 
+	if (node->m_children.empty()) {
+		QList<int> ss = m_split->sizes();
+		ss[2] = 0;
+		m_split->setSizes(ss);
+		return;
+	} else {
+		if (m_show_mkLevel_action->isChecked()) {
+			QList<int> ss = m_split->sizes();
+			ss[2] = 150;
+			m_split->setSizes(ss);
+		}
+	}
 	for (int i = 0; i < node->m_children.size(); ++i) {
 		AnchorNode *p = node->m_children[i];
 		QStringList name;
