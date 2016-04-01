@@ -42,7 +42,6 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     m_webview(NULL),
     m_mkLevel_tree(NULL),
     m_now_item(NULL),
-	m_now_note_item(NULL),
     m_tree_font(QString::fromUtf8("微软雅黑"), 10),
     m_dir_icon(":/ras/dir.png"),
     m_dir_open_icon(":/ras/dir_open.png"),
@@ -464,7 +463,6 @@ void QLiteNoteWindow::TreeItemSelect(QTreeWidgetItem *item)
 		QFileInfo f(s);
 		if (f.isFile()) {
 			m_now_note_path = s;
-			m_now_note_item = item;
 			ShowNote(s);
 		}
 		UpdateStatue();
@@ -567,7 +565,6 @@ void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
 		QString s = m_now_item->data(1, Qt::UserRole).toString();
 		QFileInfo file(s);
 		if (file.isFile()) {
-			m_now_note_item = item;
 			m_now_note_path = s;
 
 			m_note_menu->exec(cursor().pos());
@@ -723,7 +720,6 @@ void QLiteNoteWindow::AddNewNote()
             FILE *file = fopen(new_path.toLocal8Bit().data(), "wt");
             fclose(file);
 #endif
-
             ExpandAndSelectNew(new_path);
         }
       

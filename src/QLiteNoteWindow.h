@@ -99,7 +99,6 @@ private:
 
 	QTreeWidgetItem *m_now_item;		//因为需要对文件夹有右键操作，所以必须得有这个字段
 	QString m_now_note_path;
-	QTreeWidgetItem *m_now_note_item;	//只存储笔记节点
 
     QFont m_tree_font;
 
