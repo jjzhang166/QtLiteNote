@@ -691,7 +691,7 @@ void QLiteNoteWindow::ConvertEnd(const QString &html, void *anchorNode)
 	SetMkLevel(node);
 	ReleaseAnchorNode(node);
 
-    //WriteMdToHtml(html, "d:\\temp.html");
+    WriteMdToHtml(html, "d:\\temp.html");
     //QUrl u("file:///d:\\temp.html");
     //m_webview->setUrl(u);
 }
@@ -748,11 +748,12 @@ void QLiteNoteWindow::ShowNote()
                 QTextStream text(&file);
                 text.setCodec("UTF-8");
 
+				QDir dir = f.absoluteDir();
                 QVector<QString> ss;
+				ss.push_back(dir.path());
                 while (!text.atEnd()) {
                     ss.push_back(text.readLine());
                 }
-               
                 m_thread->InsertMarkdown(ss);
 
             } else {

@@ -52,12 +52,11 @@ public:
 class LiNode : public MkNode
 {
 public:
-    LiNode(const std::string &text);
+    LiNode(MkNodePtr txtNode);
 
     void ToString(std::stringstream &stream);
 
     void AppendText(const std::string &text);
-
 };
 
 class CodeNode : public MkNode
@@ -73,12 +72,13 @@ private:
 class TextNode : public MkNode
 {
 public:
-    TextNode(const std::string &text);
+    TextNode(const std::string &text, const std::string &file_dir);
 
     void ToString(std::stringstream &stream);
 
 private:
     std::string m_text;
+	std::string m_file_dir;
 };
 
 //////////////////////////////////////////////
@@ -86,6 +86,7 @@ private:
 class MkContent
 {
 public:
+	MkContent(const std::string &file_dir);
     void AppendTop(MkNodePtr node);
     void AppendLi(MkNodePtr li);
     void LiAppendCodeNode(MkNodePtr codeNode);
@@ -102,6 +103,7 @@ private:
 
 private:
     std::vector<MkNodePtr> m_tops;
+	std::string m_file_dir;
 };
 
 //////////////////////////////////////////////
@@ -109,7 +111,7 @@ private:
 class MkSyntax
 {
 public:
-    MkSyntax(std::vector<std::string> &lines);
+    MkSyntax(std::vector<std::string> &lines, const std::string &file_dir);
 
     void Analyse();
 	void ToString(std::stringstream &stream);
@@ -131,6 +133,7 @@ private:
 
 private:
     std::vector<std::string> m_lines;
+	std::string m_file_dir;
     MkContent m_content;
 };
 

@@ -26,6 +26,7 @@ signals:
 
 private:
     QMutex m_lock;
+	// QVector<QString> 第一个存储笔记所在目录名
     QList<QVector<QString> > m_markdowns;
     volatile bool m_is_stoped;
 

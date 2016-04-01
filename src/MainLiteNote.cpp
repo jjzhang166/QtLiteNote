@@ -6,7 +6,7 @@
 #include <regex>
 #include <string>
 
-std::string ltrim(std::string &ss);
+std::string ltrim(const std::string &ss);
 
 int ShowLiteNote(int argc, char **argv)
 {
@@ -68,7 +68,7 @@ std::vector<std::string> ReadMkUTF8(const char *filename)
 void TestMkNode()
 {
 	std::vector<std::string> lines = ReadMkUTF8("D:\\base.txt");
-	MkSyntax syn(lines);
+	MkSyntax syn(lines, "");
 	syn.Analyse();
 	syn.GetMkContent();
 
@@ -109,10 +109,10 @@ void ScanAnchor(AnchorNode *node, int level)
 
 void TestMkNode2()
 {
-//	std::vector<std::string> lines = ReadMkUTF8("D:\\lib.txt");
-    std::vector<std::string> lines = ReadMkUTF8("/Users/xiangbc/test.txt");
+	std::vector<std::string> lines = ReadMkUTF8("D:\\test.txt");
+    //std::vector<std::string> lines = ReadMkUTF8("/Users/xiangbc/test.txt");
 
-	std::pair<std::string, AnchorNode*> r = SyntaxMk(lines);
+	std::pair<std::string, AnchorNode*> r = SyntaxMk(lines, "T:\\ITKnowledge\\Language\\python");
 	QString html = QString::fromUtf8(r.first.c_str());
 	WriteMdToHtml(html, QString::fromUtf8("d:\\z_md.html"));
 
@@ -189,7 +189,7 @@ int main(int argc, char **argv)
     //TestLeftTrim();
     //TestRegex();
     //TestMkNode();
-//    TestMkNode2();
-//    return 0;
+    //TestMkNode2();
+    //return 0;
     return ShowLiteNote(argc, argv);
 }

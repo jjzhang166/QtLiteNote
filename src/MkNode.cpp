@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <functional>
 
-std::string ltrim(std::string &str)
+std::string ltrim(const std::string &str)
 {
 	if (str.empty()) {
 		return str;
@@ -16,11 +16,47 @@ std::string ltrim(std::string &str)
 	return str;
 }
 
-inline std::string& rtrim(std::string &str)
+std::string rtrim(const std::string &str)
 {
-	int(*pf)(int) = isspace;
-	std::string::reverse_iterator p = std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun(pf)));
-	str.erase(p.base(), str.end());
+	int index = str.find_last_not_of(" \n\r\t");
+	//TODO:
+	return str;
+}
+
+std::string HtmlTagFilter(const std::string &str)
+{
+	std::string dst = str;
+	// & -> &amp;
+	// < -> &lt;
+	// > -> &gt;
+	// " -> &quot;
+	std::regex reg1("&");
+	dst = std::regex_replace(dst, reg1, "&amp;");
+
+	std::regex reg2("<");
+	dst = std::regex_replace(dst, reg2, "&lt;");
+
+	std::regex reg3(">");
+	dst = std::regex_replace(dst, reg3, "&gt;");
+
+	std::regex reg4("\"");
+	dst = std::regex_replace(dst, reg4, "&quot;");
+
+	return dst;
+}
+
+std::string HtmlImageFilter(const std::string &str, const std::string &file_dir)
+{
+	std::regex pat("!\\[\\]\\((.*)\\)");
+	std::smatch match;
+	if (std::regex_search(str, match, pat)) {
+
+		std::string s(match[1]);
+		//printf("%s\n", s.c_str());
+		char img[1024];
+		sprintf(img, "<img src=\"file:///%s/%s\"/>", file_dir.c_str(), s.c_str());
+		return img;
+	}
 	return str;
 }
 
@@ -108,9 +144,8 @@ void OlNode::ToString(std::stringstream &stream)
    stream << "\n";
 }
 
-LiNode::LiNode(const std::string &text)
+LiNode::LiNode(MkNodePtr txtNode)
 {
-	MkNodePtr txtNode(new TextNode(text));
 	m_chNodes.push_back(txtNode);
 }
 
@@ -123,17 +158,11 @@ void LiNode::ToString(std::stringstream &stream)
     stream << "</li>";
 }
 
-void LiNode::AppendText(const std::string &text)
-{
-    MkNodePtr txtNode(new TextNode(text));
-    m_chNodes.push_back(txtNode);
-}
-
 void CodeNode::ToString(std::stringstream &stream)
 {
     stream << "<pre><code>";
     for (int i = 0; i < m_codeText.size(); ++i) {
-        stream << m_codeText[i];
+        stream << HtmlTagFilter(m_codeText[i]);
         stream << "<br/>";
     }
     stream << "</pre></code>";
@@ -144,33 +173,26 @@ void CodeNode::AppendCode(const std::string &text)
     m_codeText.push_back(text);
 }
 
-TextNode::TextNode(const std::string &text)
-    : m_text(text)
+TextNode::TextNode(const std::string &text, const std::string &file_dir)
+    : m_text(text),
+	m_file_dir(file_dir)
 {
 
 }
 
 void TextNode::ToString(std::stringstream &stream)
 {
-    //在这里对m_text进行滤镜操作
-    std::regex reg1("&");
-    m_text = std::regex_replace(m_text, reg1, "&amp;");
-
-    std::regex reg2("<");
-    m_text = std::regex_replace(m_text, reg2, "&lt;");
-
-    std::regex reg3(">");
-    m_text = std::regex_replace(m_text, reg3, "&gt;");
-
-    std::regex reg4("\"");
-    m_text = std::regex_replace(m_text, reg4, "&quot;");
-
-
-    stream << m_text;
+	std::string text = HtmlTagFilter(m_text);
+	text = HtmlImageFilter(text, m_file_dir);
+	stream << text;
     stream << "<br/>";
 }
 ////////////////////////////////////////////
 
+MkContent::MkContent(const std::string &file_dir)
+	: m_file_dir(file_dir)
+{
+}
 void MkContent::AppendTop(MkNodePtr node)
 {
     m_tops.push_back(node);
@@ -197,8 +219,10 @@ void MkContent::LiAppendText(const std::string &text)
 {
     MkNodePtr ptr = m_tops.back()->m_chNodes.back();
     MkNode *p = ptr.get();
+
     LiNode *li = (LiNode*)p;
-    li->AppendText(text);
+    MkNodePtr txtNode(new TextNode(text, m_file_dir));
+	li->appendCh(txtNode);
 }
 
 void MkContent::AppendCodeContent(const std::string &text)
@@ -261,8 +285,10 @@ AnchorNode* MkContent::CreateTree(std::vector<AnchorNode*> &heads)
 // MkSyntax
 
 
-MkSyntax::MkSyntax(std::vector<std::string> &lines)
-: m_lines(lines)
+MkSyntax::MkSyntax(std::vector<std::string> &lines, const std::string &file_dir)
+: m_lines(lines),
+m_file_dir(file_dir),
+m_content(file_dir)
 {
     
 }
@@ -309,7 +335,7 @@ void MkSyntax::Analyse()
 
 		} 
 		if (!haveAct) {
-			MkNodePtr txtNode(new TextNode(m_lines[i]));
+			MkNodePtr txtNode(new TextNode(m_lines[i], m_file_dir));
 			m_content.AppendTop(txtNode);
 		}
 	}
@@ -341,7 +367,8 @@ bool MkSyntax::ActionTop(int i, int &stat)
 	text = r.second;
 	if (isUl) {
 		MkNodePtr ul(new UlNode());
-		MkNodePtr li(new LiNode(text));
+		MkNodePtr txtNode(new TextNode(text, m_file_dir));
+		MkNodePtr li(new LiNode(txtNode));
 		ul->appendCh(li);
 		m_content.AppendTop(ul);
 		stat = 1;
@@ -352,7 +379,8 @@ bool MkSyntax::ActionTop(int i, int &stat)
 	text = r.second;
 	if (isOl) {
 		MkNodePtr ol(new OlNode);
-		MkNodePtr li(new LiNode(text));
+		MkNodePtr txtNode(new TextNode(text, m_file_dir));
+		MkNodePtr li(new LiNode(txtNode));
 		ol->appendCh(li);
 		m_content.AppendTop(ol);
 		stat = 2;
@@ -373,7 +401,8 @@ void MkSyntax::ActionUl(int &i, int &stat)
 	bool isUl = r.first;
 	std::string &text = r.second;
 	if (isUl) {
-		MkNodePtr li(new LiNode(text));
+		MkNodePtr txtNode(new TextNode(text, m_file_dir));
+		MkNodePtr li(new LiNode(txtNode));
 		m_content.AppendLi(li);
 		return;
 	}
@@ -399,7 +428,8 @@ void MkSyntax::ActionOl(int &i, int &stat)
 	std::pair<bool, std::string> r = GetOlItem(i);
 
 	if (r.first) {
-		MkNodePtr li(new LiNode(r.second));
+		MkNodePtr txtNode(new TextNode(r.second, m_file_dir));
+		MkNodePtr li(new LiNode(txtNode));
 		m_content.AppendLi(li);
 		return;
 	}
@@ -572,9 +602,9 @@ const char *css = "<html>"
 "</head>"
 "<body>";
 
-std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> lines)
+std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, const std::string &file_dir)
 {
-	MkSyntax syn(lines);
+	MkSyntax syn(lines, file_dir);
 	syn.Analyse();
 
 	AnchorNode *node = syn.GetMkContent();
