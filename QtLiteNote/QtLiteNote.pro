@@ -14,23 +14,22 @@ TEMPLATE = app
 
 SOURCES +=\
     ../src/MainLiteNote.cpp \
-    ../src/Markdown.cpp \
-    ../src/Markdown_inc.cpp \
     ../src/PCString.cpp \
     ../src/QFileEx.cpp \
     ../src/QLiteNoteWindow.cpp \
     ../src/QTreeWidgetEx.cpp \
     ../src/ras_ras.cpp \
-    ../src/MkNode.cpp
+    ../src/MkNode.cpp \
+    ../src/MarkdownThread.cpp
 
 HEADERS  += \
-    ../src/Markdown.h \
     ../src/PCString.h \
     ../src/QFileEx.h \
     ../src/QLiteNoteWindow.h \
     ../src/QtHead.h \
     ../src/QTreeWidgetEx.h \
-    ../src/MkNode.h
+    ../src/MkNode.h \
+    ../src/MarkdownThread.h
 
 win32 {
         RC_FILE = LiteNote.rc

@@ -45,7 +45,7 @@ int ShowLiteNote(int argc, char **argv)
 }
 
 void WriteMdToHtml(const QString &md, const QString &path);
-char *ConvertMarkdown(char **strs, int count);
+//char *ConvertMarkdown(char **strs, int count);
 
 std::vector<std::string> ReadMkUTF8(const char *filename)
 {
@@ -110,41 +110,12 @@ void TestMkNode2()
 	std::vector<std::string> lines = ReadMkUTF8("D:\\test.txt");
     //std::vector<std::string> lines = ReadMkUTF8("/Users/xiangbc/test.txt");
 
-	std::pair<std::string, AnchorNode*> r = SyntaxMk(lines, "T:\\ITKnowledge\\Language\\python");
+    std::pair<std::string, AnchorNode*> r = SyntaxMk(lines, "T:\\ITKnowledge\\Language\\python", 18);
 	QString html = QString::fromUtf8(r.first.c_str());
 	WriteMdToHtml(html, QString::fromUtf8("d:\\z_md.html"));
 
 	ScanAnchor(r.second, 0);
 	ReleaseAnchorNode(r.second);
-}
-
-void TestString()
-{
-    QFile file("D:\\new.txt");
-    file.open(QIODevice::ReadOnly);
-    QTextStream text(&file);
-    text.setCodec("UTF-8");
-
-    QVector<QString> ss;
-    while (!text.atEnd()) {
-        ss.push_back(text.readLine());
-    }
-    char **strs = new char *[ss.size()];
-    for (int i = 0; i < ss.size(); ++i) {
-        
-        QByteArray arr = ss[i].toUtf8();
-        char *p = arr.data();
-        size_t len = strlen(p);
-        char *str = new char[len+1];
-        strcpy(str, p);
-        strs[i] = str;
-    }
-    char *r = ConvertMarkdown(strs, ss.size());
-
-    QString md = QString::fromUtf8(r);
-    WriteMdToHtml(md, QString::fromUtf8("d:\\z_md.html"));
-
-    return;
 }
 
 void TestLeftTrim()

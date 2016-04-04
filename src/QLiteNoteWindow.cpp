@@ -1,6 +1,6 @@
 #include "QLiteNoteWindow.h"
 #include "QTreeWidgetEx.h"
-#include "Markdown.h"
+#include "MarkdownThread.h"
 #include "MkNode.h"
 #include "QFileEx.h"
 

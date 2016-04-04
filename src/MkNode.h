@@ -20,5 +20,5 @@ public:
     std::vector<AnchorNode*> m_children;
 };
 
-std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, const std::string &file_dir);
+std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, const std::string &file_dir, int font_size);
 void ReleaseAnchorNode(AnchorNode *node);

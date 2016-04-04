@@ -9,7 +9,7 @@ std::string ltrim(const std::string &str)
 	if (str.empty()) {
 		return str;
 	}
-	int index = str.find_first_not_of(" \n\r\t");
+    size_t index = str.find_first_not_of(" \n\r\t");
 	if (index >= 0 && index < str.length()) {
 		return str.substr(index);
 	}
@@ -18,7 +18,7 @@ std::string ltrim(const std::string &str)
 
 std::string rtrim(const std::string &str)
 {
-	int index = str.find_last_not_of(" \n\r\t");
+    size_t index = str.find_last_not_of(" \n\r\t");
 	//TODO:
 	return str;
 }
@@ -574,42 +574,49 @@ bool MkSyntax::IsTabCodeLine(int i)
 	return false;
 }
 
-const char *css = "<html>"
+const char *css_templ = "<html>"
 "<head>"
 "    <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "    <style type=\"text/css\">"
-"        body { color: #444444; font-size:14px; line-height:1.5; word-wrap: break-word; font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; }"
+"        body { color: #444444; font-size:%dpt; line-height:1.5; word-wrap: break-word; font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; }"
 "        h1, h2, h3, h4 { color: #111111; font-weight: bold; }"
-"        h1 { font-size: 22px; border-bottom: 1px solid; color: #D6615C; }"
-"        h2 { font-size: 20px; font-weight: bold; color: #2F517B; }"
-"        h3 { font-size: 18px; font-style: italic; }"
-"        h4 { font-size: 18px; font-style: italic; }"
-"        h5 { font-size: 16px; font-style: italic; }"
-"        h6 { font-size: 14px; font-style: italic; }"
+"        h1 { font-size: %dpt; border-bottom: 1pt solid; color: #D6615C; }"
+"        h2 { font-size: %dpt; font-weight: bold; color: #2F517B; }"
+"        h3 { font-size: %dpt; font-style: italic; }"
+"        h4 { font-size: %dpt; font-style: italic; }"
+"        h5 { font-size: %dpt; font-style: italic; }"
+"        h6 { font-size: %dpt; font-style: italic; }"
 "        a { color: #0099ff; margin: 0; padding: 0; vertical-align: baseline; }"
 "        a:link, a:visited { text-decoration: none; }"
 "        a:hover { text-decoration: underline; }"
-"        pre { padding: 4px; max-width: 100%; line-height: 1.5; font-size: 12px; border: 1px solid #ddd; background-color: #f7f7f7;  }"
-"        code { font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; line-height: 1.5; font-size: 12px; background-color: #f7f7f7; }"
-"        td, th { border: 1px solid #ccc; padding: 5px; }"
-"        ul, ol { margin-left: 0px; font-size: 14px; line-height:1.5;}"
+"        pre { padding: 4pt; max-width: 100%; line-height: 1.2; font-size: %dpt; border: 1pt solid #ddd; background-color: #f7f7f7;  }"
+"        code { font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; line-height: 1.2; font-size: %dpt; background-color: #f7f7f7; }"
+"        td, th { border: 1pt solid #ccc; padding: 5pt; }"
+"        ul, ol { margin-left: 10pt; font-size: %dpt;}"
 "        aside { display: block; float: right; width: 100%; }"
 "        blockquote { border-left: .5em solid #40AA53; padding: 0 2em; margin-left: 0; max-width: 100%; }"
-"        blockquote cite { font-size: 14px; line-height: 20px; color: #bfbfbf; }"
+"        blockquote cite { font-size: %dpt; color: #bfbfbf; }"
 "        blockquote p { color: #666; max-width: 100%; }"
-"        table { border-spacing: 0; border: 1px; solid #ccc; }"
+"        table { border-spacing: 0; border: 1pt; solid #ccc; }"
 "    </style>"
 "</head>"
-"<body>";
+"<body><p/>";
 
-std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, const std::string &file_dir)
+std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, const std::string &file_dir, int font_size)
 {
-	MkSyntax syn(lines, file_dir);
+    size_t len = strlen(css_templ);
+    char *str = new char[len+100];
+//    sprintf(str, css_templ, font_size, font_size+20, font_size+16, font_size+12, font_size+8, font_size+4, font_size,
+//            font_size-4, font_size-4, font_size-4, font_size);
+    sprintf(str, css_templ, font_size, font_size+10, font_size+8, font_size+6, font_size+4, font_size+2, font_size,
+            font_size-2, font_size-2, font_size-2, font_size);
+    MkSyntax syn(lines, file_dir);
 	syn.Analyse();
 
 	AnchorNode *node = syn.GetMkContent();
 	std::stringstream stream;
-	stream << css;
+	stream << str;
+    delete [] str;
 	syn.ToString(stream);
 	stream << "</body></html>";
 	return std::make_pair(stream.str(), node);
