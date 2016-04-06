@@ -251,7 +251,6 @@ void QLiteNoteWindow::CreateMenu()
     m_help_menu = menuBar()->addMenu(tr("&Help"));
     m_help_menu->addAction(m_about_action);
 
-
     //context menu
     m_dir_menu = new QMenu(this);
     m_dir_menu->addAction(m_new_note_action);
@@ -323,7 +322,6 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
         d->setIcon(0, QIcon(":/ras/dir.png"));
         d->setData(1, Qt::UserRole, full_path);
         d->setFont(0, m_tree_font);
-        //QString q = m_tree_font.family();
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 
         m_note_tree->insertTopLevelItem(m_note_tree->topLevelItemCount(), d);
@@ -405,15 +403,6 @@ void QLiteNoteWindow::RefreshNowNote()
 
 void QLiteNoteWindow::NavigationTree(const QStringList &names)
 {
-	//m_note_tree->SetSelectItem(m_now_note_item);
-	//return;
-
-	qDebug() << "=============";
-	for (int i = 0; i < names.size(); ++i) {
-		qDebug() << names[i];
-	}
-	qDebug() << "=============";
-
 	if (names.empty()) {
 		return;
 	}
@@ -435,7 +424,6 @@ void QLiteNoteWindow::NavigationTree(const QStringList &names)
 	}
 
 	for (int i = 1; i < names.size()-1; ++i) {
-		qDebug() << "one:" << names[i];
 		if (!par) {
 			break;
 		}
@@ -528,7 +516,7 @@ void QLiteNoteWindow::TreeItemDelete(QTreeWidgetItem *item)
 void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
 {
     if (item) {
-//        QString txt = item->data(0, Qt::UserRole).toString();
+        //QString txt = item->data(0, Qt::UserRole).toString();
         QString txt = item->text(0);
         //windows下不支持的路径字符 \ / : * ? " < > |
         //其它平台就暂时也不用这些字符
@@ -539,6 +527,7 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
         QString new_path;
         if (info.isFile()) {
             new_path = info.absolutePath() + QDir::separator() + name + ".txt";
+            m_now_note_path = new_path;
         } else {
             new_path = info.absolutePath() + QDir::separator() + name;
         }
@@ -553,8 +542,7 @@ void QLiteNoteWindow::TreeItemRename(QTreeWidgetItem *item)
         if (info.isDir()) {
            RefreshNode(item);
         }
-
-    }
+    } // end if item
 }
 
 void QLiteNoteWindow::TreeRightClick(QTreeWidgetItem *item)
@@ -903,10 +891,7 @@ void QLiteNoteWindow::OpenExplorer()
         
 #elif defined(Q_OS_MAC)
         QUrl url = QUrl::fromLocalFile(f.absolutePath());
-        bool r = QDesktopServices::openUrl(url);
-
-        qDebug() << f.absolutePath();
-        qDebug() << r;
+        QDesktopServices::openUrl(url);
 #endif
     }
 }

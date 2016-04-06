@@ -55,7 +55,6 @@
 		045499071B53A14000202CE9 /* moc_Markdown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_Markdown.cpp; path = src/moc_Markdown.cpp; sourceTree = SOURCE_ROOT; };
 		045499081B53A14000202CE9 /* moc_QLiteNoteWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_QLiteNoteWindow.cpp; path = src/moc_QLiteNoteWindow.cpp; sourceTree = SOURCE_ROOT; };
 		045499091B53A14000202CE9 /* moc_QTreeWidgetEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_QTreeWidgetEx.cpp; path = src/moc_QTreeWidgetEx.cpp; sourceTree = SOURCE_ROOT; };
-		0454990D1B53A15600202CE9 /* Markdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Markdown.h; path = src/Markdown.h; sourceTree = SOURCE_ROOT; };
 		0454990E1B53A15600202CE9 /* QFileEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QFileEx.h; path = src/QFileEx.h; sourceTree = SOURCE_ROOT; };
 		0454990F1B53A15600202CE9 /* QLiteNoteWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QLiteNoteWindow.h; path = src/QLiteNoteWindow.h; sourceTree = SOURCE_ROOT; };
 		045499101B53A15600202CE9 /* QTreeWidgetEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QTreeWidgetEx.h; path = src/QTreeWidgetEx.h; sourceTree = SOURCE_ROOT; };
@@ -99,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				720D00D71C7DA91200FF37AE /* QtHead.h */,
-				0454990D1B53A15600202CE9 /* Markdown.h */,
 				0454990E1B53A15600202CE9 /* QFileEx.h */,
 				0454990F1B53A15600202CE9 /* QLiteNoteWindow.h */,
 				045499101B53A15600202CE9 /* QTreeWidgetEx.h */,
