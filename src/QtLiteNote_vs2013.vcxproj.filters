@@ -20,12 +20,6 @@
     <ClCompile Include="MainLiteNote.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Markdown.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Markdown_inc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="PCString.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -41,9 +35,6 @@
     <ClCompile Include="ras_ras.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="moc_Markdown.cpp">
-      <Filter>moc</Filter>
-    </ClCompile>
     <ClCompile Include="moc_QLiteNoteWindow.cpp">
       <Filter>moc</Filter>
     </ClCompile>
@@ -55,6 +46,12 @@
     </ClCompile>
     <ClCompile Include="MkNode.cpp">
       <Filter>markdownSyntax</Filter>
+    </ClCompile>
+    <ClCompile Include="MarkdownThread.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="moc_MarkdownThread.cpp">
+      <Filter>moc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -284,7 +284,6 @@ AnchorNode* MkContent::CreateTree(std::vector<AnchorNode*> &heads)
 //////////////////////////////////////////////
 // MkSyntax
 
-
 MkSyntax::MkSyntax(std::vector<std::string> &lines, const std::string &file_dir)
 : m_lines(lines),
 m_file_dir(file_dir),
@@ -549,7 +548,6 @@ std::pair<bool, std::string> MkSyntax::GetTabStart(int i)
     return std::make_pair(false, "");
 }
 
-
 bool MkSyntax::IsCodeLine(int i)
 {
     std::string &line = m_lines[i];
@@ -563,7 +561,7 @@ bool MkSyntax::IsTabCodeLine(int i)
     std::string &line = m_lines[i];
     if (line.size() == 4) {
         if (line[0] == '\t' && line.substr(1, 3) == "```") {
-            return true;     
+            return true;
         }
     }
     if (line.size() == 7) {
@@ -589,13 +587,12 @@ const char *css_templ = "<html>"
 "        a { color: #0099ff; margin: 0; padding: 0; vertical-align: baseline; }"
 "        a:link, a:visited { text-decoration: none; }"
 "        a:hover { text-decoration: underline; }"
-"        pre { padding: 4pt; max-width: 100%; line-height: 1.2; font-size: %dpt; border: 1pt solid #ddd; background-color: #f7f7f7;  }"
-"        code { font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; line-height: 1.2; font-size: %dpt; background-color: #f7f7f7; }"
+"        pre { padding: 4pt; max-width: 100%white-space; line-height: 1.5; font-size: %dpt; border: 1pt solid #ddd; background-color: #f7f7f7;  }"
+"        code { font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; line-height: 1.5; font-size: %dpt; background-color: #f7f7f7; }"
 "        td, th { border: 1pt solid #ccc; padding: 5pt; }"
-"        ul, ol { margin-left: 10pt; font-size: %dpt;}"
 "        aside { display: block; float: right; width: 100%; }"
 "        blockquote { border-left: .5em solid #40AA53; padding: 0 2em; margin-left: 0; max-width: 100%; }"
-"        blockquote cite { font-size: %dpt; color: #bfbfbf; }"
+"        blockquote cite { font-size: %dpt; line-height: 1.5; color: #bfbfbf; }"
 "        blockquote p { color: #666; max-width: 100%; }"
 "        table { border-spacing: 0; border: 1pt; solid #ccc; }"
 "    </style>"
@@ -606,11 +603,10 @@ std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, co
 {
     size_t len = strlen(css_templ);
     char *str = new char[len+100];
-//    sprintf(str, css_templ, font_size, font_size+20, font_size+16, font_size+12, font_size+8, font_size+4, font_size,
-//            font_size-4, font_size-4, font_size-4, font_size);
-    sprintf(str, css_templ, font_size, font_size+10, font_size+8, font_size+6, font_size+4, font_size+2, font_size,
-            font_size-2, font_size-2, font_size-2, font_size);
-    MkSyntax syn(lines, file_dir);
+    int diff = 2;
+    sprintf(str, css_templ, font_size, font_size+diff*5, font_size+diff*4, font_size+diff*3, font_size+diff*2, font_size+diff, font_size,
+            font_size-diff, font_size-diff, font_size-diff, font_size-diff, font_size);
+	MkSyntax syn(lines, file_dir);
 	syn.Analyse();
 
 	AnchorNode *node = syn.GetMkContent();

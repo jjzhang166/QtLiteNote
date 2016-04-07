@@ -99,10 +99,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MainLiteNote.cpp" />
-    <ClCompile Include="Markdown.cpp" />
-    <ClCompile Include="Markdown_inc.cpp" />
+    <ClCompile Include="MarkdownThread.cpp" />
     <ClCompile Include="MkNode.cpp" />
-    <ClCompile Include="moc_Markdown.cpp" />
+    <ClCompile Include="moc_MarkdownThread.cpp" />
     <ClCompile Include="moc_QLiteNoteWindow.cpp" />
     <ClCompile Include="moc_QTreeWidgetEx.cpp" />
     <ClCompile Include="PCString.cpp" />
