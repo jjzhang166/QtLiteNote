@@ -42,6 +42,7 @@ win32 {
 }
 macx {
         ICON=app.icns
+#        QMAKE_RPATHDIR += @executable_path/../../Frameworks
 }
 CONFIG += c++11
 
