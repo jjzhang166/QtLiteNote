@@ -334,8 +334,11 @@ void MkSyntax::Analyse()
 
 		} 
 		if (!haveAct) {
-			MkNodePtr txtNode(new TextNode(m_lines[i], m_file_dir));
-			m_content.AppendTop(txtNode);
+            const std::string &line = m_lines[i];
+            if (line.length() > 0) {
+                MkNodePtr txtNode(new TextNode(line, m_file_dir));
+                m_content.AppendTop(txtNode);
+            }
 		}
 	}
 }
@@ -577,7 +580,7 @@ const char *css_templ = "<html>"
 "    <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">"
 "    <style type=\"text/css\">"
 "        body { color: #444444; font-size:%dpt; line-height:1.4; word-wrap: break-word; font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; }"
-"        h1, h2, h3, h4 { color: #111111; font-weight: bold; margin-top:5pt;margin-bottom:5pt;}"
+"        h1, h2, h3, h4 { color: #111111; font-weight: bold; margin-top:3pt;margin-bottom:3pt;}"
 "        h1 { font-size: %dpt; border-bottom: 1pt solid; color: #D6615C; }"
 "        h2 { font-size: %dpt; font-weight: bold; color: #2F517B; }"
 "        h3 { font-size: %dpt; font-style: italic; }"
@@ -604,7 +607,7 @@ std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, co
 {
     size_t len = strlen(css_templ);
     char *str = new char[len+100];
-    int diff = 2;
+    int diff = 1;
     sprintf(str, css_templ, font_size, font_size+diff*5, font_size+diff*4, font_size+diff*3, font_size+diff*2, font_size+diff, font_size,
             font_size-diff, font_size-diff, font_size-diff, font_size-diff, font_size);
 	MkSyntax syn(lines, file_dir);
