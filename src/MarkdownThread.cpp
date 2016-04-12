@@ -48,7 +48,7 @@ void MarkdownThread::run()
 					std::string s(md[i].toUtf8());
 					lines.push_back(s);
 				}
-                std::pair<std::string, AnchorNode*> r = SyntaxMk(lines, std::string(dir.toUtf8()), 10);
+                std::pair<std::string, AnchorNode*> r = SyntaxMk(lines, std::string(dir.toUtf8()), 11);
 				QString html = QString::fromUtf8(r.first.c_str());
 				emit ConvertEnd(html, r.second);
 			}
