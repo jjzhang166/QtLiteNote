@@ -10,7 +10,13 @@ std::string ltrim(const std::string &ss);
 
 int ShowLiteNote(int argc, char **argv)
 {
+	/*QStringList ls = QApplication::libraryPaths();
+	ls.push_back("D:\\work\\Qt5.5.1\\5.5\\msvc2013\\plugins");
+	QApplication::setLibraryPaths(ls);
+	qDebug() << "libPath" << QApplication::libraryPaths();*/
+
     QString str(argv[0]);
+
 #if defined(Q_OS_WIN32)
     // 下面的正则实际上是[\\\/]
     // 因为 \ / 是特殊字符，所以要转义
@@ -37,6 +43,7 @@ int ShowLiteNote(int argc, char **argv)
     QTextCodec::setCodecForLocale(c);
 
     QApplication app(argc, argv);
+
     QLiteNoteWindow *dlg = new QLiteNoteWindow(str);
 
     dlg->show();

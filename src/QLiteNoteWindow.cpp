@@ -314,6 +314,9 @@ void QLiteNoteWindow::RefreshRoot(const QString &path)
         if (s.toLower() == "trash" || s.endsWith(".app")) {
             continue;
         }
+		if (s == "platforms") {
+			continue;
+		}
         QString full_path = path + QDir::separator() + s;
         QStringList name;
         name.push_back(s);
