@@ -4,7 +4,8 @@
 #include "QtCore/QtCore"
 #include "QtGui/QtGui"
 #include "QtWidgets/QtWidgets"
-#include "QtWebKitWidgets/QtWebKitWidgets"
+#include "QtWebView/QtWebView"
+//#include "QtWebKitWidgets/QtWebKitWidgets"
 
 //#elif defined(MAC)
 //#import <QtCore/QtCore>

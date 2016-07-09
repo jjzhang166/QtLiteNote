@@ -14,7 +14,7 @@ int ShellExecute(const char* path)
     memset(&info, 0, sizeof(info));
     info.cbSize = sizeof(info);
     info.lpFile = path;
-    info.lpParameters = "";
+    info.lpParameters = "";   
     info.nShow = SW_SHOWNORMAL;
     ::ShellExecuteExA(&info);
     return 0;
@@ -34,6 +34,8 @@ QTreeWidgetItem *FindChildWithText(QTreeWidgetItem *item, const QString &text)
 	return NULL;
 }
 
+/// sdfasdfasd
+//////////////////////////////////////////////////////////////////////////
 QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     : QMainWindow(parent),
     m_split(NULL),
@@ -353,12 +355,12 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
     for (int i = 2; i < dirs.size(); ++i) {
         QString &dir = dirs[i];
       
-        QString ss = path+QDir::separator()+dir;
-        QStringList name;
-        name.push_back(dir);
+		QString ss = path + QDir::separator() + dir;
+		QStringList name;
+		name.push_back(dir);
 
-        QTreeWidgetItem *d = new QTreeWidgetItem(name);
-        d->setIcon(0, m_dir_icon);
+		QTreeWidgetItem *d = new QTreeWidgetItem(name);
+		d->setIcon(0, m_dir_icon);
 		d->setData(1, Qt::UserRole, ss);
         d->setFont(0, m_tree_font);
         d->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
