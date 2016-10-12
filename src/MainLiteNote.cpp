@@ -157,6 +157,16 @@ void ConvertHtmlTag(PCString *str);
 // 123
 // 65
 
+void TestStr()
+{
+	char *str = new char[100];
+	const char *temp = "sdd"
+		"%dpt;";
+	sprintf(str, temp, 2, 3);
+	
+	printf("%s\n", str);
+}
+
 int main(int argc, char **argv)
 {
     //ln::LExceptionHandle *e = ln::LExceptionHandle::GetInstance();

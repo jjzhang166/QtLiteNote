@@ -591,25 +591,29 @@ const char *css_templ = "<html>"
 "        a:link, a:visited { text-decoration: none; }"
 "        a:hover { text-decoration: underline; }"
 "        br {display:inline;}"
-"        pre { padding: 4pt; max-width: 100%white-space; line-height: 1.5; font-size: %dpt; border: 1pt solid #ddd; background-color: #f7f7f7;  }"
+"        pre { padding: 4pt; max-width: 100%%white-space; line-height: 1.5; font-size: %dpt; border: 1pt solid #ddd; background-color: #f7f7f7;  }"
 "        code { font-family: DejaVu Sans Mono, \\5FAE\\8F6F\\96C5\\9ED1; line-height: 1.5; font-size: %dpt; background-color: #f7f7f7; }"
 "        td, th { border: 1pt solid #ccc; padding: 5pt; }"
-"        aside { display: block; float: right; width: 100%; }"
-"        blockquote { border-left: .5em solid #40AA53; padding: 0 2em; margin-left: 0; max-width: 100%; }"
+"        aside { display: block; float: right; width: 100%%; }"
+"        blockquote { border-left: .5em solid #40AA53; padding: 0 2em; margin-left: 0; max-width: 100%%; }"
 "        blockquote cite { font-size: %dpt; line-height: 1.5; color: #bfbfbf; }"
-"        blockquote p { color: #666; max-width: 100%; }"
+"        blockquote p { color: #666; max-width: 100%%; }"
 "        table { border-spacing: 0; border: 1pt; solid #ccc; }"
 "    </style>"
 "</head>"
 "<body><p/>";
 
+// %d
+
 std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, const std::string &file_dir, int font_size)
 {
     size_t len = strlen(css_templ);
-    char *str = new char[len+100];
+    char *str = new char[len+1024];
+	int len2 = strlen(str);
     int diff = 1;
-    sprintf(str, css_templ, font_size, font_size+diff*5, font_size+diff*4, font_size+diff*3, font_size+diff*2, font_size+diff, font_size,
-            font_size-diff, font_size-diff, font_size-diff, font_size-diff, font_size);
+    sprintf_s(str, len+100, css_templ, 
+		font_size, font_size+diff*5, font_size+diff*4, font_size+diff*3, font_size+diff*2, font_size+diff, font_size,
+            font_size-diff, font_size-diff, font_size-diff);
 	MkSyntax syn(lines, file_dir);
 	syn.Analyse();
 

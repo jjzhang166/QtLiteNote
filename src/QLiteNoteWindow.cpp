@@ -93,7 +93,8 @@ QLiteNoteWindow::QLiteNoteWindow(QString path, QWidget *parent)
     connect(m_note_tree, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(TreeItemCollapsed(QTreeWidgetItem*)));
     connect(m_note_tree, SIGNAL(spaceKeyItem(QTreeWidgetItem*)), this, SLOT(TreeItemKeyItem(QTreeWidgetItem*)));
 
-    m_webview = new QWebView(this);
+    //m_webview = new QWebEngineView(this);
+	m_webview = new QWebEngineView(this);
 
     CreateMkLevelTree();
 
@@ -128,6 +129,7 @@ QLiteNoteWindow::~QLiteNoteWindow(void)
 
 void QLiteNoteWindow::closeEvent(QCloseEvent *event)
 {
+	delete m_thread;
     WriteSettings();
 }
 
@@ -393,9 +395,9 @@ void QLiteNoteWindow::RefreshNode(QTreeWidgetItem *item, bool scan_child_dir)
 void QLiteNoteWindow::RefreshNowNote()
 {
 	m_is_refreshNote = true;
-	QWebPage *page = m_webview->page();
-	QWebFrame *frame = page->mainFrame();
-	m_web_scroll = frame->scrollPosition();
+	QWebEnginePage *page = m_webview->page();
+	//QWebEngineFrame *frame = page->mainFrame();
+	//m_web_scroll = frame->scrollPosition();
 
 	int r = m_now_note_path.indexOf(m_note_root_path);
 	if (r == 0) {
@@ -614,9 +616,13 @@ void QLiteNoteWindow::MarkLevelItemSelect2(QTreeWidgetItem *item, int column)
 	if (item) {
 		QString anchor = item->data(0, Qt::UserRole).toString();
 
-		QWebPage *page = m_webview->page();
-		QWebFrame *frame = page->mainFrame();
-		frame->scrollToAnchor(anchor);
+		//QWebEngineFrame *frame = page->mainFrame();
+		//frame->scrollToAnchor(anchor);
+
+		QWebEnginePage *page = m_webview->page();
+		char str[1024];
+		sprintf(str, "window.location.hash = \"%s\"", anchor.toUtf8().data());
+		page->runJavaScript(str);
 	}
 }
 
@@ -743,12 +749,12 @@ void QLiteNoteWindow::DeleteItem()
 
 void QLiteNoteWindow::ConvertEnd(const QString &html, void *anchorNode)
 {
-    m_webview->setContent(html.toUtf8());
+    m_webview->setHtml(html.toUtf8());
 	if (m_is_refreshNote) {
-		QWebPage *page = m_webview->page();
-		QWebFrame *frame = page->mainFrame();
-		frame->setScrollPosition(m_web_scroll);
-		m_is_refreshNote = false;
+		QWebEnginePage *page = m_webview->page();
+		//QWebEngineFrame *frame = page->mainFrame();
+		//frame->setScrollPosition(m_web_scroll);
+		//m_is_refreshNote = false;
 	}
 
 	AnchorNode *node = (AnchorNode*)anchorNode;
@@ -808,7 +814,8 @@ void QLiteNoteWindow::SetChLevel(QTreeWidgetItem *item, AnchorNode *node)
 
 void QLiteNoteWindow::WebBlack()
 {
-    m_webview->setContent("<html><body> </body></html>");
+    //m_webview->setContent("<html><body> </body></html>");
+	m_webview->setHtml("<html><body> </body></html>");
 }
 
 void QLiteNoteWindow::ShowNote(const QString &path)
