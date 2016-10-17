@@ -94,7 +94,8 @@ private:
 
     QTreeWidgetEx *m_note_tree;
     QTextEdit *m_edit_box;
-    QWebView *m_webview;
+    //QWebView *m_webview;
+	QWebEngineView *m_webview;
     QTreeWidget *m_mkLevel_tree;
 
 	QTreeWidgetItem *m_now_item;		//因为需要对文件夹有右键操作，所以必须得有这个字段
