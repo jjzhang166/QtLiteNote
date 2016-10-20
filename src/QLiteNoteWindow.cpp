@@ -26,7 +26,7 @@ QTreeWidgetItem *FindChildWithText(QTreeWidgetItem *item, const QString &text)
 	for (int i = 0; i < item->childCount(); ++i) {
 		QTreeWidgetItem *ch = item->child(i);
 		QString t = ch->text(0);
-		qDebug() << "FindItem: " << t;
+		//qDebug() << "FindItem: " << t;
 		if (t == text) {
 			return ch;
 		}
@@ -398,6 +398,7 @@ void QLiteNoteWindow::RefreshNowNote()
 	QWebEnginePage *page = m_webview->page();
 	//QWebEngineFrame *frame = page->mainFrame();
 	//m_web_scroll = frame->scrollPosition();
+	m_web_scroll = page->scrollPosition();
 
 	int r = m_now_note_path.indexOf(m_note_root_path);
 	if (r == 0) {
@@ -750,11 +751,17 @@ void QLiteNoteWindow::DeleteItem()
 void QLiteNoteWindow::ConvertEnd(const QString &html, void *anchorNode)
 {
     m_webview->setHtml(html.toUtf8());
+	Sleep(500);
 	if (m_is_refreshNote) {
-		QWebEnginePage *page = m_webview->page();
-		//QWebEngineFrame *frame = page->mainFrame();
-		//frame->setScrollPosition(m_web_scroll);
 		//m_is_refreshNote = false;
+
+		QWebEnginePage *page = m_webview->page();
+		//frame->setScrollPosition(m_web_scroll);
+		//page->scrollPositionChanged(m_web_scroll);
+		//page->runJavaScript(QStringLiteral("window.scrollTo(%1, %2); [window.scrollX, window.scrollY];").arg(m_web_scroll.rx()).arg(m_web_scroll.ry()), invoke(this, &QtWebEngineWebWidget::handleScroll));
+		char str[1024];
+		sprintf(str, "window.scrollTo(%f, %f);", m_web_scroll.rx(), m_web_scroll.ry());
+		page->runJavaScript(str);
 	}
 
 	AnchorNode *node = (AnchorNode*)anchorNode;

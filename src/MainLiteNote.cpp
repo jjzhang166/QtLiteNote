@@ -177,5 +177,6 @@ int main(int argc, char **argv)
     //TestMkNode();
     //TestMkNode2();
     //return 0;
+	int v = QT_VERSION;
     return ShowLiteNote(argc, argv);
 }

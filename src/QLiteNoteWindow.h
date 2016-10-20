@@ -136,5 +136,5 @@ private:
     
     bool m_is_control_down;
 	bool m_is_refreshNote;
-	QPoint m_web_scroll;
+	QPointF m_web_scroll;
 };
