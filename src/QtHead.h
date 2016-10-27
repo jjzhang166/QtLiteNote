@@ -7,8 +7,15 @@
 #include "QtCore/QtCore"
 #include "QtGui/QtGui"
 #include "QtWidgets/QtWidgets"
-#include "QtWebEngineWidgets/QtWebEngineWidgets"
-#include "QtWebEngineWidgets/QWebEngineView"
+#include "QtWebKitWidgets/QWebView.h"
+#include "QtWebKitWidgets/QWebFrame"
+
+//#include "QtWebView/QtWebView"
+
+
+
+//#include "QtWebEngineWidgets/QtWebEngineWidgets"
+//#include "QtWebEngineWidgets/QWebEngineView"
 
 //#elif defined(MAC)
 //#import <QtCore/QtCore>

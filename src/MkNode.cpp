@@ -611,9 +611,10 @@ std::pair<std::string, AnchorNode*> SyntaxMk(std::vector<std::string> &lines, co
     char *str = new char[len+1024];
 	int len2 = strlen(str);
     int diff = 1;
-    sprintf_s(str, len+100, css_templ, 
+    sprintf(str, css_templ,
 		font_size, font_size+diff*5, font_size+diff*4, font_size+diff*3, font_size+diff*2, font_size+diff, font_size,
             font_size-diff, font_size-diff, font_size-diff);
+    
 	MkSyntax syn(lines, file_dir);
 	syn.Analyse();
 

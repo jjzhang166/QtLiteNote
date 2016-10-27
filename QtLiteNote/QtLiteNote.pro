@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += webkitwidgets core gui   widgets
+QT       += webkitwidgets webkit core gui widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -56,8 +56,7 @@ CONFIG += c++11
 #QMAKE_CXXFLAGS_DEBUG += /MTd
 #QMAKE_CFLAGS_DEBUG -= -MDd
 #QMAKE_CXXFLAGS_DEBUG -= -MDd
-
 #INCLUDEPATH += $$PWD/../../LiteNice/include
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MD -lLnWin_vs2013_MD
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../LiteNice/lib/ -lLnCore_vs2013_MDd -lLnWin_vs2013_MDd
 
+#INCLUDEPATH += $$PWD/../../LiteNice/include

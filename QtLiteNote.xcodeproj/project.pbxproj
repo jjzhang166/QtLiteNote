@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0454990A1B53A14000202CE9 /* moc_Markdown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499071B53A14000202CE9 /* moc_Markdown.cpp */; };
 		0454990B1B53A14000202CE9 /* moc_QLiteNoteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499081B53A14000202CE9 /* moc_QLiteNoteWindow.cpp */; };
 		0454990C1B53A14000202CE9 /* moc_QTreeWidgetEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499091B53A14000202CE9 /* moc_QTreeWidgetEx.cpp */; };
 		045499181B53A16D00202CE9 /* MainLiteNote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499121B53A16D00202CE9 /* MainLiteNote.cpp */; };
-		045499191B53A16D00202CE9 /* Markdown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499131B53A16D00202CE9 /* Markdown.cpp */; };
 		0454991A1B53A16D00202CE9 /* QFileEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499141B53A16D00202CE9 /* QFileEx.cpp */; };
 		0454991B1B53A16D00202CE9 /* QLiteNoteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499151B53A16D00202CE9 /* QLiteNoteWindow.cpp */; };
 		0454991C1B53A16D00202CE9 /* QTreeWidgetEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499161B53A16D00202CE9 /* QTreeWidgetEx.cpp */; };
 		0454991D1B53A16D00202CE9 /* ras_ras.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045499171B53A16D00202CE9 /* ras_ras.cpp */; };
 		04BA3D3A1BB1040C003152ED /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA3D391BB1040C003152ED /* AppKit.framework */; };
-		04D823B61B9D6A1D00761017 /* Markdown_inc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */; };
 		04D823B91B9D6A2A00761017 /* PCString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04D823B71B9D6A2A00761017 /* PCString.cpp */; };
 		04F9CF751BAC17B700CA1BEE /* MacWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F9CF741BAC17B700CA1BEE /* MacWrap.m */; };
+		3F6310771DC1A60100DE8C7A /* MarkdownThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F6310741DC1A60100DE8C7A /* MarkdownThread.cpp */; };
+		3F6310781DC1A60100DE8C7A /* MkNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F6310751DC1A60100DE8C7A /* MkNode.cpp */; };
+		3F6310791DC1A60100DE8C7A /* moc_MarkdownThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F6310761DC1A60100DE8C7A /* moc_MarkdownThread.cpp */; };
+		3F63107B1DC1A87D00DE8C7A /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F63107A1DC1A87D00DE8C7A /* QtCore.framework */; };
+		3F63107D1DC1A88400DE8C7A /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F63107C1DC1A88400DE8C7A /* QtGui.framework */; };
+		3F63107F1DC1A89600DE8C7A /* QtWebKitWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F63107E1DC1A89600DE8C7A /* QtWebKitWidgets.framework */; };
+		3F6310811DC1A89E00DE8C7A /* QtWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6310801DC1A89E00DE8C7A /* QtWidgets.framework */; };
 		720D00E51C7DAAC500FF37AE /* QtCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720D00E41C7DAAC500FF37AE /* QtCore.framework */; };
 		720D00E71C7DAAD300FF37AE /* QtWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720D00E61C7DAAD300FF37AE /* QtWidgets.framework */; };
 		720D00E91C7DAB1A00FF37AE /* QtWebKitWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720D00E81C7DAB1A00FF37AE /* QtWebKitWidgets.framework */; };
@@ -52,7 +56,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		045499071B53A14000202CE9 /* moc_Markdown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_Markdown.cpp; path = src/moc_Markdown.cpp; sourceTree = SOURCE_ROOT; };
 		045499081B53A14000202CE9 /* moc_QLiteNoteWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_QLiteNoteWindow.cpp; path = src/moc_QLiteNoteWindow.cpp; sourceTree = SOURCE_ROOT; };
 		045499091B53A14000202CE9 /* moc_QTreeWidgetEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_QTreeWidgetEx.cpp; path = src/moc_QTreeWidgetEx.cpp; sourceTree = SOURCE_ROOT; };
 		0454990E1B53A15600202CE9 /* QFileEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QFileEx.h; path = src/QFileEx.h; sourceTree = SOURCE_ROOT; };
@@ -60,17 +63,22 @@
 		045499101B53A15600202CE9 /* QTreeWidgetEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QTreeWidgetEx.h; path = src/QTreeWidgetEx.h; sourceTree = SOURCE_ROOT; };
 		045499111B53A15600202CE9 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = src/resource.h; sourceTree = SOURCE_ROOT; };
 		045499121B53A16D00202CE9 /* MainLiteNote.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; name = MainLiteNote.cpp; path = src/MainLiteNote.cpp; sourceTree = SOURCE_ROOT; };
-		045499131B53A16D00202CE9 /* Markdown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Markdown.cpp; path = src/Markdown.cpp; sourceTree = SOURCE_ROOT; };
 		045499141B53A16D00202CE9 /* QFileEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QFileEx.cpp; path = src/QFileEx.cpp; sourceTree = SOURCE_ROOT; };
 		045499151B53A16D00202CE9 /* QLiteNoteWindow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = QLiteNoteWindow.cpp; path = src/QLiteNoteWindow.cpp; sourceTree = SOURCE_ROOT; };
 		045499161B53A16D00202CE9 /* QTreeWidgetEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QTreeWidgetEx.cpp; path = src/QTreeWidgetEx.cpp; sourceTree = SOURCE_ROOT; };
 		045499171B53A16D00202CE9 /* ras_ras.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ras_ras.cpp; path = src/ras_ras.cpp; sourceTree = SOURCE_ROOT; };
 		04B766E91B4E7641006B9641 /* QtLiteNote */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QtLiteNote; sourceTree = BUILT_PRODUCTS_DIR; };
 		04BA3D391BB1040C003152ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Markdown_inc.cpp; path = src/Markdown_inc.cpp; sourceTree = SOURCE_ROOT; };
 		04D823B71B9D6A2A00761017 /* PCString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCString.cpp; path = src/PCString.cpp; sourceTree = SOURCE_ROOT; };
 		04D823B81B9D6A2A00761017 /* PCString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCString.h; path = src/PCString.h; sourceTree = SOURCE_ROOT; };
 		04F9CF741BAC17B700CA1BEE /* MacWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MacWrap.m; path = src/MacWrap.m; sourceTree = SOURCE_ROOT; };
+		3F6310741DC1A60100DE8C7A /* MarkdownThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarkdownThread.cpp; path = src/MarkdownThread.cpp; sourceTree = "<group>"; };
+		3F6310751DC1A60100DE8C7A /* MkNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MkNode.cpp; path = src/MkNode.cpp; sourceTree = "<group>"; };
+		3F6310761DC1A60100DE8C7A /* moc_MarkdownThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moc_MarkdownThread.cpp; path = src/moc_MarkdownThread.cpp; sourceTree = "<group>"; };
+		3F63107A1DC1A87D00DE8C7A /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../Qt5.5.1/5.5/clang_64/lib/QtCore.framework; sourceTree = "<group>"; };
+		3F63107C1DC1A88400DE8C7A /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../Qt5.5.1/5.5/clang_64/lib/QtGui.framework; sourceTree = "<group>"; };
+		3F63107E1DC1A89600DE8C7A /* QtWebKitWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWebKitWidgets.framework; path = ../../../Qt5.5.1/5.5/clang_64/lib/QtWebKitWidgets.framework; sourceTree = "<group>"; };
+		3F6310801DC1A89E00DE8C7A /* QtWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWidgets.framework; path = ../../../Qt5.5.1/5.5/clang_64/lib/QtWidgets.framework; sourceTree = "<group>"; };
 		720D00D71C7DA91200FF37AE /* QtHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QtHead.h; path = src/QtHead.h; sourceTree = "<group>"; };
 		720D00E41C7DAAC500FF37AE /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtCore.framework; sourceTree = "<group>"; };
 		720D00E61C7DAAD300FF37AE /* QtWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWidgets.framework; path = ../../../program/Qt5.5.1/5.5/clang_64/lib/QtWidgets.framework; sourceTree = "<group>"; };
@@ -83,11 +91,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F63107B1DC1A87D00DE8C7A /* QtCore.framework in Frameworks */,
+				3F63107D1DC1A88400DE8C7A /* QtGui.framework in Frameworks */,
 				720D00E51C7DAAC500FF37AE /* QtCore.framework in Frameworks */,
 				720D00E71C7DAAD300FF37AE /* QtWidgets.framework in Frameworks */,
 				04BA3D3A1BB1040C003152ED /* AppKit.framework in Frameworks */,
 				720D00EB1C7DAB9500FF37AE /* QtGui.framework in Frameworks */,
 				720D00E91C7DAB1A00FF37AE /* QtWebKitWidgets.framework in Frameworks */,
+				3F6310811DC1A89E00DE8C7A /* QtWidgets.framework in Frameworks */,
+				3F63107F1DC1A89600DE8C7A /* QtWebKitWidgets.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +121,6 @@
 		0454991F1B53A30400202CE9 /* moc */ = {
 			isa = PBXGroup;
 			children = (
-				045499071B53A14000202CE9 /* moc_Markdown.cpp */,
 				045499081B53A14000202CE9 /* moc_QLiteNoteWindow.cpp */,
 				045499091B53A14000202CE9 /* moc_QTreeWidgetEx.cpp */,
 			);
@@ -119,6 +130,9 @@
 		04B766E01B4E7641006B9641 = {
 			isa = PBXGroup;
 			children = (
+				3F6310741DC1A60100DE8C7A /* MarkdownThread.cpp */,
+				3F6310751DC1A60100DE8C7A /* MkNode.cpp */,
+				3F6310761DC1A60100DE8C7A /* moc_MarkdownThread.cpp */,
 				720838541C3FB21400B14320 /* Frameworks */,
 				0454991E1B53A2EE00202CE9 /* head */,
 				0454991F1B53A30400202CE9 /* moc */,
@@ -140,9 +154,7 @@
 			children = (
 				04D823B71B9D6A2A00761017 /* PCString.cpp */,
 				04D823B81B9D6A2A00761017 /* PCString.h */,
-				04D823B51B9D6A1D00761017 /* Markdown_inc.cpp */,
 				045499121B53A16D00202CE9 /* MainLiteNote.cpp */,
-				045499131B53A16D00202CE9 /* Markdown.cpp */,
 				045499141B53A16D00202CE9 /* QFileEx.cpp */,
 				045499151B53A16D00202CE9 /* QLiteNoteWindow.cpp */,
 				045499161B53A16D00202CE9 /* QTreeWidgetEx.cpp */,
@@ -156,6 +168,10 @@
 		720838541C3FB21400B14320 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F6310801DC1A89E00DE8C7A /* QtWidgets.framework */,
+				3F63107E1DC1A89600DE8C7A /* QtWebKitWidgets.framework */,
+				3F63107C1DC1A88400DE8C7A /* QtGui.framework */,
+				3F63107A1DC1A87D00DE8C7A /* QtCore.framework */,
 				720D00EA1C7DAB9500FF37AE /* QtGui.framework */,
 				720D00E81C7DAB1A00FF37AE /* QtWebKitWidgets.framework */,
 				720D00E61C7DAAD300FF37AE /* QtWidgets.framework */,
@@ -225,16 +241,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F6310771DC1A60100DE8C7A /* MarkdownThread.cpp in Sources */,
 				0454991A1B53A16D00202CE9 /* QFileEx.cpp in Sources */,
+				3F6310781DC1A60100DE8C7A /* MkNode.cpp in Sources */,
 				0454991B1B53A16D00202CE9 /* QLiteNoteWindow.cpp in Sources */,
 				0454990C1B53A14000202CE9 /* moc_QTreeWidgetEx.cpp in Sources */,
 				04D823B91B9D6A2A00761017 /* PCString.cpp in Sources */,
-				045499191B53A16D00202CE9 /* Markdown.cpp in Sources */,
 				0454991C1B53A16D00202CE9 /* QTreeWidgetEx.cpp in Sources */,
 				0454991D1B53A16D00202CE9 /* ras_ras.cpp in Sources */,
+				3F6310791DC1A60100DE8C7A /* moc_MarkdownThread.cpp in Sources */,
 				04F9CF751BAC17B700CA1BEE /* MacWrap.m in Sources */,
-				0454990A1B53A14000202CE9 /* moc_Markdown.cpp in Sources */,
-				04D823B61B9D6A1D00761017 /* Markdown_inc.cpp in Sources */,
 				045499181B53A16D00202CE9 /* MainLiteNote.cpp in Sources */,
 				0454990B1B53A14000202CE9 /* moc_QLiteNoteWindow.cpp in Sources */,
 			);
@@ -263,7 +279,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
+				FRAMEWORK_SEARCH_PATHS = /Users/xbc/Qt5.5.1/5.5/clang_64/lib/;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -279,7 +295,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
+				HEADER_SEARCH_PATHS = /Users/xbc/Qt5.5.1/5.5/clang_64/lib/;
 				MACH_O_TYPE = mh_execute;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -311,7 +327,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
+				FRAMEWORK_SEARCH_PATHS = /Users/xbc/Qt5.5.1/5.5/clang_64/lib/;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = MAC;
@@ -321,7 +337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /Users/xiangbc/program/Qt5.5.1/5.5/clang_64/lib/;
+				HEADER_SEARCH_PATHS = /Users/xbc/Qt5.5.1/5.5/clang_64/lib/;
 				MACH_O_TYPE = mh_execute;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
