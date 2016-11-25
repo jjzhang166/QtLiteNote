@@ -243,8 +243,10 @@ AnchorNode* MkContent::CreateMkLevel()
 {
     std::vector<AnchorNode*> heads;
     int headID = 0;
+
     for (int i = 0; i < m_tops.size(); ++i) {
         AnchorNode* a = m_tops[i]->CreateAnchor(headID);
+
         if (a) {
             heads.push_back(a);
             ++headID;
@@ -261,10 +263,11 @@ AnchorNode* MkContent::CreateTree(std::vector<AnchorNode*> &heads)
 	cc[0] = new AnchorNode;
     
     for (int i = 0; i < heads.size(); ++i) {
+
         int level = heads[i]->m_level;
-        //AnchorNodePtr an;
 		AnchorNode *an;
         int ii = level - 1;
+
         while (ii >= 0) {
             if (cc[ii]) {
                 an = cc[ii];

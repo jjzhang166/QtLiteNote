@@ -20,9 +20,6 @@
     <ClCompile Include="MainLiteNote.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="PCString.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="QFileEx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -55,9 +52,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PCString.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="QFileEx.h">
       <Filter>头文件</Filter>
     </ClInclude>
